@@ -5,17 +5,25 @@ class Api::V1::ProductsController < ApplicationController
   before_action :set_product, only: %i[show update destroy]
 
   def show
-    render json: @product, status: :ok
+    render_success(data: @product, status: :ok)
+  rescue StandardError => e
+    render_error(errors: e)
   end
 
   def create
-    Product.create(product_params)
+    product = Product.create!(product_params)
+
+    render_success(data: product, status: :created)
+  rescue StandardError => e
+    render_error(errors: e)
   end
 
   def update
     @product.update(product_params)
 
-    render json: @product, status: :ok
+    render_success(data: @product, status: :ok)
+  rescue StandardError => e
+    render_error(errors: e)
   end
 
   def destroy
@@ -29,6 +37,6 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :description, :meta_title, :meta_description, :price, :quantity, :status)
+    params.permit(:name, :description, :meta_title, :meta_description, :price, :quantity, :status)
   end
 end
