@@ -1,0 +1,83 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/products":
+    get:
+      summary: list products
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create product
+      tags:
+      - Products
+      parameters: []
+      responses:
+        '200':
+          description: product created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                meta_title:
+                  type: string
+                meta_description:
+                  type: string
+                price:
+                  type: integer
+                  default: 0
+                quantity:
+                  type: integer
+                  default: 0
+                status:
+                  type: string
+                  default: active
+              required:
+              - name
+              - description
+  "/api/v1/products/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show product
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update product
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update product
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete product
+      responses:
+        '200':
+          description: successful
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: 127.0.0.1:3000
+- url: http://{apiServer}
+  variables:
+    defaultHost:
+      default: apiserver.com.ua
