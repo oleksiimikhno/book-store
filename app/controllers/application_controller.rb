@@ -10,7 +10,7 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def render_error(errors: [], status: :unprocessable_entity)
-    render json: { errors: errors.record.errors }, status: status
+  def render_error(errors: [])
+    render json: { errors: errors.record.errors }, status: :unprocessable_entity
   end
 end
