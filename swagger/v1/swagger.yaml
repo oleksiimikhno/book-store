@@ -7,6 +7,8 @@ paths:
   "/api/v1/products":
     get:
       summary: list products
+      tags:
+      - Products
       responses:
         '200':
           description: successful
@@ -16,34 +18,19 @@ paths:
       - Products
       parameters: []
       responses:
-        '200':
+        '201':
           description: product created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/product"
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                description:
-                  type: string
-                meta_title:
-                  type: string
-                meta_description:
-                  type: string
-                price:
-                  type: integer
-                  default: 0
-                quantity:
-                  type: integer
-                  default: 0
-                status:
-                  type: string
-                  default: active
-              required:
-              - name
-              - description
+              oneOf:
+              - "$ref": "#/components/schemas/product"
   "/api/v1/products/{id}":
     parameters:
     - name: id
@@ -51,24 +38,37 @@ paths:
       description: id
       required: true
       schema:
-        type: string
+        type: integer
     get:
       summary: show product
+      tags:
+      - Products
       responses:
         '200':
           description: successful
     patch:
       summary: update product
+      tags:
+      - Products
+      parameters: []
       responses:
         '200':
           description: successful
-    put:
-      summary: update product
-      responses:
-        '200':
-          description: successful
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/product"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/product"
     delete:
       summary: delete product
+      tags:
+      - Products
       responses:
         '200':
           description: successful
@@ -81,3 +81,34 @@ servers:
   variables:
     defaultHost:
       default: apiserver.com.ua
+components:
+  schemas:
+    product:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        meta_title:
+          type: string
+          nullable: true
+        meta_description:
+          type: string
+          nullable: true
+        price:
+          type: integer
+          default: 0
+        quantity:
+          type: integer
+          default: 0
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          - archived
+          default: active
+      required:
+      - name
+      - description
