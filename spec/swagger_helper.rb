@@ -40,7 +40,24 @@ RSpec.configure do |config|
             }
           }
         }
-      ]
+      ],
+      components: {
+        schemas: {
+          product: {
+            type: 'object',
+            properties: {
+              name: { type: :string },
+              description: { type: :string },
+              meta_title: { type: :string, nullable: true },
+              meta_description: { type: :string, nullable: true },
+              price: { type: :integer, default: 0 },
+              quantity: { type: :integer, default: 0 },
+              status: { type: :string, enum: %w[active inactive archived], default: :active }
+            },
+            required: %w[name description]
+          }
+        }
+      }
     }
   }
 

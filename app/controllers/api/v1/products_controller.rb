@@ -4,6 +4,12 @@ class Api::V1::ProductsController < ApplicationController
   before_action :product_params, only: %i[create update]
   before_action :set_product, only: %i[show update destroy]
 
+  def index
+    render_success(data: Product.all, status: :ok)
+  rescue StandardError => e
+    render_error(errors: e)
+  end
+
   def show
     render_success(data: @product, status: :ok)
   rescue StandardError => e
@@ -28,6 +34,7 @@ class Api::V1::ProductsController < ApplicationController
 
   def destroy
     @product.destroy
+    render_success(data: { message: 'Product successfully deleted' }, status: :ok)
   end
 
   private

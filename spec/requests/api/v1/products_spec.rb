@@ -1,12 +1,16 @@
 require 'swagger_helper'
+require 'ffaker'
 
 RSpec.describe 'api/v1/products', type: :request do
+  let(:product) { Product.create(name: FFaker::Book.title, description: FFaker::Book.description) }
 
   path '/api/v1/products' do
-
     get('list products') do
-      response(200, 'successful') do
+      tags 'Products'
+      consumes 'application/json'
+      produces 'application/json'
 
+      response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -24,21 +28,11 @@ RSpec.describe 'api/v1/products', type: :request do
       produces 'application/json'
 
       parameter name: :product, in: :body, schema: {
-        type: :object,
-        properties: {
-          name: { type: :string },
-          description: { type: :string },
-          meta_title: { type: :string },
-          meta_description: { type: :string },
-          price: { type: :integer, default: 0 },
-          quantity: { type: :integer, default: 0 },
-          status: { type: :integer, default: :active }
-        },
-        required: %w[name description]
+        oneOf: [{ '$ref' => '#/components/schemas/product' }]
       }
 
-      response(200, 'product created') do
-        let(:product_id) { '123' }
+      response(201, 'product created') do
+        schema oneOf: [{ '$ref' => '#/components/schemas/product' }]
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -53,13 +47,15 @@ RSpec.describe 'api/v1/products', type: :request do
   end
 
   path '/api/v1/products/{id}' do
-    # You'll want to customize the parameter types...
-    parameter name: 'id', in: :path, type: :string, description: 'id'
+    let(:id) { product.id }
+
+    parameter name: :id, in: :path, type: :integer, description: 'id'
 
     get('show product') do
+      tags 'Products'
+      consumes 'application/json'
+      produces 'application/json'
       response(200, 'successful') do
-        let(:id) { '123' }
-
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -72,23 +68,16 @@ RSpec.describe 'api/v1/products', type: :request do
     end
 
     patch('update product') do
-      response(200, 'successful') do
-        let(:id) { '123' }
+      tags 'Products'
+      consumes 'application/json'
+      produces 'application/json'
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
+      parameter name: :product, in: :body, schema: {
+        oneOf: [{ '$ref' => '#/components/schemas/product' }]
+      }
 
-    put('update product') do
       response(200, 'successful') do
-        let(:id) { '123' }
+        schema oneOf: [{ '$ref' => '#/components/schemas/product' }]
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -102,9 +91,11 @@ RSpec.describe 'api/v1/products', type: :request do
     end
 
     delete('delete product') do
-      response(200, 'successful') do
-        let(:id) { '123' }
+      tags 'Products'
+      consumes 'application/json'
+      produces 'application/json'
 
+      response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
