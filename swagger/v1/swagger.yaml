@@ -3,9 +3,112 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
-paths: {}
+paths:
+  "/api/v1/products":
+    get:
+      summary: list products
+      tags:
+      - Products
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create product
+      tags:
+      - Products
+      parameters: []
+      responses:
+        '201':
+          description: product created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/product"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/product"
+  "/api/v1/products/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show product
+      tags:
+      - Products
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update product
+      tags:
+      - Products
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/product"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/product"
+    delete:
+      summary: delete product
+      tags:
+      - Products
+      responses:
+        '200':
+          description: successful
 servers:
-- url: https://{defaultHost}
+- url: http://{defaultHost}
   variables:
     defaultHost:
-      default: www.example.com
+      default: 127.0.0.1:3000
+- url: http://{apiServer}
+  variables:
+    defaultHost:
+      default: apiserver.com.ua
+components:
+  schemas:
+    product:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        meta_title:
+          type: string
+          nullable: true
+        meta_description:
+          type: string
+          nullable: true
+        price:
+          type: integer
+          default: 0
+        quantity:
+          type: integer
+          default: 0
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          - archived
+          default: active
+      required:
+      - name
+      - description

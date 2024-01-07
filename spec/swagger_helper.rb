@@ -24,14 +24,40 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: 'https://{defaultHost}',
+          url: 'http://{defaultHost}',
           variables: {
             defaultHost: {
-              default: 'www.example.com'
+              default: '127.0.0.1:3000'
+            }
+          }
+        },
+        {
+          # TODO add external server for the API
+          url: 'http://{apiServer}',
+          variables: {
+            defaultHost: {
+              default: 'apiserver.com.ua'
             }
           }
         }
-      ]
+      ],
+      components: {
+        schemas: {
+          product: {
+            type: 'object',
+            properties: {
+              name: { type: :string },
+              description: { type: :string },
+              meta_title: { type: :string, nullable: true },
+              meta_description: { type: :string, nullable: true },
+              price: { type: :integer, default: 0 },
+              quantity: { type: :integer, default: 0 },
+              status: { type: :string, enum: %w[active inactive archived], default: :active }
+            },
+            required: %w[name description]
+          }
+        }
+      }
     }
   }
 
