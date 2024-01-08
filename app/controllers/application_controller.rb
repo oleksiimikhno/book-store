@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class ApplicationController < ActionController::API
-  rescue_from StandardError, with: :render_error
+  rescue_from StandardError, with: :render_errors
 
   private
 
@@ -12,7 +12,7 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def render_error(exception)
+  def render_errors(exception)
     status = case exception
              when ActiveRecord::RecordNotFound
                :not_found
@@ -24,4 +24,9 @@ class ApplicationController < ActionController::API
 
     render json: { error: exception.message }, status: status
   end
+
+  # TODO remove old method
+    def render_error(errors: [])
+      render json: { errors: errors.record.errors }, status: :unprocessable_entity
+    end
 end
