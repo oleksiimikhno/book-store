@@ -2,7 +2,7 @@ require 'swagger_helper'
 require 'ffaker'
 
 RSpec.describe 'api/v1/products', type: :request do
-  let(:product) { Product.create(name: FFaker::Book.title, description: FFaker::Book.description) }
+  let(:product) { create(:product) }
 
   path '/api/v1/products' do
     get('list products') do
