@@ -46,15 +46,15 @@ RSpec.describe Product, type: :model do
   end
 
   it 'is should be an active status when create' do
-    expect(product.status).to eq('active')
+    expect(product.active?).to be_truthy
   end
 
   it 'is a product can change own status' do
     product.status = 'inactive'
-    expect(product.status).to eq('inactive')
+    expect(product.inactive?).to be_truthy
 
     product.status = 'archived'
-    expect(product.status).to eq('archived')
+    expect(product.archived?).to be_truthy
   end
 
   describe 'associations' do
