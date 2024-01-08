@@ -6,30 +6,22 @@ class Api::V1::ProductsController < ApplicationController
 
   def index
     render_success(data: Product.all, status: :ok)
-  rescue StandardError => e
-    render_error(errors: e)
   end
 
   def show
     render_success(data: @product, status: :ok)
-  rescue StandardError => e
-    render_error(errors: e)
   end
 
   def create
     product = Product.create!(product_params)
 
     render_success(data: product, status: :created)
-  rescue StandardError => e
-    render_error(errors: e)
   end
 
   def update
     @product.update(product_params)
 
     render_success(data: @product, status: :ok)
-  rescue StandardError => e
-    render_error(errors: e)
   end
 
   def destroy
