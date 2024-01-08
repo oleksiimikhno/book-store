@@ -5,7 +5,7 @@ module Constable
 
   NAME_LENGTH = (2..30).freeze
   EMAIL_LENGTH = (8..64).freeze
-  EMAIL_DESCRIPTION = (3..2500).freeze
+  DESCRIPTION_LENGTH = (3..2500).freeze
 
   META_TITLE_LENGTH = (20..120).freeze
   META_DESCRIPTION_LENGTH = (60..200).freeze
