@@ -2,27 +2,15 @@
 
 module Productable
   extend ActiveSupport::Concern
-  # include Constable::Validateable
-
-      def self.validate_name(field = :name, lenght = Constable::NAME_LENGTH)
-      validates field, presence: true,
-                       length: { in: lenght },
-                       format: {
-                         with: Constable::REGEXP_USER,
-                         message: 'Only latin letters allowed, no spaces or special characters'
-                       }
-    end
+  include Validateable
+  include Constable
 
   included do
-    validate_name
-    # def self.validate_name(field = :name, lenght = Constable::NAME_LENGTH)
-    #   debugger
-    #   validates field, presence: true,
-    #                    length: { in: lenght },
-    #                    format: {
-    #                      with: Constable::REGEXP_USER,
-    #                      message: 'Only latin letters allowed, no spaces or special characters'
-    #                    }
-    # end
+    validate_field(:name)
+    validate_field(:description, Constable::DESCRIPTION_LENGTH)
+    validate_field_can_be_empty(:meta_title, Constable::META_TITLE_LENGTH)
+    validate_field_can_be_empty(:meta_description, Constable::META_DESCRIPTION_LENGTH)
+    validate_field_positive_integer(:quantity)
+    validate_field_positive_integer(:price)
   end
 end
