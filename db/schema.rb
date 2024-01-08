@@ -16,7 +16,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_174343) do
 
   create_table "carts", force: :cascade do |t|
     t.integer "status", default: 0
-    t.integer "integer", default: 0
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
