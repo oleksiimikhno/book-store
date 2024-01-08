@@ -95,6 +95,9 @@ GEM
     erubi (1.12.0)
     factory_bot (6.4.5)
       activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
     ffaker (2.23.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -236,7 +239,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
-  factory_bot
+  factory_bot_rails
   ffaker
   pg (~> 1.1)
   puma (>= 5.0)

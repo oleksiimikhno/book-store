@@ -48,8 +48,8 @@ group :development, :test do
   # Faker helps you generate realistic test data
   gem 'ffaker'
 
-  # factory_bot is a fixtures replacement with a straightforward definition syntax
-  gem 'factory_bot'
+  # factory_bot_rails is a fixtures replacement with a straightforward definition syntax
+  gem 'factory_bot_rails'
 end
 
 group :development do
