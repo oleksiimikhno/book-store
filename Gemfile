@@ -45,8 +45,11 @@ group :development, :test do
   # Add tests
   gem 'rspec-rails', '~> 6.1.0'
 
-  # Data for seeds
+  # Faker helps you generate realistic test data
   gem 'ffaker'
+
+  # factory_bot is a fixtures replacement with a straightforward definition syntax
+  gem 'factory_bot'
 end
 
 group :development do
