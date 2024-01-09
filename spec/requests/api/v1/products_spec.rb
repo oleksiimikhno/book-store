@@ -54,6 +54,7 @@ RSpec.describe 'api/v1/products', type: :request do
       tags 'Products'
       consumes 'application/json'
       produces 'application/json'
+
       response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
