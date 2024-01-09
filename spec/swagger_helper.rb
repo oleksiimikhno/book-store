@@ -30,7 +30,7 @@ RSpec.configure do |config|
               default: 'book-store-api-tc-5855f695cf77.herokuapp.com'
             }
           }
-        }
+        },
         {
           url: 'http://{defaultHost}',
           variables: {
@@ -38,7 +38,7 @@ RSpec.configure do |config|
               default: '127.0.0.1:3000'
             }
           }
-        },
+        }
       ],
       components: {
         schemas: {
