@@ -24,6 +24,14 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
+          url: 'https://{bookStoreHost}',
+          variables: {
+            defaultHost: {
+              default: 'book-store-api-tc-5855f695cf77.herokuapp.com'
+            }
+          }
+        }
+        {
           url: 'http://{defaultHost}',
           variables: {
             defaultHost: {
@@ -31,15 +39,6 @@ RSpec.configure do |config|
             }
           }
         },
-        {
-          # TODO add external server for the API
-          url: 'http://{apiServer}',
-          variables: {
-            defaultHost: {
-              default: 'apiserver.com.ua'
-            }
-          }
-        }
       ],
       components: {
         schemas: {
