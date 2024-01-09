@@ -55,6 +55,16 @@ RSpec.configure do |config|
               status: { type: :string, enum: %w[active inactive archived], default: :active }
             },
             required: %w[name description]
+          },
+          user: {
+            type: 'object',
+            properties: {
+              first_name: { type: :string },
+              last_name: { type: :string },
+              email: { type: :string },
+              password: { type: :string }
+            },
+            required: %w[first_name last_name email password]
           }
         }
       }
