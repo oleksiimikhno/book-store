@@ -24,19 +24,18 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: 'http://{defaultHost}',
+          url: 'https://{bookStoreHost}',
           variables: {
             defaultHost: {
-              default: '127.0.0.1:3000'
+              default: 'book-store-api-tc-5855f695cf77.herokuapp.com'
             }
           }
         },
         {
-          # TODO add external server for the API
-          url: 'http://{apiServer}',
+          url: 'http://{defaultHost}',
           variables: {
             defaultHost: {
-              default: 'apiserver.com.ua'
+              default: '127.0.0.1:3000'
             }
           }
         }
@@ -55,6 +54,16 @@ RSpec.configure do |config|
               status: { type: :string, enum: %w[active inactive archived], default: :active }
             },
             required: %w[name description]
+          },
+          user: {
+            type: 'object',
+            properties: {
+              first_name: { type: :string },
+              last_name: { type: :string },
+              email: { type: :string },
+              password: { type: :string }
+            },
+            required: %w[first_name last_name email password]
           }
         }
       }
