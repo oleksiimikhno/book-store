@@ -72,15 +72,83 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/users":
+    get:
+      summary: list users
+      tags:
+      - Users
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/user"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/user"
+  "/api/v1/users/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show user
+      tags:
+      - Users
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/user"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/user"
+    delete:
+      summary: delete user
+      tags:
+      - Users
+      responses:
+        '200':
+          description: successful
 servers:
+- url: https://{bookStoreHost}
+  variables:
+    defaultHost:
+      default: book-store-api-tc-5855f695cf77.herokuapp.com
 - url: http://{defaultHost}
   variables:
     defaultHost:
       default: 127.0.0.1:3000
-- url: http://{apiServer}
-  variables:
-    defaultHost:
-      default: apiserver.com.ua
 components:
   schemas:
     product:
@@ -112,3 +180,19 @@ components:
       required:
       - name
       - description
+    user:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      required:
+      - first_name
+      - last_name
+      - email
+      - password
