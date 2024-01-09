@@ -1,5 +1,4 @@
 require 'swagger_helper'
-require 'ffaker'
 
 RSpec.describe 'api/v1/products', type: :request do
   let(:product) { create(:product) }
