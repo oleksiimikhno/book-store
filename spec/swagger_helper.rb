@@ -26,7 +26,7 @@ RSpec.configure do |config|
         {
           url: 'https://{bookStoreHost}',
           variables: {
-            defaultHost: {
+            bookStoreHost: {
               default: 'book-store-api-tc-5855f695cf77.herokuapp.com'
             }
           }
