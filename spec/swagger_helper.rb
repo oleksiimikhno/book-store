@@ -72,11 +72,13 @@ RSpec.configure do |config|
             scheme: :bearer,
             bearerFormat: 'JWT'
           }
-        },
-        security: {
+        }
+      },
+      security: [
+        {
           bearerAuth: []
         }
-      }
+      ]
     }
   }
 
