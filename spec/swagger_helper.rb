@@ -65,6 +65,16 @@ RSpec.configure do |config|
             },
             required: %w[first_name last_name email password]
           }
+        },
+        securitySchemes: {
+          bearerAuth: {
+            type: :http,
+            scheme: :bearer,
+            bearerFormat: 'JWT'
+          }
+        },
+        security: {
+          bearerAuth: []
         }
       }
     }
