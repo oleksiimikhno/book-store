@@ -1,4 +1,6 @@
+# frozen_string_literal: true
 class Api::V1::UsersController < ApplicationController
+  skip_before_action :authorize_request, only: :create
   before_action :user_params, only: %i[create update]
   before_action :set_users, only: :index
   before_action :set_user, only: %i[show update destroy]
@@ -13,8 +15,9 @@ class Api::V1::UsersController < ApplicationController
 
   def create
     user = User.create!(user_params)
+    token = encode_token(user_id: user.id)
 
-    render_success(data: user, status: :created)
+    render_success(data: { user: user, token: token }, status: :created)
   end
 
   def update
