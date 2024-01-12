@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::CartsController < ApplicationController
-  skip_before_action :authorize_request, only: %i[create]
+  skip_before_action :authorize_request, only: %i[create destroy]
   before_action :cart_params, only: %i[create update]
   before_action :current_user
   before_action :set_carts, only: :index
