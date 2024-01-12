@@ -58,7 +58,7 @@ RSpec.describe 'api/v1/carts', type: :request do
     parameter name: :id, in: :path, type: :integer, description: 'ID of the cart'
 
     get('show cart') do
-      tags 'Cart'
+      tags 'Carts'
       consumes 'application/json'
       produces 'application/json'
 
@@ -75,7 +75,7 @@ RSpec.describe 'api/v1/carts', type: :request do
     end
 
     patch('update cart') do
-      tags 'Cart'
+      tags 'Carts'
       consumes 'application/json'
       produces 'application/json'
 
@@ -97,17 +97,12 @@ RSpec.describe 'api/v1/carts', type: :request do
       end
     end
 
-    patch('delete cart') do
-      tags 'Cart'
+    delete('delete cart') do
+      tags 'Carts'
       consumes 'application/json'
       produces 'application/json'
 
-      parameter name: :cart, in: :body, schema: {
-        oneOf: [{ '$ref' => '#/components/schemas/cart' }]
-      }
-
       response(200, 'successful') do
-        schema oneOf: [{ '$ref' => '#/components/schemas/cart' }]
 
         after do |example|
           example.metadata[:response][:content] = {

@@ -59,7 +59,8 @@ RSpec.configure do |config|
             type: 'object',
             properties: {
               status: { type: :string, enum: %w[unpaid paid canceled], default: :unpaid }
-           },
+            }
+          },
           user: {
             type: 'object',
             properties: {
