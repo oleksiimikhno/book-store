@@ -55,6 +55,12 @@ RSpec.configure do |config|
               status: { type: :string, enum: %w[active inactive archived], default: :active }
             },
             required: %w[name description]
+          },
+          cart: {
+            type: 'object',
+            properties: {
+              status: { type: :string, enum: %w[unpaid paid canceled], default: :unpaid }
+            }
           }
         }
       }
