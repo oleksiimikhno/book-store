@@ -1,5 +1,4 @@
 require 'swagger_helper'
-require 'ffaker'
 
 RSpec.describe 'api/v1/products', type: :request do
   let(:product) { create(:product) }
@@ -55,6 +54,7 @@ RSpec.describe 'api/v1/products', type: :request do
       tags 'Products'
       consumes 'application/json'
       produces 'application/json'
+
       response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
