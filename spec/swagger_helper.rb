@@ -70,6 +70,17 @@ RSpec.configure do |config|
               password: { type: :string }
             },
             required: %w[first_name last_name email password]
+          },
+          user_response: {
+            type: 'object',
+            properties: {
+              first_name: { type: :string },
+              last_name: { type: :string },
+              email: { type: :string },
+              password: { type: :string },
+              token: { type: :string },
+              expires: { type: :string }
+            }
           }
         },
         securitySchemes: {
