@@ -4,12 +4,14 @@ class Api::V1::AuthenticationsController < ApplicationController
   def login
     user = User.find_by_email(user_params[:email])
 
-    return unless user&.authenticate(params[:password])
-
+    if user&.authenticate(params[:password])
     token = encode_token(user_id: user.id)
     user_data = { user: user, token: token[:token], expires: token[:expires] }
 
     render_success(data: user_data)
+    else
+      render_success(data: {errrr: 'qwe'})
+    end
   end
 
   private
