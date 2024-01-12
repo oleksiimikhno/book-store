@@ -64,10 +64,12 @@ RSpec.configure do |config|
           user: {
             type: 'object',
             properties: {
-              first_name: { type: :string },
-              last_name: { type: :string },
-              email: { type: :string },
-              password: { type: :string }
+              user_params: {
+                first_name: { type: :string },
+                last_name: { type: :string },
+                email: { type: :string },
+                password: { type: :string }
+              }
             },
             required: %w[first_name last_name email password]
           },
@@ -81,7 +83,15 @@ RSpec.configure do |config|
               token: { type: :string },
               expires: { type: :string }
             }
-          }
+          },
+          login: {
+            type: 'object',
+            properties: {
+              email: { type: :string },
+              password: { type: :string }
+            },
+            required: %w[email password]
+          },
         },
         securitySchemes: {
           Bearer: {

@@ -4,6 +4,23 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/login":
+    post:
+      summary: login
+      tags:
+      - Authentications
+      parameters: []
+      responses:
+        '200':
+          description: successful
+        '401':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/login"
   "/api/v1/carts":
     parameters:
     - name: user_id
@@ -288,14 +305,15 @@ components:
     user:
       type: object
       properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
+        user_params:
+          first_name:
+            type: string
+          last_name:
+            type: string
+          email:
+            type: string
+          password:
+            type: string
       required:
       - first_name
       - last_name
@@ -316,6 +334,16 @@ components:
           type: string
         expires:
           type: string
+    login:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+      - email
+      - password
   securitySchemes:
     Bearer:
       type: http
