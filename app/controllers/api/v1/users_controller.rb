@@ -15,10 +15,8 @@ class Api::V1::UsersController < ApplicationController
 
   def create
     user = User.create!(user_params)
-    token = encode_token(user_id: user.id)
-    user_data = { user: user, token: token[:token], expires: token[:expires] }
 
-    render_success(data: user_data, status: :created)
+    render_success(data: user_data_with_token(user), status: :created)
   end
 
   def update

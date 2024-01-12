@@ -18,4 +18,11 @@ module Tokenable
     decode = JWT.decode(token, SECRET_KEY)[0]
     HashWithIndifferentAccess.new decode
   end
+
+  private
+
+  def user_data_with_token(user = current_user)
+    token = encode_token(user_id: user.id)
+    { user: user, token: token[:token], expires: token[:expires] }
+  end
 end
