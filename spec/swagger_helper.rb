@@ -73,18 +73,15 @@ RSpec.configure do |config|
           }
         },
         securitySchemes: {
-          bearerAuth: {
+          Bearer: {
             type: :http,
             scheme: :bearer,
-            bearerFormat: 'JWT'
+            name: 'Authorization',
+            in: :header,
+            description: 'Your Bearer token'
           }
         }
-      },
-      security: [
-        {
-          bearerAuth: []
-        }
-      ]
+      }
     }
   }
 
