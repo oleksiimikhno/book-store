@@ -15,6 +15,8 @@ paths:
       summary: list carts
       tags:
       - Carts
+      security:
+      - Bearer: []
       responses:
         '200':
           description: successful
@@ -22,6 +24,8 @@ paths:
       summary: create cart
       tags:
       - Carts
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '201':
@@ -54,6 +58,8 @@ paths:
       summary: show cart
       tags:
       - Carts
+      security:
+      - Bearer: []
       responses:
         '200':
           description: successful
@@ -61,6 +67,8 @@ paths:
       summary: update cart
       tags:
       - Carts
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '200':
@@ -83,6 +91,25 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/password_update":
+    post:
+      summary: password update
+      tags:
+      - Passwords
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+        '406':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/password_update"
   "/api/v1/products":
     get:
       summary: list products
@@ -151,11 +178,30 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/login":
+    post:
+      summary: login
+      tags:
+      - Sessions
+      parameters: []
+      responses:
+        '200':
+          description: successful
+        '401':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/session"
   "/api/v1/users":
     get:
       summary: list users
       tags:
       - Users
+      security:
+      - Bearer: []
       responses:
         '200':
           description: successful
@@ -171,7 +217,7 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - "$ref": "#/components/schemas/user"
+                - "$ref": "#/components/schemas/user_response"
       requestBody:
         content:
           application/json:
@@ -190,6 +236,8 @@ paths:
       summary: show user
       tags:
       - Users
+      security:
+      - Bearer: []
       responses:
         '200':
           description: successful
@@ -197,6 +245,8 @@ paths:
       summary: update user
       tags:
       - Users
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '200':
@@ -205,7 +255,7 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - "$ref": "#/components/schemas/user"
+                - "$ref": "#/components/schemas/user_response"
       requestBody:
         content:
           application/json:
@@ -216,6 +266,8 @@ paths:
       summary: delete user
       tags:
       - Users
+      security:
+      - Bearer: []
       responses:
         '200':
           description: successful
@@ -272,6 +324,23 @@ components:
     user:
       type: object
       properties:
+        user_params:
+          first_name:
+            type: string
+          last_name:
+            type: string
+          email:
+            type: string
+          password:
+            type: string
+      required:
+      - first_name
+      - last_name
+      - email
+      - password
+    user_response:
+      type: object
+      properties:
         first_name:
           type: string
         last_name:
@@ -280,8 +349,34 @@ components:
           type: string
         password:
           type: string
+        token:
+          type: string
+        expires:
+          type: string
+    session:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
       required:
-      - first_name
-      - last_name
       - email
       - password
+    password_update:
+      type: object
+      properties:
+        old_password:
+          type: string
+        password:
+          type: string
+      required:
+      - old_password
+      - password
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      name: Authorization
+      in: header
+      description: Your Bearer token
