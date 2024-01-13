@@ -99,7 +99,6 @@ RSpec.describe 'api/v1/users', type: :request do
       tags 'Users'
       consumes 'application/json'
       produces 'application/json'
-      security [Bearer: []]
 
       response(200, 'successful') do
         after do |example|
