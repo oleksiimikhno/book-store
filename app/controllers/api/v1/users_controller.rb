@@ -6,23 +6,22 @@ class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy]
 
   def index
-    render_success(data: @users)
+    render_success(data: @users, each_serializer: Api::V1::UserSerializer)
   end
 
   def show
-    render_success(data: @user)
+    render_success(data: @user, serializer: Api::V1::UserSerializer)
   end
 
   def create
     user = User.create!(user_params)
-
     render_success(data: user_data_with_token(user), status: :created)
   end
 
   def update
     @user.update!(user_params)
 
-    render_success(data: @user, status: :ok)
+    render_success(data: @user, status: :ok, serializer: Api::V1::UserSerializer)
   end
 
   def destroy
