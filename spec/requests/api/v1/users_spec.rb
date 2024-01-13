@@ -2,12 +2,14 @@ require 'swagger_helper'
 
 RSpec.describe 'api/v1/users', type: :request do
   let(:user) { create(:user) }
+  let(:Authorization) { "Bearer #{generate_jwt_token(user)}" }
 
   path '/api/v1/users' do
     get('list users') do
       tags 'Users'
       consumes 'application/json'
       produces 'application/json'
+      security [Bearer: []]
 
       response(200, 'successful') do
         after do |example|
@@ -25,13 +27,14 @@ RSpec.describe 'api/v1/users', type: :request do
       tags 'Users'
       consumes 'application/json'
       produces 'application/json'
+      let(:user) { attributes_for(:user) }
 
       parameter name: :user, in: :body, schema: {
         oneOf: [{ '$ref' => '#/components/schemas/user' }]
       }
 
       response(201, 'successful') do
-        schema oneOf: [{ '$ref' => '#/components/schemas/user' }]
+        schema oneOf: [{ '$ref' => '#/components/schemas/user_response' }]
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -47,13 +50,13 @@ RSpec.describe 'api/v1/users', type: :request do
 
   path '/api/v1/users/{id}' do
     let(:id) { user.id }
-
     parameter name: 'id', in: :path, type: :string, description: 'id'
 
     get('show user') do
       tags 'Users'
       consumes 'application/json'
       produces 'application/json'
+      security [Bearer: []]
 
       response(200, 'successful') do
         after do |example|
@@ -71,13 +74,15 @@ RSpec.describe 'api/v1/users', type: :request do
       tags 'Users'
       consumes 'application/json'
       produces 'application/json'
+      security [Bearer: []]
+      let(:user_params) { attributes_for(:user) }
 
-      parameter name: :user, in: :body, schema: {
+      parameter name: :user_params, in: :body, schema: {
         oneOf: [{ '$ref' => '#/components/schemas/user' }]
       }
 
       response(200, 'successful') do
-        schema oneOf: [{ '$ref' => '#/components/schemas/user' }]
+        schema oneOf: [{ '$ref' => '#/components/schemas/user_response' }]
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -94,6 +99,7 @@ RSpec.describe 'api/v1/users', type: :request do
       tags 'Users'
       consumes 'application/json'
       produces 'application/json'
+      security [Bearer: []]
 
       response(200, 'successful') do
         after do |example|

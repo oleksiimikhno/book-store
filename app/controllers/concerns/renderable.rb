@@ -5,7 +5,8 @@ module Renderable
 
   EXCEPTION_STATUS = {
     ActiveRecord::RecordNotFound => :not_found,
-    ActiveRecord::RecordInvalid => :unprocessable_entity
+    ActiveRecord::RecordInvalid => :unprocessable_entity,
+    JWT::DecodeError => :unauthorized
   }.freeze
 
   def render_success(data: nil, status: :ok)
