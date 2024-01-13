@@ -84,7 +84,7 @@ RSpec.configure do |config|
               expires: { type: :string }
             }
           },
-          login: {
+          session: {
             type: 'object',
             properties: {
               email: { type: :string },
@@ -92,7 +92,7 @@ RSpec.configure do |config|
             },
             required: %w[email password]
           },
-          update_password: {
+          password_update: {
             type: 'object',
             properties: {
               old_password: { type: :string },

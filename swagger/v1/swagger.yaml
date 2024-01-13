@@ -4,42 +4,6 @@ info:
   title: API V1
   version: v1
 paths:
-  "/api/v1/login":
-    post:
-      summary: login
-      tags:
-      - Authentications
-      parameters: []
-      responses:
-        '200':
-          description: successful
-        '401':
-          description: unauthorized
-      requestBody:
-        content:
-          application/json:
-            schema:
-              oneOf:
-              - "$ref": "#/components/schemas/login"
-  "/api/v1/update_password":
-    post:
-      summary: update_password
-      tags:
-      - Authentications
-      security:
-      - Bearer: []
-      parameters: []
-      responses:
-        '200':
-          description: successful
-        '406':
-          description: unauthorized
-      requestBody:
-        content:
-          application/json:
-            schema:
-              oneOf:
-              - "$ref": "#/components/schemas/update_password"
   "/api/v1/carts":
     parameters:
     - name: user_id
@@ -127,6 +91,25 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/password_update":
+    post:
+      summary: password update
+      tags:
+      - Passwords
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+        '406':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/password_update"
   "/api/v1/products":
     get:
       summary: list products
@@ -195,6 +178,23 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/login":
+    post:
+      summary: login
+      tags:
+      - Sessions
+      parameters: []
+      responses:
+        '200':
+          description: successful
+        '401':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/session"
   "/api/v1/users":
     get:
       summary: list users
@@ -353,7 +353,7 @@ components:
           type: string
         expires:
           type: string
-    login:
+    session:
       type: object
       properties:
         email:
@@ -363,7 +363,7 @@ components:
       required:
       - email
       - password
-    update_password:
+    password_update:
       type: object
       properties:
         old_password:
