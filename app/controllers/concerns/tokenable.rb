@@ -23,6 +23,10 @@ module Tokenable
 
   def user_data_with_token(user = current_user)
     token = encode_token(user_id: user.id)
-    { user: user, token: token[:token], expires: token[:expires] }
+    user_data = user.as_json
+    user_data[:token] = token[:token]
+    user_data[:expires] = token[:expires]
+
+    user_data
   end
 end
