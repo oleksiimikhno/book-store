@@ -21,6 +21,25 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/login"
+  "/api/v1/update_password":
+    post:
+      summary: update_password
+      tags:
+      - Authentications
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+        '406':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/update_password"
   "/api/v1/carts":
     parameters:
     - name: user_id
@@ -343,6 +362,16 @@ components:
           type: string
       required:
       - email
+      - password
+    update_password:
+      type: object
+      properties:
+        old_password:
+          type: string
+        password:
+          type: string
+      required:
+      - old_password
       - password
   securitySchemes:
     Bearer:
