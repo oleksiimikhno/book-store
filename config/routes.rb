@@ -6,8 +6,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      post '/login', to: 'authentications#login'
-      post '/update_password', to: 'authentications#update_password'
+      post '/login', to: 'sessions#create'
+      post '/password_update', to: 'passwords#update'
 
       resources :users
       resources :products
