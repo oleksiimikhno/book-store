@@ -64,12 +64,10 @@ RSpec.configure do |config|
           user: {
             type: 'object',
             properties: {
-              user_params: {
-                first_name: { type: :string },
-                last_name: { type: :string },
-                email: { type: :string },
-                password: { type: :string }
-              }
+              first_name: { type: :string },
+              last_name: { type: :string },
+              email: { type: :string },
+              password: { type: :string }
             },
             required: %w[first_name last_name email password]
           },

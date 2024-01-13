@@ -9,11 +9,15 @@ module Renderable
     JWT::DecodeError => :unauthorized
   }.freeze
 
-  def render_success(data: nil, status: :ok)
-    if data.nil?
-      render json: {}, status: status
+  private
+
+  def render_success(data: nil, status: :ok, serializer: nil, each_serializer: nil)
+    render json: {}, status: status if data.nil?
+
+    if serializer
+      render json: data, status: status, serializer: serializer
     else
-      render json: data, status: status
+      render json: data, status: status, each_erializer: each_serializer
     end
   end
 
