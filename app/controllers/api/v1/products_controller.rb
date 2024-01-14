@@ -1,27 +1,28 @@
 # frozen_string_literal: true
 
 class Api::V1::ProductsController < ApplicationController
+  skip_before_action :authorize_request
   before_action :product_params, only: %i[create update]
   before_action :set_product, only: %i[show update destroy]
 
   def index
-    render_success(data: Product.all, status: :ok)
+    render_success(data: Product.all, status: :ok, each_serializer: Api::V1::ProductSerializer)
   end
 
   def show
-    render_success(data: @product, status: :ok)
+    render_success(data: @product, status: :ok, serializer: Api::V1::ProductSerializer)
   end
 
   def create
     product = Product.create!(product_params)
 
-    render_success(data: product, status: :created)
+    render_success(data: product, status: :created, serializer: Api::V1::ProductSerializer)
   end
 
   def update
     @product.update(product_params)
 
-    render_success(data: @product, status: :ok)
+    render_success(data: @product, status: :ok, serializer: Api::V1::ProductSerializer)
   end
 
   def destroy

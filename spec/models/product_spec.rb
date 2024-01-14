@@ -79,4 +79,6 @@ RSpec.describe Product, type: :model do
   #   product = Product.new(product)
   #   expect(product).to be_valid
   # end
+
+  #TODO add special price
 end

@@ -70,6 +70,42 @@ RSpec.configure do |config|
               password: { type: :string }
             },
             required: %w[first_name last_name email password]
+          },
+          user_response: {
+            type: 'object',
+            properties: {
+              first_name: { type: :string },
+              last_name: { type: :string },
+              email: { type: :string },
+              password: { type: :string },
+              token: { type: :string },
+              expires: { type: :string }
+            }
+          },
+          session: {
+            type: 'object',
+            properties: {
+              email: { type: :string },
+              password: { type: :string }
+            },
+            required: %w[email password]
+          },
+          password_update: {
+            type: 'object',
+            properties: {
+              old_password: { type: :string },
+              password: { type: :string }
+            },
+            required: %w[old_password password]
+          },
+        },
+        securitySchemes: {
+          Bearer: {
+            type: :http,
+            scheme: :bearer,
+            name: 'Authorization',
+            in: :header,
+            description: 'Your Bearer token'
           }
         }
       }

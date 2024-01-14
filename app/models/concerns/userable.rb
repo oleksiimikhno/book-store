@@ -15,7 +15,7 @@ module Userable
     end
 
     def self.validate_email
-      validates :email, presence: true,
+      validates :email, presence: true, uniqueness: true,
                         length: { in: Constable::EMAIL_LENGTH },
                         format: {
                           with: Constable::REGEXP_EMAIL,

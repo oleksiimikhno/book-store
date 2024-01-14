@@ -5,15 +5,16 @@ RSpec.describe 'api/v1/carts', type: :request do
   let(:user) { create(:user) }
   let(:user_id) { user.id }
   let(:cart) { user.carts.create }
+  let(:Authorization) { "Bearer #{generate_jwt_token(user)}" }
 
   path '/api/v1/carts' do
-
     parameter name: :user_id, in: :query, type: :integer, description: 'ID of the user'
 
     get('list carts') do
       tags 'Carts'
       consumes 'application/json'
       produces 'application/json'
+      security [Bearer: []]
 
       response(200, 'successful') do
         after do |example|
@@ -31,6 +32,7 @@ RSpec.describe 'api/v1/carts', type: :request do
       tags 'Carts'
       consumes 'application/json'
       produces 'application/json'
+      security [Bearer: []]
 
       parameter name: :cart, in: :body, schema: {
         oneOf: [{ '$ref' => '#/components/schemas/cart' }]
@@ -61,6 +63,7 @@ RSpec.describe 'api/v1/carts', type: :request do
       tags 'Carts'
       consumes 'application/json'
       produces 'application/json'
+      security [Bearer: []]
 
       response(200, 'successful') do
         after do |example|
@@ -78,6 +81,7 @@ RSpec.describe 'api/v1/carts', type: :request do
       tags 'Carts'
       consumes 'application/json'
       produces 'application/json'
+      security [Bearer: []]
 
       parameter name: :cart, in: :body, schema: {
         oneOf: [{ '$ref' => '#/components/schemas/cart' }]
@@ -103,7 +107,6 @@ RSpec.describe 'api/v1/carts', type: :request do
       produces 'application/json'
 
       response(200, 'successful') do
-
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
