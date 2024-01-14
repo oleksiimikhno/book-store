@@ -25,6 +25,7 @@ class CartDashboard < Administrate::BaseDashboard
     status
     user
     created_at
+    updated_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
