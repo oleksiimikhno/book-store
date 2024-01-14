@@ -1,6 +1,6 @@
 class Api::V1::CategoriesController < ApplicationController
   skip_before_action :authorize_request
-  before_action :set_сфеупщкн, only: %i[show update destroy]
+  before_action :set_category, only: %i[show update destroy]
   before_action :category_params, only: %i[create update]
 
   def index
