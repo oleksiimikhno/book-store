@@ -18,13 +18,13 @@ class Api::V1::CategoriesController < ApplicationController
   end
 
   def update
-    @cart.update!(category_params)
+    @category.update!(category_params)
 
     render_success(data: @category, status: :ok, serializer: Api::V1::CategorySerializer)
   end
 
   def destroy
-    @cart.destroy!
+    @category.destroy!
 
     render_success(data: { message: 'Category successfully deleted' }, status: :ok)
   end
