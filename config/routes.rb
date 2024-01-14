@@ -15,9 +15,9 @@ Rails.application.routes.draw do
       post '/login', to: 'sessions#create'
       post '/password_update', to: 'passwords#update'
 
-      resources :users
-      resources :products
-      resources :carts
+      resources :users, :products, :carts
+
+      resources :cart_items, only: %i[update destroy]
     end
   end
 end
