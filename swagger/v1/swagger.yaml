@@ -280,6 +280,21 @@ servers:
       default: 127.0.0.1:3000
 components:
   schemas:
+    category:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        meta_title:
+          type: string
+          nullable: true
+        meta_description:
+          type: string
+          nullable: true
+      required:
+      - name
     product:
       type: object
       properties:
@@ -299,6 +314,8 @@ components:
         quantity:
           type: integer
           default: 0
+        category_id:
+          type: integer
         status:
           type: string
           enum:
@@ -309,6 +326,7 @@ components:
       required:
       - name
       - description
+      - category_id
     cart:
       type: object
       properties:
