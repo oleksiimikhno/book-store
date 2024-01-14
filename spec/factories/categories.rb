@@ -3,11 +3,8 @@
 require 'ffaker'
 
 FactoryBot.define do
-  factory :product do
-    name { FFaker::Book.title[0, 30] }
+  factory :category do
+    name { FFaker::Book.genre[0, 30] }
     description { FFaker::Book.description }
-    price { 5000 }
-    quantity { 1 }
-    association :category
   end
 end
