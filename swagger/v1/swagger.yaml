@@ -326,7 +326,6 @@ components:
       required:
       - name
       - description
-      - category_id
     cart:
       type: object
       properties:

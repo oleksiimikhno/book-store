@@ -64,7 +64,7 @@ RSpec.configure do |config|
               category_id: { type: :integer },
               status: { type: :string, enum: %w[active inactive archived], default: :active }
             },
-            required: %w[name description category_id]
+            required: %w[name description]
           },
           cart: {
             type: 'object',
