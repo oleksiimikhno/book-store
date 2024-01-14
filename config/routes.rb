@@ -5,9 +5,7 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api-docs'
 
   namespace :admin do
-    resources :users
-    resources :carts
-    resources :products
+    resources :users, :carts, :products, only: %i[index show new create edit update destroy]
 
     root to: 'users#index'
   end
