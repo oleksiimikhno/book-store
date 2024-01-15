@@ -61,6 +61,13 @@ RSpec.configure do |config|
               status: { type: :string, enum: %w[unpaid paid canceled], default: :unpaid }
             }
           },
+          cart_item: {
+            type: 'object',
+            properties: {
+              quantity: { type: :integer, default: 0 },
+              price: { type: :float, default: 0.0 }
+            }
+          },
           user: {
             type: 'object',
             properties: {

@@ -15,6 +15,7 @@ module Validateable
       validates name, presence: true, numericality: { greater_than_or_equal_to: lenght }
     end
 
+
     def self.validate_user_name(name = :first_name)
       validates name, presence: true,
                 length: { in: Constable::NAME_LENGTH },
@@ -40,6 +41,9 @@ module Validateable
                   with: Constable::REGEXP_PASSWORD,
                   message: 'Must contain at least one uppercase letter, one lowercase letter, and one digit'
                 }
+
+    def self.validate_field_presence(name)
+      validates name, presence: true
     end
   end
 end
