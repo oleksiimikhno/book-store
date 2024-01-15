@@ -4,6 +4,92 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/cart_items":
+    parameters:
+    - name: cart_id
+      in: query
+      description: ID of the cart
+      schema:
+        type: integer
+    - name: product_id
+      in: query
+      description: ID of the product
+      schema:
+        type: integer
+    post:
+      summary: create cart_item
+      tags:
+      - CartItems
+      parameters: []
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/cart_item"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/cart_item"
+  "/api/v1/cart_items/{id}":
+    parameters:
+    - name: cart_id
+      in: query
+      description: ID of the cart
+      schema:
+        type: integer
+    - name: product_id
+      in: query
+      description: ID of the product
+      schema:
+        type: integer
+    - name: id
+      in: path
+      description: ID of the cart_item
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show cart_item
+      tags:
+      - CartItems
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update cart_lines
+      tags:
+      - CartItems
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/cart_item"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/cart_item"
+    delete:
+      summary: delete cart_lines
+      tags:
+      - CartItems
+      responses:
+        '200':
+          description: successful
   "/api/v1/carts":
     parameters:
     - name: user_id
@@ -438,6 +524,15 @@ components:
           - paid
           - canceled
           default: unpaid
+    cart_item:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          default: 0
+        price:
+          type: float
+          default: 0.0
     user:
       type: object
       properties:
