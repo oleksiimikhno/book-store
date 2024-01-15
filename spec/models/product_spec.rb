@@ -57,28 +57,19 @@ RSpec.describe Product, type: :model do
     expect(product.archived?).to be_truthy
   end
 
-  describe 'associations' do
-    # it 'is a belong to category'
-    # TODO it { should belong_to :category }
-
-    # it 'should have one category' do
-    #   product = Product.reflect_on_association(:category)
-    #   expect(product.macro).to eq(:has_one)
-    # end
-
-    # TODO add gem? https://github.com/thoughtbot/shoulda-matchers
-    # it { should belong_to(:user).class_name('User') }
-
-    # it 'is has attacments'
+  it 'is category_id cannot be empty' do
+    product.category_id = ''
+    expect(product).to_not be_valid
   end
 
-  # it "is not valid without a start_date"
-  # it "is not valid without a end_date"
+  it 'is category_id cannot be negative' do
+    product.category_id = -1
+    expect(product).to_not be_valid
+  end
 
-  # it 'should be valid with valid attributes' do
-  #   product = Product.new(product)
-  #   expect(product).to be_valid
-  # end
-
-  #TODO add special price
+  #TODO 
+   # add special price
+   # it 'is has attacments'
+   # it "is not valid without a start_date"
+   # it "is not valid without a end_date"
 end
