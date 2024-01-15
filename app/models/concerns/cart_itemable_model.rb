@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module CartItemable
+module CartItemableModel
   extend ActiveSupport::Concern
   include Validateable
   include Constable
