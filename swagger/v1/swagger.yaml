@@ -91,6 +91,108 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/categories":
+    get:
+      summary: list categories
+      tags:
+      - Categories
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create category
+      tags:
+      - Categories
+      parameters: []
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/category"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/category"
+  "/api/v1/categories/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show category
+      tags:
+      - Categories
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update category
+      tags:
+      - Categories
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/category"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/category"
+    delete:
+      summary: delete category
+      tags:
+      - Categories
+      responses:
+        '200':
+          description: successful
+  "/api/v1/categories/{category_id}/products":
+    parameters:
+    - name: category_id
+      in: path
+      description: category_id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show category products list
+      tags:
+      - Products
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create product in category
+      tags:
+      - Products
+      parameters: []
+      responses:
+        '201':
+          description: product created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/product"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/product"
   "/api/v1/password_update":
     post:
       summary: password update
