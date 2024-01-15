@@ -11,7 +11,7 @@ class Api::V1::CartItemsController < ApplicationController
   def create
     result = find_or_create_uniq_record(@cart_item, cart_items_params)
 
-    render_success data: result
+    render_success(data: result, status: 201)
   end
 
   def update
@@ -22,6 +22,8 @@ class Api::V1::CartItemsController < ApplicationController
 
   def destroy
     @cart_item.destroy
+
+    render_success(data: { message: 'Cart Items successfully deleted' }, status: :ok)
   end
 
   private
