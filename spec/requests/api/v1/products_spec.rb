@@ -2,6 +2,7 @@ require 'swagger_helper'
 
 RSpec.describe 'api/v1/products', type: :request do
   let(:product) { create(:product) }
+  let(:id) { product.id }
 
   path '/api/v1/products' do
     get('list products') do
@@ -46,8 +47,6 @@ RSpec.describe 'api/v1/products', type: :request do
   end
 
   path '/api/v1/products/{id}' do
-    let(:id) { product.id }
-
     parameter name: :id, in: :path, type: :integer, description: 'id'
 
     get('show product') do
