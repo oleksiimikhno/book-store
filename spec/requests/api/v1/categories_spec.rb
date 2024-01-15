@@ -1,12 +1,12 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/v1/products', type: :request do
-  let(:product) { create(:product) }
-  let(:id) { product.id }
+RSpec.describe 'api/v1/categories', type: :request do
+  let(:category) { create(:category) }
+  let(:id) { category.id }
 
-  path '/api/v1/products' do
-    get('list products') do
-      tags 'Products'
+  path '/api/v1/categories' do
+    get('list categories') do
+      tags 'Categories'
       consumes 'application/json'
       produces 'application/json'
 
@@ -22,17 +22,17 @@ RSpec.describe 'api/v1/products', type: :request do
       end
     end
 
-    post('create product') do
-      tags 'Products'
+    post('create category') do
+      tags 'Categories'
       consumes 'application/json'
       produces 'application/json'
 
-      parameter name: :product, in: :body, schema: {
-        oneOf: [{ '$ref' => '#/components/schemas/product' }]
+      parameter name: :category, in: :body, schema: {
+        oneOf: [{ '$ref' => '#/components/schemas/category' }]
       }
 
-      response(201, 'product created') do
-        schema oneOf: [{ '$ref' => '#/components/schemas/product' }]
+      response(201, 'successful') do
+        schema oneOf: [{ '$ref' => '#/components/schemas/category' }]
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -46,11 +46,11 @@ RSpec.describe 'api/v1/products', type: :request do
     end
   end
 
-  path '/api/v1/products/{id}' do
-    parameter name: :id, in: :path, type: :integer, description: 'id'
+  path '/api/v1/categories/{id}' do
+    parameter name: :id, in: :path, type: :string, description: 'id'
 
-    get('show product') do
-      tags 'Products'
+    get('show category') do
+      tags 'Categories'
       consumes 'application/json'
       produces 'application/json'
 
@@ -66,17 +66,17 @@ RSpec.describe 'api/v1/products', type: :request do
       end
     end
 
-    patch('update product') do
-      tags 'Products'
+    patch('update category') do
+      tags 'Categories'
       consumes 'application/json'
       produces 'application/json'
 
-      parameter name: :product, in: :body, schema: {
-        oneOf: [{ '$ref' => '#/components/schemas/product' }]
+      parameter name: :category, in: :body, schema: {
+        oneOf: [{ '$ref' => '#/components/schemas/category' }]
       }
 
       response(200, 'successful') do
-        schema oneOf: [{ '$ref' => '#/components/schemas/product' }]
+        schema oneOf: [{ '$ref' => '#/components/schemas/category' }]
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -89,8 +89,8 @@ RSpec.describe 'api/v1/products', type: :request do
       end
     end
 
-    delete('delete product') do
-      tags 'Products'
+    delete('delete category') do
+      tags 'Categories'
       consumes 'application/json'
       produces 'application/json'
 

@@ -8,5 +8,6 @@ FactoryBot.define do
     description { FFaker::Book.description }
     price { 5000 }
     quantity { 1 }
+    association :category, factory: :category
   end
 end

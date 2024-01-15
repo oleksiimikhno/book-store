@@ -42,6 +42,16 @@ RSpec.configure do |config|
       ],
       components: {
         schemas: {
+          category: {
+            type: 'object',
+            properties: {
+              name: { type: :string },
+              description: { type: :string },
+              meta_title: { type: :string, nullable: true },
+              meta_description: { type: :string, nullable: true },
+            },
+            required: %w[name]
+          },
           product: {
             type: 'object',
             properties: {
@@ -51,6 +61,7 @@ RSpec.configure do |config|
               meta_description: { type: :string, nullable: true },
               price: { type: :integer, default: 0 },
               quantity: { type: :integer, default: 0 },
+              category_id: { type: :integer },
               status: { type: :string, enum: %w[active inactive archived], default: :active }
             },
             required: %w[name description]
