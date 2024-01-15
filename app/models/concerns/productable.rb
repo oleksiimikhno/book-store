@@ -12,5 +12,6 @@ module Productable
     validate_field_can_be_empty(:meta_description, Constable::META_DESCRIPTION_LENGTH)
     validate_field_positive_integer(:quantity)
     validate_field_positive_integer(:price)
+    validate_field_positive_integer(:category_id)
   end
 end
