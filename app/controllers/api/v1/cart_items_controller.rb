@@ -5,7 +5,7 @@ class Api::V1::CartItemsController < ApplicationController
   def show
     cart_item = CartItem.find(params[:id])
 
-    render_success data: cart_item
+    render_success(data: cart_item)
   end
 
   def create
