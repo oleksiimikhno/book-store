@@ -3,11 +3,6 @@ class Api::V1::UsersController < ApplicationController
   skip_before_action :authorize_request, only: %i[create destroy]
   before_action :user_params, only: %i[create update]
   before_action :set_users, only: :index
-  before_action :set_user, only: %i[show update destroy]
-
-  def index
-    render_success(data: @users, each_serializer: Api::V1::UserSerializer)
-  end
 
   def show
     render_success(data: @user, serializer: Api::V1::UserSerializer)
