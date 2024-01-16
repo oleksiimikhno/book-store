@@ -2,10 +2,9 @@ require 'swagger_helper'
 require 'ffaker'
 
 RSpec.describe 'api/v1/carts', type: :request do
-  let(:user) { create(:user) }
-  let(:user_id) { user.id }
-  let(:cart) { user.carts.create }
-  let(:Authorization) { "Bearer #{generate_jwt_token(user)}" }
+  let(:cart) { create(:cart) }
+  let(:user_id) { User.find(cart.user_id).id }
+  let(:Authorization) { "Bearer #{generate_jwt_token(User.find(user_id))}" }
 
   path '/api/v1/carts' do
     parameter name: :user_id, in: :query, type: :integer, description: 'ID of the user'
