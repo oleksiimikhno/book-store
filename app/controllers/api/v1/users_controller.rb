@@ -19,7 +19,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
-    current_user.destroy!
+    current_user.destroy
 
     render_success(data: { message: 'User successfully deleted' }, status: :ok)
   end
