@@ -8,7 +8,7 @@ RSpec.describe "Api::V1::CartItems", type: :request do
   let(:Authorization) { "Bearer #{generate_jwt_token(user)}" }
 
   path '/api/v1/carts/{cart_id}/cart_items' do
-    parameter name: :product_id, in: :query, type: :integer, description: 'ID of the product'
+    parameter name: :product_id, in: :query, type: :integer, description: 'ID of the product', required: true
     parameter name: :cart_id, in: :path, type: :integer, description: 'ID of the cart_item'
 
     post('create cart_item') do
@@ -39,7 +39,7 @@ RSpec.describe "Api::V1::CartItems", type: :request do
   path '/api/v1/carts/{cart_id}/cart_items/{id}' do
     let(:id) { cart_item.id }
 
-    parameter name: :product_id, in: :query, type: :integer, description: 'ID of the product'
+    parameter name: :product_id, in: :query, type: :integer, description: 'ID of the product', required: true
     parameter name: :cart_id, in: :path, type: :integer, description: 'ID of the cart_item'
     parameter name: :id, in: :path, type: :integer, description: 'ID of the cart_item'
 
