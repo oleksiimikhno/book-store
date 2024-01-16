@@ -7,7 +7,6 @@ RSpec.describe 'api/v1/carts', type: :request do
   let(:Authorization) { "Bearer #{generate_jwt_token(User.find(user_id))}" }
 
   path '/api/v1/carts' do
-    parameter name: :user_id, in: :query, type: :integer, description: 'ID of the user'
 
     get('list carts') do
       tags 'Carts'
@@ -55,7 +54,6 @@ RSpec.describe 'api/v1/carts', type: :request do
   path '/api/v1/carts/{id}' do
     let(:id) { cart.id }
 
-    parameter name: :user_id, in: :query, type: :integer, description: 'ID of the user'
     parameter name: :id, in: :path, type: :integer, description: 'ID of the cart'
 
     get('show cart') do

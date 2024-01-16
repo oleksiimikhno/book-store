@@ -20,6 +20,8 @@ paths:
       summary: create cart_item
       tags:
       - CartItems
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '201':
@@ -87,16 +89,12 @@ paths:
       summary: delete cart_lines
       tags:
       - CartItems
+      security:
+      - Bearer: []
       responses:
         '200':
           description: successful
   "/api/v1/carts":
-    parameters:
-    - name: user_id
-      in: query
-      description: ID of the user
-      schema:
-        type: integer
     get:
       summary: list carts
       tags:
@@ -129,11 +127,6 @@ paths:
               - "$ref": "#/components/schemas/cart"
   "/api/v1/carts/{id}":
     parameters:
-    - name: user_id
-      in: query
-      description: ID of the user
-      schema:
-        type: integer
     - name: id
       in: path
       description: ID of the cart
@@ -170,13 +163,6 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/cart"
-    delete:
-      summary: delete cart
-      tags:
-      - Carts
-      responses:
-        '200':
-          description: successful
   "/api/v1/categories":
     get:
       summary: list categories
