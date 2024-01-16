@@ -29,11 +29,6 @@ RSpec.describe 'api/v1/users', type: :request do
         run_test!
       end
     end
-  end
-
-  path '/api/v1/users/{id}' do
-    let(:id) { user.id }
-    parameter name: 'id', in: :path, type: :string, description: 'id'
 
     get('show user') do
       tags 'Users'
@@ -82,6 +77,7 @@ RSpec.describe 'api/v1/users', type: :request do
       tags 'Users'
       consumes 'application/json'
       produces 'application/json'
+      security [Bearer: []]
 
       response(200, 'successful') do
         after do |example|
