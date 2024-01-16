@@ -1,12 +1,10 @@
 require 'swagger_helper'
 
 RSpec.describe "Api::V1::CartItems", type: :request do
-  let(:user) { create(:user) }
-  let(:cart) { user.carts.create }
-  let(:cart_id) { cart.id }
-  let(:product) { create(:product) }
-  let(:product_id) { product.id }
-  let(:cart_item) { cart.cart_items.create(product_id: product.id) }
+  let(:cart_item) { create(:cart_item) }
+  let(:cart_id) { cart_item.cart_id }
+  let(:user) { User.find(Cart.find(cart_id).user_id) }
+  let(:product_id) { cart_item.product_id }
   let(:Authorization) { "Bearer #{generate_jwt_token(user)}" }
 
   path '/api/v1/cart_items' do
@@ -41,7 +39,6 @@ RSpec.describe "Api::V1::CartItems", type: :request do
   path '/api/v1/cart_items/{id}' do
     let(:id) { cart_item.id }
 
-    parameter name: :cart_id, in: :query, type: :integer, description: 'ID of the cart'
     parameter name: :product_id, in: :query, type: :integer, description: 'ID of the product'
     parameter name: :id, in: :path, type: :integer, description: 'ID of the cart_item'
 
