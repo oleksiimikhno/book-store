@@ -9,7 +9,7 @@ module Userable
       validates name, presence: true, length: { in: Constable::NAME_LENGTH },
                       format: {
                         with: Constable::REGEXP_USER,
-                        message: 'Only latin letters allowed, no spaces or special characters' 
+                        message: 'Only Latin letters Cyrillic and space are allowed, no special characters'
                       }
     end
 
