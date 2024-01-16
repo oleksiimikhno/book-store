@@ -1,24 +1,14 @@
-# README
+# Bookstore only-API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## We used:
+- ruby '3.2.2'
+- rails '7.1.2'
+- active_model_serializers
+- jwt
+- rswag
+- administrate
+- rspec-rails
+- ffaker
+- factory_bot_rails
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#### You can see [local swagger endpoints](http://127.0.0.1:3000/api-docs/index.html) 
