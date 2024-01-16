@@ -17,7 +17,7 @@ class Api::V1::CartItemsController < ApplicationController
   def update
     @cart_item.update(cart_items_params)
 
-    render_success data:@cart_item
+    render_success(data:@cart_item)
   end
 
   def destroy
