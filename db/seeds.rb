@@ -14,8 +14,8 @@ categories.uniq.each do |e|
 end
 
 10.times do
-  user = User.create!(first_name: FFaker::Name.first_name,
-                      last_name: FFaker::Name.last_name,
+  user = User.create!(first_name: FFaker::NameDE.first_name,
+                      last_name: FFaker::NameDE.last_name,
                       email: FFaker::Internet.free_email,
                       password: 'Password123')
   3.times do
