@@ -100,22 +100,5 @@ RSpec.describe 'api/v1/carts', type: :request do
         run_test!
       end
     end
-
-    delete('delete cart') do
-      tags 'Carts'
-      consumes 'application/json'
-      produces 'application/json'
-
-      response(200, 'successful') do
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
   end
 end
