@@ -9,8 +9,9 @@ class Api::V1::CartItemsController < ApplicationController
   end
 
   def create
-    result = find_or_create_uniq_record(@cart_item, cart_items_params)
     result = find_or_create_uniq_record(cart_items_params)
+
+    authorize result
 
     render_success(data: result, status: 201, each_serializer: Api::V1::CartItemSerializer)
   end

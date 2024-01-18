@@ -4,9 +4,14 @@ class Api::V1::ProductsController < ApplicationController
   skip_before_action :authorize_request
   before_action :product_params, only: %i[create update]
   before_action :set_product, only: %i[show update destroy]
+  before_action :pundit_authorize, except: %i[index create]
 
   def index
-    render_success(data: Product.all, status: :ok, each_serializer: Api::V1::ProductSerializer)
+    products = Product.all
+
+    authorize products
+
+    render_success(data: products, status: :ok, each_serializer: Api::V1::ProductSerializer)
   end
 
   def show
@@ -15,6 +20,8 @@ class Api::V1::ProductsController < ApplicationController
 
   def create
     product = Product.create!(product_params)
+
+    authorize product
 
     render_success(data: product, status: :created, serializer: Api::V1::ProductSerializer)
   end
@@ -27,10 +34,15 @@ class Api::V1::ProductsController < ApplicationController
 
   def destroy
     @product.destroy
+
     render_success(data: { message: 'Product successfully deleted' }, status: :ok)
   end
 
   private
+
+  def pundit_authorize
+    authorize @product
+  end
 
   def set_product
     @product = Product.find(params[:id])
