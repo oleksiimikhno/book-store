@@ -8,7 +8,7 @@ class Api::V1::PasswordsController < ApplicationController
 
       render_success(data: user_data_with_token)
     else
-      render json: { erros: 'Wrong old password!' }, status: :not_acceptable
+      render json: { errors: 'Wrong old password!' }, status: :not_acceptable
     end
   end
 
