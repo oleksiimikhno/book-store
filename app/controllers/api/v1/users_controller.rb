@@ -2,6 +2,9 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :authorize_request, only: %i[create]
   before_action :user_params, only: %i[create update]
+  def index
+    render_success(data: User.all, each_serializer: Api::V1::UserSerializer)
+  end
 
   def show
     render_success(data: current_user, serializer: Api::V1::UserSerializer)

@@ -2,7 +2,7 @@
 
 class Api::V1::CartsController < ApplicationController
   before_action :cart_params, only: %i[create update]
-  before_action :set_carts, only: :index
+  before_action :current_user
   before_action :set_cart, only: %i[show update]
 
   def index
@@ -29,10 +29,6 @@ class Api::V1::CartsController < ApplicationController
 
   def set_cart
     @cart = current_user.carts.find(params[:id])
-  end
-
-  def set_carts
-    @carts = current_user.carts
   end
 
   def cart_params
