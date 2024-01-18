@@ -5,19 +5,19 @@ class Api::V1::CartItemsController < ApplicationController
   def show
     cart_item = CartItem.find(params[:id])
 
-    render_success(data: cart_item)
+    render_success(data: cart_item, each_serializer: Api::V1::CartItemSerializer)
   end
 
   def create
     result = find_or_create_uniq_record(@cart_item, cart_items_params)
 
-    render_success(data: result, status: 201)
+    render_success(data: result, status: 201, each_serializer: Api::V1::CartItemSerializer)
   end
 
   def update
     @cart_item.update(cart_items_params)
 
-    render_success data:@cart_item
+    render_success(data: @cart_item, each_serializer: Api::V1::CartItemSerializer)
   end
 
   def destroy

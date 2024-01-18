@@ -11,8 +11,8 @@ end
 
 FactoryBot.define do
   factory :user do
-    first_name { FFaker::Name.first_name }
-    last_name { FFaker::Name.last_name }
+    first_name { FFaker::NameDE.first_name }
+    last_name { FFaker::NameDE.last_name }
     email { FFaker::Internet.email }
     password { "Hh4#{Random.hex(7)}" }
   end

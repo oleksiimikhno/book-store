@@ -5,6 +5,6 @@ require 'ffaker'
 FactoryBot.define do
   factory :cart do
     status { 'unpaid' }
-    association :user
+    association :user, factory: :user
   end
 end

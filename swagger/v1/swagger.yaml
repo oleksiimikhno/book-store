@@ -4,22 +4,26 @@ info:
   title: API V1
   version: v1
 paths:
-  "/api/v1/cart_items":
+  "/api/v1/carts/{cart_id}/cart_items":
     parameters:
-    - name: cart_id
-      in: query
-      description: ID of the cart
-      schema:
-        type: integer
     - name: product_id
       in: query
       description: ID of the product
+      required: true
+      schema:
+        type: integer
+    - name: cart_id
+      in: path
+      description: ID of the cart_item
+      required: true
       schema:
         type: integer
     post:
       summary: create cart_item
       tags:
       - CartItems
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '201':
@@ -35,16 +39,18 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/cart_item"
-  "/api/v1/cart_items/{id}":
+  "/api/v1/carts/{cart_id}/cart_items/{id}":
     parameters:
-    - name: cart_id
-      in: query
-      description: ID of the cart
-      schema:
-        type: integer
     - name: product_id
       in: query
       description: ID of the product
+      required: true
+      schema:
+        type: integer
+    - name: cart_id
+      in: path
+      description: ID of the cart_item
+      required: true
       schema:
         type: integer
     - name: id
@@ -87,16 +93,12 @@ paths:
       summary: delete cart_lines
       tags:
       - CartItems
+      security:
+      - Bearer: []
       responses:
         '200':
           description: successful
   "/api/v1/carts":
-    parameters:
-    - name: user_id
-      in: query
-      description: ID of the user
-      schema:
-        type: integer
     get:
       summary: list carts
       tags:
@@ -129,11 +131,6 @@ paths:
               - "$ref": "#/components/schemas/cart"
   "/api/v1/carts/{id}":
     parameters:
-    - name: user_id
-      in: query
-      description: ID of the user
-      schema:
-        type: integer
     - name: id
       in: path
       description: ID of the cart
@@ -170,13 +167,6 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/cart"
-    delete:
-      summary: delete cart
-      tags:
-      - Carts
-      responses:
-        '200':
-          description: successful
   "/api/v1/categories":
     get:
       summary: list categories
@@ -384,15 +374,6 @@ paths:
               oneOf:
               - "$ref": "#/components/schemas/session"
   "/api/v1/users":
-    get:
-      summary: list users
-      tags:
-      - Users
-      security:
-      - Bearer: []
-      responses:
-        '200':
-          description: successful
     post:
       summary: create user
       tags:
@@ -412,14 +393,6 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/user"
-  "/api/v1/users/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
     get:
       summary: show user
       tags:
@@ -454,6 +427,8 @@ paths:
       summary: delete user
       tags:
       - Users
+      security:
+      - Bearer: []
       responses:
         '200':
           description: successful
