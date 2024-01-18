@@ -30,6 +30,10 @@ class Api::V1::CartItemsController < ApplicationController
 
   private
 
+  def pundit_authorize
+    authorize @cart_item
+  end
+
   def set_product
     @product = Product.find(params[:product_id])
   end

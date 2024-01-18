@@ -31,6 +31,10 @@ class Api::V1::UsersController < ApplicationController
 
   private
 
+  def pundit_authorize
+    authorize current_user
+  end
+
   def user_params
     params.permit(:first_name, :last_name, :email, :password)
   end
