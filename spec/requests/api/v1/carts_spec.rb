@@ -2,13 +2,11 @@ require 'swagger_helper'
 require 'ffaker'
 
 RSpec.describe 'api/v1/carts', type: :request do
-  let(:user) { create(:user) }
-  let(:user_id) { user.id }
-  let(:cart) { user.carts.create }
-  let(:Authorization) { "Bearer #{generate_jwt_token(user)}" }
+  let(:cart) { create(:cart) }
+  let(:user_id) { User.find(cart.user_id).id }
+  let(:Authorization) { "Bearer #{generate_jwt_token(User.find(user_id))}" }
 
   path '/api/v1/carts' do
-    parameter name: :user_id, in: :query, type: :integer, description: 'ID of the user'
 
     get('list carts') do
       tags 'Carts'
@@ -56,7 +54,6 @@ RSpec.describe 'api/v1/carts', type: :request do
   path '/api/v1/carts/{id}' do
     let(:id) { cart.id }
 
-    parameter name: :user_id, in: :query, type: :integer, description: 'ID of the user'
     parameter name: :id, in: :path, type: :integer, description: 'ID of the cart'
 
     get('show cart') do
@@ -90,23 +87,6 @@ RSpec.describe 'api/v1/carts', type: :request do
       response(200, 'successful') do
         schema oneOf: [{ '$ref' => '#/components/schemas/cart' }]
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-
-    delete('delete cart') do
-      tags 'Carts'
-      consumes 'application/json'
-      produces 'application/json'
-
-      response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
