@@ -10,6 +10,6 @@ class ApplicationController < ActionController::API
   private
 
   def current_user
-    User.find(@decoded[:user_id]) if @decoded.present?
+    User.find_by(id: @decoded[:user_id]) if @decoded.present?
   end
 end
