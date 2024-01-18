@@ -3,9 +3,11 @@ class ApplicationController < ActionController::API
   include Renderable
   include Tokenable
   include Sessionable
+  include Pundit::Authorization
 
   before_action :authorize_request
   rescue_from StandardError, with: :render_errors
+  rescue_from Pundit::NotAuthorizedError, with: :unauthorized_message
 
   private
 
