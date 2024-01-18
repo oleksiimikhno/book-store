@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'pagy/extras/headers'
 
 class Api::V1::ProductsController < ApplicationController
@@ -9,8 +10,7 @@ class Api::V1::ProductsController < ApplicationController
   before_action :set_product, only: %i[show update destroy]
 
   def index
-    pagy, products = pagy(Product.all)
-    # TODO add swagger information about headers
+    pagy, products = pagy(Product.all, items: 20)
     pagy_headers_merge(pagy)
     render_success(data: products, status: :ok, each_serializer: Api::V1::ProductSerializer)
   end
@@ -43,6 +43,6 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   def product_params
-    params.permit(:name, :description, :meta_title, :meta_description, :price, :quantity, :status, :category_id)
+    params.permit(:name, :description, :meta_title, :meta_description, :price, :quantity, :status, :category_id, :page)
   end
 end
