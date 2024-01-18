@@ -12,7 +12,7 @@ class Api::V1::ProductsController < ApplicationController
   before_action :set_products, :limit_params, only: %i[index]
 
   def index
-    pagy, @products = pagy(@products, items: @limit)
+    pagy, @products = pagy(@products, items: limit_params)
     pagy_headers_merge(pagy)
     render_success(data: @products, status: :ok, each_serializer: Api::V1::ProductSerializer)
   end
