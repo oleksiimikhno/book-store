@@ -3,16 +3,24 @@ require 'swagger_helper'
 RSpec.describe 'api/v1/products', type: :request do
   let(:product) { create(:product) }
   let(:id) { product.id }
+  let(:limit) { 20 }
 
   path '/api/v1/products' do
-    parameter name: :limit, in: :query, type: :integer, description: 'limit items per page', default: 20
-
     get('list products') do
       tags 'Products'
       consumes 'application/json'
       produces 'application/json'
 
+      parameter name: :limit, in: :query, type: :integer, default: 20, nullable: true,
+                description: 'limit items per page'
+
       response(200, 'successful') do
+        header 'current-page', schema: { type: :integer }, description: 'The number of current page paggination'
+        header 'link', schema: { type: :string }, description: 'The page links of the next and previous pages'
+        header 'page-items', schema: { type: :integer }, description: 'The items per page'
+        header 'total-count', schema: { type: :integer }, description: 'The total of all items'
+        header 'total-pages', schema: { type: :integer }, description: 'The total of all pages'
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {

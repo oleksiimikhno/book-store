@@ -14,6 +14,12 @@ RSpec.describe 'api/v1/products', type: :request do
       produces 'application/json'
 
       response(200, 'successful') do
+        header 'current-page', schema: { type: :integer }, description: 'The number of current page paggination'
+        header 'link', schema: { type: :string }, description: 'The page links of the next and previous pages'
+        header 'page-items', schema: { type: :integer }, description: 'The items per page'
+        header 'total-count', schema: { type: :integer }, description: 'The total of all items'
+        header 'total-pages', schema: { type: :integer }, description: 'The total of all pages'
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
