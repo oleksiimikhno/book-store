@@ -289,6 +289,13 @@ paths:
               oneOf:
               - "$ref": "#/components/schemas/password_update"
   "/api/v1/products":
+    parameters:
+    - name: limit
+      in: query
+      description: limit items per page
+      default: 20
+      schema:
+        type: integer
     get:
       summary: list products
       tags:

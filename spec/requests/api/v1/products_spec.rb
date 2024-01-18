@@ -5,6 +5,8 @@ RSpec.describe 'api/v1/products', type: :request do
   let(:id) { product.id }
 
   path '/api/v1/products' do
+    parameter name: :limit, in: :query, type: :integer, description: 'limit items per page', default: 20
+
     get('list products') do
       tags 'Products'
       consumes 'application/json'
