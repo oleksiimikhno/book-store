@@ -4,7 +4,7 @@ require 'ffaker'
 
 FactoryBot.define do
   factory :product do
-    name { FFaker::Book.title[0, 30] }
+    name { FFaker::Book.title[0, 50] }
     description { FFaker::Book.description }
     price { 5000 }
     quantity { 1 }
