@@ -250,6 +250,27 @@ paths:
       responses:
         '200':
           description: successful
+          headers:
+            current-page:
+              schema:
+                type: integer
+              description: The number of current page paggination
+            link:
+              schema:
+                type: string
+              description: The page links of the next and previous pages
+            page-items:
+              schema:
+                type: integer
+              description: The items per page
+            total-count:
+              schema:
+                type: integer
+              description: The total of all items
+            total-pages:
+              schema:
+                type: integer
+              description: The total of all pages
     post:
       summary: create product in category
       tags:
@@ -293,9 +314,38 @@ paths:
       summary: list products
       tags:
       - Products
+      parameters:
+      - name: limit
+        in: query
+        default: 20
+        nullable: true
+        description: limit items per page
+        schema:
+          type: integer
       responses:
         '200':
           description: successful
+          headers:
+            current-page:
+              schema:
+                type: integer
+              description: The number of current page paggination
+            link:
+              schema:
+                type: string
+              description: The page links of the next and previous pages
+            page-items:
+              schema:
+                type: integer
+              description: The items per page
+            total-count:
+              schema:
+                type: integer
+              description: The total of all items
+            total-pages:
+              schema:
+                type: integer
+              description: The total of all pages
     post:
       summary: create product
       tags:
@@ -472,8 +522,8 @@ components:
           type: string
           nullable: true
         price:
-          type: integer
-          default: 0
+          type: float
+          default: 0.0
         quantity:
           type: integer
           default: 0
@@ -489,6 +539,27 @@ components:
       required:
       - name
       - description
+    headers:
+      current-page:
+        schema:
+          type: integer
+        description: The number of current page pagination
+      link:
+        schema:
+          type: string
+        description: The page links of the next and previous pages
+      page-items:
+        schema:
+          type: integer
+        description: The items per page
+      total-count:
+        schema:
+          type: integer
+        description: The total of all items
+      total-pages:
+        schema:
+          type: integer
+        description: The total of all pages
     cart:
       type: object
       properties:
@@ -525,7 +596,6 @@ components:
       - email
       - password
     user_response:
-      type: object
       properties:
         first_name:
           type: string

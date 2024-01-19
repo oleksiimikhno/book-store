@@ -3,7 +3,7 @@
 module Constable
   extend ActiveSupport::Concern
 
-  NAME_LENGTH = (2..30).freeze
+  NAME_LENGTH = (2..50).freeze
   EMAIL_LENGTH = (8..64).freeze
   PASSWORD_LENGTH = (8..64).freeze
   DESCRIPTION_LENGTH = (3..2500).freeze
