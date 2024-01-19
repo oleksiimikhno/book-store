@@ -4,7 +4,7 @@ require 'ffaker'
 
 FactoryBot.define do
   factory :category do
-    name { FFaker::Book.genre[0, 30] }
+    name { FFaker::Book.genre[0, 50] }
     description { FFaker::Book.description }
   end
 end
