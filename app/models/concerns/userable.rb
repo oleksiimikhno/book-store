@@ -3,6 +3,7 @@
 module Userable
   extend ActiveSupport::Concern
   include Constable
+  include Validateable
 
   included do
     def self.validate_user_name(name = :first_name)
@@ -33,5 +34,6 @@ module Userable
     validate_user_name(:last_name)
     validate_email
     validate_password
+    validate_field_presence(:status)
   end
 end

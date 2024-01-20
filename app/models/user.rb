@@ -4,4 +4,6 @@ class User < ApplicationRecord
   has_secure_password
   
   has_many :carts, dependent: :destroy
+
+  enum :status, %i[visitor admin], default: 0
 end

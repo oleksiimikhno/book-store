@@ -15,8 +15,9 @@ Rails.application.routes.draw do
       post '/login', to: 'sessions#create'
       post '/password_update', to: 'passwords#update'
 
-      resource :users
-      resources :products
+      resource :users do
+        get '/all', to: 'users#index'
+      end
 
       resources :carts do
         resources :cart_items, except: :index
