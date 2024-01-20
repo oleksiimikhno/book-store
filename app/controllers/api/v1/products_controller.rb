@@ -8,12 +8,14 @@ class Api::V1::ProductsController < ApplicationController
 
   skip_before_action :authorize_request
   before_action :product_params, only: %i[create update]
+  before_action :set_category, if: -> { params[:category_id] }
   before_action :set_product, only: %i[show update destroy]
   before_action :set_products, :limit_params, only: %i[index]
 
   def index
     pagy, @products = pagy(@products, items: limit_params)
     pagy_headers_merge(pagy)
+
     render_success(data: @products, status: :ok, each_serializer: Api::V1::ProductSerializer)
   end
 
@@ -45,7 +47,15 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   def set_products
-    @products = Product.all
+    @products = if params[:category_id].present?
+                  @category.products.order_by(params[:order])
+                else
+                  Product.all
+                end
+  end
+
+  def set_category
+    @category = Category.find(params[:category_id])
   end
 
   def product_params

@@ -247,6 +247,16 @@ paths:
       summary: show category products list
       tags:
       - Products
+      parameters:
+      - name: order
+        in: query
+        description: sort products by orders "desc" and "asc"
+        enum:
+        - desc
+        - asc
+        default: desc
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -539,27 +549,6 @@ components:
       required:
       - name
       - description
-    headers:
-      current-page:
-        schema:
-          type: integer
-        description: The number of current page pagination
-      link:
-        schema:
-          type: string
-        description: The page links of the next and previous pages
-      page-items:
-        schema:
-          type: integer
-        description: The items per page
-      total-count:
-        schema:
-          type: integer
-        description: The total of all items
-      total-pages:
-        schema:
-          type: integer
-        description: The total of all pages
     cart:
       type: object
       properties:
