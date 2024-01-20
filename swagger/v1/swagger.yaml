@@ -373,6 +373,16 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/session"
+  "/api/v1/users/all":
+    get:
+      summary: list users
+      tags:
+      - Users
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
   "/api/v1/users":
     post:
       summary: create user
