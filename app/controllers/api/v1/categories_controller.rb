@@ -5,7 +5,7 @@ class Api::V1::CategoriesController < ApplicationController
   before_action :pundit_authorize, except: %i[index create]
 
   def index
-    categories = Product.all
+    categories = Category.all
 
     authorize categories
 

@@ -30,7 +30,7 @@ RSpec.describe 'api/v1/passwords', type: :request do
       end
 
       response(406, 'unauthorized') do
-        let(:password_update) { { old_password: 'indalid_password', password: 'invalid' } }
+        let(:password_update) { { old_password: 'invalid_password', password: 'invalid' } }
 
         after do |example|
           example.metadata[:response][:content] = {

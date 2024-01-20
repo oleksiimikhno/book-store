@@ -19,6 +19,8 @@ Rails.application.routes.draw do
         get '/all', to: 'users#index'
       end
 
+      resources :products
+
       resources :carts do
         resources :cart_items, except: :index
       end
