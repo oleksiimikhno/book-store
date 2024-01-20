@@ -8,4 +8,7 @@ class Product < ApplicationRecord
   has_many :carts, through: :cart_items
 
   enum :status, %i[active inactive archived], default: :active
+
+  default_scope { order(created_at: :desc) }
+  scope :order_by, ->(type = :desc) { reorder(created_at: type) if type.present? }
 end
