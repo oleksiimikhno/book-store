@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class CategoryPolicy < ApplicationPolicy
+  attr_reader :user, :record
+
   def index?
     true
   end
 
   def create?
-    false
+    user_admin?
   end
 
   alias show? index?

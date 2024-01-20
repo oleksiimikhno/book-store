@@ -3,6 +3,6 @@
 class PasswordPolicy < ApplicationPolicy
   attr_reader :user, :record
   def update?
-    record == user
+    record == user.password
   end
 end

@@ -9,7 +9,7 @@ class ApplicationPolicy
   end
 
   def index?
-    false
+    user_admin? || false
   end
 
   alias show? index?
@@ -18,4 +18,10 @@ class ApplicationPolicy
   alias update? index?
   alias edit? index?
   alias destroy? index?
+
+  private
+
+  def user_admin?
+    user&.admin?
+  end
 end

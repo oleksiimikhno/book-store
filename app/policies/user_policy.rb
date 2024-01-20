@@ -2,14 +2,15 @@
 
 class UserPolicy < ApplicationPolicy
   attr_reader :user, :record
+
+  def index?
+    user_admin?
+  end
   def show?
     record == user
   end
 
-  def destroy?
-    false
-  end
-
   alias create? show?
   alias update? show?
+  alias destroy? index?
 end

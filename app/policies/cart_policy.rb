@@ -11,13 +11,13 @@ class CartPolicy < ApplicationPolicy
     record.user == user
   end
 
-  alias update? show?
-
   def create?
     true
   end
 
   def destroy?
-    false
+    user_admin?
   end
+
+  alias update? show?
 end
