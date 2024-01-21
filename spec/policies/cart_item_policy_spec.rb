@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe CartItemPolicy, type: :policy do
   let(:cart_item) { create(:cart_item) }
-  let(:user) { User.find(Cart.find(cart_item.cart_id).user_id) }
+  let(:user) { User.find(cart_item.cart.user_id) }
 
   subject { described_class }
 

@@ -28,8 +28,8 @@ module Renderable
     render json: { errors: message }, status: status
   end
 
-  def unauthorized_message(exception)
-    message = exception.message
+  def unauthorized_message
+    message = 'Not authorized access'
 
     render json: { errors: message }, status: :forbidden
   end

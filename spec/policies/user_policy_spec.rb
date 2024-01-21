@@ -19,13 +19,13 @@ RSpec.describe UserPolicy, type: :policy do
   context 'with visitor' do
     before { user.status = 0 }
 
-    permissions :show?, :create?, :update? do
+    permissions :show?, :create?, :update?, :destroy? do
       it 'grants access to user for visitor' do
         expect(subject).to permit(user, user)
       end
     end
 
-    permissions :index?, :destroy? do
+    permissions :index? do
       it 'grants no access to user for visitor' do
         expect(subject).not_to permit(user, user)
       end

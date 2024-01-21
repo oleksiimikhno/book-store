@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 class CartPolicy < ApplicationPolicy
-  attr_reader :user, :record
 
   def index?
-    record.any? { |cart| cart.user == user }
+    @record.any? { |cart| cart.user == @user }
   end
 
   def show?
-    record.user == user
+    @record.user == @user
   end
 
   def create?

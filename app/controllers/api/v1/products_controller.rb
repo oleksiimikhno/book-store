@@ -14,7 +14,7 @@ class Api::V1::ProductsController < ApplicationController
   before_action :pundit_authorize, except: %i[index create]
 
   def index
-    authorize @products
+    # authorize @products
     
     pagy, @products = pagy(@products, items: limit_params)
     pagy_headers_merge(pagy)

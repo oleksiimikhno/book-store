@@ -15,6 +15,6 @@ FactoryBot.define do
     last_name { FFaker::NameDE.last_name }
     email { FFaker::Internet.email }
     password { "Hh4#{Random.hex(7)}" }
-    status { 1 }
+    status { :admin }
   end
 end

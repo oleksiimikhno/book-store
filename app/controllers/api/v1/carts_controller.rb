@@ -2,7 +2,6 @@
 
 class Api::V1::CartsController < ApplicationController
   before_action :cart_params, only: %i[create update]
-  before_action :current_user
   before_action :set_cart, only: %i[show update]
   before_action :pundit_authorize, except: %i[index create]
 

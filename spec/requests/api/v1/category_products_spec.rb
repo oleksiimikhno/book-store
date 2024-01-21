@@ -14,7 +14,6 @@ RSpec.describe 'api/v1/products', type: :request do
       tags 'Products'
       consumes 'application/json'
       produces 'application/json'
-      security [Bearer: []]
 
       parameter name: :order, in: :query, type: :string, description: 'sort products by orders "desc" and "asc"',
                 enum: %w[desc asc], default: :desc

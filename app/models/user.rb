@@ -5,5 +5,5 @@ class User < ApplicationRecord
   
   has_many :carts, dependent: :destroy
 
-  enum :status, %i[visitor admin], default: 0
+  enum :status, %i[visitor admin], default: :visitor
 end

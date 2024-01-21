@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class CartItemPolicy < ApplicationPolicy
-  attr_reader :user, :record
 
   def show?
-    Cart.find(record.cart_id).user == user
+    @user.carts.find(@record.cart_id)
   end
 
   alias create? show?
