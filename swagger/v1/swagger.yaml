@@ -179,6 +179,8 @@ paths:
       summary: create category
       tags:
       - Categories
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '201':
@@ -213,6 +215,8 @@ paths:
       summary: update category
       tags:
       - Categories
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '200':
@@ -232,6 +236,8 @@ paths:
       summary: delete category
       tags:
       - Categories
+      security:
+      - Bearer: []
       responses:
         '200':
           description: successful
@@ -247,6 +253,8 @@ paths:
       summary: show category products list
       tags:
       - Products
+      security:
+      - Bearer: []
       responses:
         '200':
           description: successful
@@ -254,6 +262,8 @@ paths:
       summary: create product in category
       tags:
       - Products
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '201':
@@ -300,6 +310,8 @@ paths:
       summary: create product
       tags:
       - Products
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '201':
@@ -334,6 +346,8 @@ paths:
       summary: update product
       tags:
       - Products
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '200':
@@ -353,6 +367,8 @@ paths:
       summary: delete product
       tags:
       - Products
+      security:
+      - Bearer: []
       responses:
         '200':
           description: successful
@@ -482,8 +498,8 @@ components:
           type: string
           nullable: true
         price:
-          type: integer
-          default: 0
+          type: float
+          default: 0.0
         quantity:
           type: integer
           default: 0
