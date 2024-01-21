@@ -26,6 +26,9 @@ class Api::V1::UsersController < ApplicationController
   def destroy
     current_user.destroy
 
+    # TODO need to do normal logout
+    @decoded = nil
+
     render_success(data: { message: 'User successfully deleted' }, status: :ok)
   end
 
