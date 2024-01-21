@@ -3,7 +3,7 @@
 
 class Api::V1::PasswordsController < ApplicationController
   def update
-    authorize params[:old_password]
+    authorize current_user
 
     if authenticate?(current_user, params[:old_password])
       current_user.update_attribute(:password, params[:password])
