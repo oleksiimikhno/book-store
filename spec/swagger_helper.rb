@@ -59,7 +59,7 @@ RSpec.configure do |config|
               description: { type: :string },
               meta_title: { type: :string, nullable: true },
               meta_description: { type: :string, nullable: true },
-              price: { type: :integer, default: 0 },
+              price: { type: :float, default: 0.0 },
               quantity: { type: :integer, default: 0 },
               category_id: { type: :integer },
               status: { type: :string, enum: %w[active inactive archived], default: :active }
