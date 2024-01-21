@@ -636,19 +636,6 @@ components:
       required:
       - old_password
       - password
-  parameters:
-    OrderParameter:
-      in: query
-      name: order
-      schema:
-        type: string
-        enum:
-        - desc
-        - asc
-        default: desc
-      default: desc
-      nullable: true
-      description: sort products by orders "desc" and "asc"
   securitySchemes:
     Bearer:
       type: http
