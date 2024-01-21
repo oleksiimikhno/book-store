@@ -46,8 +46,14 @@ class CartItemDashboard < Administrate::BaseDashboard
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = %i[
+  FORM_ATTRIBUTES_NEW = %i[
     cart
+    price
+    product
+    quantity
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
     price
     product
     quantity

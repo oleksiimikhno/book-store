@@ -41,9 +41,13 @@ class CartDashboard < Administrate::BaseDashboard
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = %i[
+  FORM_ATTRIBUTES_NEW = %i[
     status
     user
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
+    status
   ].freeze
 
   # COLLECTION_FILTERS
