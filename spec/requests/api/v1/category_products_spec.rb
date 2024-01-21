@@ -16,7 +16,16 @@ RSpec.describe 'api/v1/products', type: :request do
       produces 'application/json'
       security [Bearer: []]
 
+      parameter name: :order, in: :query, type: :string, description: 'sort products by orders "desc" and "asc"',
+                enum: %w[desc asc], default: :desc
+
       response(200, 'successful') do
+        header 'current-page', schema: { type: :integer }, description: 'The number of current page paggination'
+        header 'link', schema: { type: :string }, description: 'The page links of the next and previous pages'
+        header 'page-items', schema: { type: :integer }, description: 'The items per page'
+        header 'total-count', schema: { type: :integer }, description: 'The total of all items'
+        header 'total-pages', schema: { type: :integer }, description: 'The total of all pages'
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {

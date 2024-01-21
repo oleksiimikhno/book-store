@@ -255,9 +255,40 @@ paths:
       - Products
       security:
       - Bearer: []
+      parameters:
+      - name: order
+        in: query
+        description: sort products by orders "desc" and "asc"
+        enum:
+        - desc
+        - asc
+        default: desc
+        schema:
+          type: string
       responses:
         '200':
           description: successful
+          headers:
+            current-page:
+              schema:
+                type: integer
+              description: The number of current page paggination
+            link:
+              schema:
+                type: string
+              description: The page links of the next and previous pages
+            page-items:
+              schema:
+                type: integer
+              description: The items per page
+            total-count:
+              schema:
+                type: integer
+              description: The total of all items
+            total-pages:
+              schema:
+                type: integer
+              description: The total of all pages
     post:
       summary: create product in category
       tags:
@@ -303,9 +334,38 @@ paths:
       summary: list products
       tags:
       - Products
+      parameters:
+      - name: limit
+        in: query
+        default: 20
+        nullable: true
+        description: limit items per page
+        schema:
+          type: integer
       responses:
         '200':
           description: successful
+          headers:
+            current-page:
+              schema:
+                type: integer
+              description: The number of current page paggination
+            link:
+              schema:
+                type: string
+              description: The page links of the next and previous pages
+            page-items:
+              schema:
+                type: integer
+              description: The items per page
+            total-count:
+              schema:
+                type: integer
+              description: The total of all items
+            total-pages:
+              schema:
+                type: integer
+              description: The total of all pages
     post:
       summary: create product
       tags:
@@ -551,7 +611,6 @@ components:
       - email
       - password
     user_response:
-      type: object
       properties:
         first_name:
           type: string
