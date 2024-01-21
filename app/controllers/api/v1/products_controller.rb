@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::ProductsController < ApplicationController
-  skip_before_action :authorize_request
+  skip_before_action :authorize_request, only: %i[index show]
   before_action :product_params, only: %i[create update]
   before_action :set_product, only: %i[show update destroy]
   before_action :pundit_authorize, except: %i[index create]
