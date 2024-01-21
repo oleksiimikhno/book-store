@@ -13,8 +13,13 @@ RSpec.describe 'api/v1/products', type: :request do
       consumes 'application/json'
       produces 'application/json'
 
-      parameter name: :order, in: :query, type: :string, description: 'sort products by orders "desc" and "asc"',
-                enum: %w[desc asc], default: :desc
+      let(:limit) { 20 }
+      let(:order) { 'desc' }
+
+      parameter name: :limit, in: :query, type: :integer, default: 20, nullable: true,
+                description: 'limit items per page'
+      parameter name: :order, in: :query, type: :string, enum: %w[desc asc], default: :desc, nullable: true,
+                description: 'sort products by orders "desc" and "asc"'
 
       response(200, 'successful') do
         header 'current-page', schema: { type: :integer }, description: 'The number of current page paggination'
