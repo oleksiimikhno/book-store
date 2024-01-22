@@ -3,8 +3,6 @@
 class Product < ApplicationRecord
   include Productable
 
-  acts_as_paranoid
-
   belongs_to :category
   has_many :cart_items
   has_many :carts, through: :cart_items
