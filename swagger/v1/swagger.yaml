@@ -256,13 +256,21 @@ paths:
       security:
       - Bearer: []
       parameters:
+      - name: limit
+        in: query
+        default: 20
+        nullable: true
+        description: limit items per page
+        schema:
+          type: integer
       - name: order
         in: query
-        description: sort products by orders "desc" and "asc"
         enum:
         - desc
         - asc
         default: desc
+        nullable: true
+        description: sort products by orders "desc" and "asc"
         schema:
           type: string
       responses:
@@ -342,6 +350,16 @@ paths:
         description: limit items per page
         schema:
           type: integer
+      - name: order
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by orders "desc" and "asc"
+        schema:
+          type: string
       responses:
         '200':
           description: successful

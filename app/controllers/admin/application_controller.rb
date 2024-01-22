@@ -6,6 +6,8 @@
 # you're free to overwrite the RESTful controller actions.
 module Admin
   class ApplicationController < Administrate::ApplicationController
+    around_action :skip_bullet, if: -> { defined?(Bullet) }
+
     # TODO maybe need update authenticate
     # before_action :authenticate_admin
     #
@@ -22,5 +24,13 @@ module Admin
     # def records_per_page
     #   params[:per_page] || 20
     # end
+
+    def skip_bullet
+      previous_value = Bullet.enable?
+      Bullet.enable = false
+      yield
+    ensure
+      Bullet.enable = previous_value
+    end
   end
 end

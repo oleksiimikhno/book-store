@@ -34,3 +34,6 @@
 
 # Ignore RubyMine
 /.idea
+
+# Ignore simplecov front
+/coverage
