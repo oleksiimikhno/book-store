@@ -184,8 +184,6 @@ GEM
     nokogiri (1.16.0-x86_64-linux)
       racc (~> 1.4)
     pagy (6.4.3)
-    paranoia (2.6.3)
-      activerecord (>= 5.1, < 7.2)
     pg (1.5.4)
     psych (5.1.2)
       stringio
@@ -326,7 +324,6 @@ DEPENDENCIES
   ffaker
   jwt
   pagy
-  paranoia (~> 2.6)
   pg (~> 1.1)
   puma (>= 5.0)
   pundit
