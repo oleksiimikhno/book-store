@@ -96,6 +96,9 @@ GEM
     bootsnap (1.17.0)
       msgpack (~> 1.2)
     builder (3.2.4)
+    bullet (7.1.6)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     case_transform (0.2)
       activesupport
     concurrent-ruby (1.2.2)
@@ -289,6 +292,7 @@ GEM
     timeout (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    uniform_notifier (1.16.0)
     webrick (1.8.1)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -305,6 +309,7 @@ DEPENDENCIES
   administrate
   bcrypt (~> 3.1.7)
   bootsnap
+  bullet
   debug
   factory_bot_rails
   ffaker

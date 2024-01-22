@@ -11,10 +11,15 @@
 - ffaker
 - factory_bot_rails
 - simplecov
-- 
+- bullet
 - pundit
 - paranoia
+- 
+#### You can see [local swagger endpoints](http://127.0.0.1:3000/api-docs/index.html) 
 
+## Information about bullet:
+- skip admin panel
+- add to jobs
 #### You can see [local swagger endpoints](http://127.0.0.1:3000/api-docs/index.html) 
 
 ## What about use simplecov:
