@@ -6,7 +6,8 @@ module Renderable
   EXCEPTION_STATUS = {
     ActiveRecord::RecordNotFound => :not_found,
     ActiveRecord::RecordInvalid => :unprocessable_entity,
-    JWT::DecodeError => :unauthorized
+    JWT::DecodeError => :unauthorized,
+    Pundit::NotAuthorizedError => :forbidden
   }.freeze
 
   private
@@ -23,14 +24,9 @@ module Renderable
 
   def render_errors(exception)
     message = defined?(exception.record) ? exception.record.errors : exception.message
-    status = EXCEPTION_STATUS[exception.class] || :internal_server_error
+    message = 'Not authorized access' if message.empty?
+    status = EXCEPTION_STATUS[exception.class] || :bad_request
 
     render json: { errors: message }, status: status
-  end
-
-  def unauthorized_message
-    message = 'Not authorized access'
-
-    render json: { errors: message }, status: :forbidden
   end
 end
