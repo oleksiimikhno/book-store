@@ -5,6 +5,7 @@ require 'pagy/extras/headers'
 class Api::V1::ProductsController < ApplicationController
   include Pagy::Backend
   include Paginationable
+  include Sortable
 
   skip_before_action :authorize_request, only: %i[index show]
   before_action :product_params, only: %i[create update]
@@ -14,8 +15,6 @@ class Api::V1::ProductsController < ApplicationController
   before_action :pundit_authorize, except: %i[index create]
 
   def index
-    # authorize @products
-    
     pagy, @products = pagy(@products, items: limit_params)
     pagy_headers_merge(pagy)
 
@@ -58,7 +57,7 @@ class Api::V1::ProductsController < ApplicationController
 
   def set_products
     @products = if params[:category_id].present?
-                  @category.products.order_by(params[:order])
+                  @products = sort_with_params(@category.products, params)
                 else
                   Product.all
                 end
