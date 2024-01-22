@@ -62,6 +62,9 @@ group :development, :test do
 
   # factory_bot_rails is a fixtures replacement with a straightforward definition syntax
   gem 'factory_bot_rails'
+
+  # check test coverage
+  gem 'simplecov', require: false, group: :test
 end
 
 group :development do
