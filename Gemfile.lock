@@ -109,6 +109,7 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     diff-lcs (1.5.0)
+    docile (1.4.0)
     drb (2.2.0)
       ruby2_keywords
     erubi (1.12.0)
@@ -177,6 +178,8 @@ GEM
     nokogiri (1.16.0-x86_64-linux)
       racc (~> 1.4)
     pagy (6.2.0)
+    paranoia (2.6.3)
+      activerecord (>= 5.1, < 7.2)
     pg (1.5.4)
     psych (5.1.2)
       stringio
@@ -270,6 +273,12 @@ GEM
       sprockets-rails
       tilt
     selectize-rails (0.12.6)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -306,12 +315,14 @@ DEPENDENCIES
   ffaker
   jwt
   pagy
+  paranoia (~> 2.2)
   pg (~> 1.1)
   puma (>= 5.0)
   rack-cors
   rails (~> 7.1.2)
   rspec-rails (~> 6.1.0)
   rswag
+  simplecov
   tzinfo-data
 
 RUBY VERSION

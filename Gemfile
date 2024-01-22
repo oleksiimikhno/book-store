@@ -50,6 +50,9 @@ gem 'administrate'
 # pagination https://ddnexus.github.io/pagy/
 gem 'pagy'
 
+# for soft delete DB
+gem 'paranoia', '~> 2.2'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows]
@@ -62,6 +65,9 @@ group :development, :test do
 
   # factory_bot_rails is a fixtures replacement with a straightforward definition syntax
   gem 'factory_bot_rails'
+
+  # check test coverage
+  gem 'simplecov', require: false, group: :test
 end
 
 group :development do
