@@ -326,7 +326,7 @@ DEPENDENCIES
   ffaker
   jwt
   pagy
-  paranoia (~> 2.2)
+  paranoia (~> 2.6)
   pg (~> 1.1)
   puma (>= 5.0)
   pundit
