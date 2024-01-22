@@ -1,10 +1,13 @@
 class Api::V1::CategoriesController < ApplicationController
-  skip_before_action :authorize_request
+  skip_before_action :authorize_request, only: %i[index show]
   before_action :set_category, only: %i[show update destroy]
   before_action :category_params, only: %i[create update]
+  before_action :pundit_authorize, only: %i[update destroy]
 
   def index
-    render_success(data: Category.all, each_serializer: Api::V1::CategorySerializer)
+    categories = Category.all
+
+    render_success(data: categories, each_serializer: Api::V1::CategorySerializer)
   end
 
   def show
@@ -13,6 +16,8 @@ class Api::V1::CategoriesController < ApplicationController
 
   def create
     category = Category.create!(category_params)
+
+    authorize category
 
     render_success(data: category, status: :created, serializer: Api::V1::CategorySerializer)
   end
@@ -30,6 +35,10 @@ class Api::V1::CategoriesController < ApplicationController
   end
 
   private
+
+  def pundit_authorize
+    authorize @category
+  end
 
   def set_category
     @category = Category.find(params[:id])

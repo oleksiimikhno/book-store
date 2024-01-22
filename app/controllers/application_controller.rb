@@ -3,13 +3,15 @@ class ApplicationController < ActionController::API
   include Renderable
   include Tokenable
   include Sessionable
+  include Pundit::Authorization
 
   before_action :authorize_request
   rescue_from StandardError, with: :render_errors
+  rescue_from Pundit::NotAuthorizedError, with: :unauthorized_message
 
   private
 
   def current_user
-    User.find_by(id: @decoded[:user_id]) if @decoded.present?
+    User.find(@decoded[:user_id]) if @decoded.present?
   end
 end

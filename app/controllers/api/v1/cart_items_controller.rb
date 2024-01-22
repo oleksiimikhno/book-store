@@ -1,15 +1,17 @@
 class Api::V1::CartItemsController < ApplicationController
   include CartItemableController
-  before_action :cart_items_params, :set_cart, :set_product, :set_cart_item, except: :show
+  before_action :cart_items_params, :set_cart
+  before_action :set_cart_item, :pundit_authorize, except: :create
+  before_action :set_product, except: %i[show destroy]
 
   def show
-    cart_item = CartItem.find(params[:id])
-
-    render_success(data: cart_item, each_serializer: Api::V1::CartItemSerializer)
+    render_success(data: @cart_item, each_serializer: Api::V1::CartItemSerializer)
   end
 
   def create
-    result = find_or_create_uniq_record(@cart_item, cart_items_params)
+    result = find_or_create_uniq_record(cart_items_params)
+
+    authorize result
 
     render_success(data: result, status: 201, each_serializer: Api::V1::CartItemSerializer)
   end
@@ -28,6 +30,10 @@ class Api::V1::CartItemsController < ApplicationController
 
   private
 
+  def pundit_authorize
+    authorize @cart_item
+  end
+
   def set_product
     @product = Product.find(params[:product_id])
   end
@@ -37,7 +43,7 @@ class Api::V1::CartItemsController < ApplicationController
   end
 
   def set_cart_item
-    @cart_item = CartItem.find_by(cart_id: @cart.id, product_id: @product.id)
+    @cart_item = CartItem.find(params[:id])
   end
 
   def cart_items_params

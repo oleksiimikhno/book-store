@@ -47,6 +47,9 @@ gem 'rswag'
 # add admin panel
 gem 'administrate'
 
+# add access rights
+gem 'pundit'
+
 # pagination https://ddnexus.github.io/pagy/
 gem 'pagy'
 

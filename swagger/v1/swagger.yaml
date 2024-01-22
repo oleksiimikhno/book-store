@@ -179,6 +179,8 @@ paths:
       summary: create category
       tags:
       - Categories
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '201':
@@ -213,6 +215,8 @@ paths:
       summary: update category
       tags:
       - Categories
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '200':
@@ -232,6 +236,8 @@ paths:
       summary: delete category
       tags:
       - Categories
+      security:
+      - Bearer: []
       responses:
         '200':
           description: successful
@@ -247,6 +253,8 @@ paths:
       summary: show category products list
       tags:
       - Products
+      security:
+      - Bearer: []
       parameters:
       - name: limit
         in: query
@@ -293,6 +301,8 @@ paths:
       summary: create product in category
       tags:
       - Products
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '201':
@@ -378,6 +388,8 @@ paths:
       summary: create product
       tags:
       - Products
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '201':
@@ -412,6 +424,8 @@ paths:
       summary: update product
       tags:
       - Products
+      security:
+      - Bearer: []
       parameters: []
       responses:
         '200':
@@ -431,6 +445,8 @@ paths:
       summary: delete product
       tags:
       - Products
+      security:
+      - Bearer: []
       responses:
         '200':
           description: successful
@@ -451,6 +467,16 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/session"
+  "/api/v1/users/all":
+    get:
+      summary: list users
+      tags:
+      - Users
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
   "/api/v1/users":
     post:
       summary: create user

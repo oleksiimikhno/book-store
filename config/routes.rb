@@ -15,7 +15,10 @@ Rails.application.routes.draw do
       post '/login', to: 'sessions#create'
       post '/password_update', to: 'passwords#update'
 
-      resource :users
+      resource :users do
+        get '/all', to: 'users#index'
+      end
+
       resources :products
 
       resources :carts do
