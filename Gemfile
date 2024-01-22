@@ -47,6 +47,9 @@ gem 'rswag'
 # add admin panel
 gem 'administrate'
 
+# add access rights
+gem 'pundit'
+
 # pagination https://ddnexus.github.io/pagy/
 gem 'pagy'
 
@@ -65,9 +68,15 @@ group :development, :test do
 
   # factory_bot_rails is a fixtures replacement with a straightforward definition syntax
   gem 'factory_bot_rails'
+
+  # check test coverage
+  gem 'simplecov', require: false, group: :test
 end
 
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem 'spring'
+
+  # check n+n queries
+  gem 'bullet'
 end

@@ -3,6 +3,8 @@ require 'swagger_helper'
 RSpec.describe 'api/v1/categories', type: :request do
   let(:category) { create(:category) }
   let(:id) { category.id }
+  let(:user) { create(:user) }
+  let(:Authorization) { "Bearer #{generate_jwt_token(user)}" }
 
   path '/api/v1/categories' do
     get('list categories') do
@@ -26,6 +28,7 @@ RSpec.describe 'api/v1/categories', type: :request do
       tags 'Categories'
       consumes 'application/json'
       produces 'application/json'
+      security [Bearer: []]
 
       parameter name: :category, in: :body, schema: {
         oneOf: [{ '$ref' => '#/components/schemas/category' }]
@@ -70,6 +73,7 @@ RSpec.describe 'api/v1/categories', type: :request do
       tags 'Categories'
       consumes 'application/json'
       produces 'application/json'
+      security [Bearer: []]
 
       parameter name: :category, in: :body, schema: {
         oneOf: [{ '$ref' => '#/components/schemas/category' }]
@@ -93,6 +97,7 @@ RSpec.describe 'api/v1/categories', type: :request do
       tags 'Categories'
       consumes 'application/json'
       produces 'application/json'
+      security [Bearer: []]
 
       response(200, 'successful') do
         after do |example|

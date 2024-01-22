@@ -2,6 +2,11 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :authorize_request, only: %i[create]
   before_action :user_params, only: %i[create update]
+  before_action :pundit_authorize, except: :create
+
+  def index
+    render_success(data: User.all, each_serializer: Api::V1::UserSerializer)
+  end
 
   def show
     render_success(data: current_user, serializer: Api::V1::UserSerializer)
@@ -21,10 +26,17 @@ class Api::V1::UsersController < ApplicationController
   def destroy
     current_user.destroy
 
+    # TODO need to do normal logout
+    @decoded = nil
+
     render_success(data: { message: 'User successfully deleted' }, status: :ok)
   end
 
   private
+
+  def pundit_authorize
+    authorize current_user
+  end
 
   def user_params
     params.permit(:first_name, :last_name, :email, :password)

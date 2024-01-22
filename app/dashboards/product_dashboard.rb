@@ -16,6 +16,7 @@ class ProductDashboard < Administrate::BaseDashboard
     price: Field::Number,
     quantity: Field::Number,
     status: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
+    category: Field::BelongsTo.with_options(class_name: 'Category'),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -34,6 +35,7 @@ class ProductDashboard < Administrate::BaseDashboard
     price
     quantity
     status
+    category
     created_at
     updated_at
   ].freeze
@@ -64,6 +66,7 @@ class ProductDashboard < Administrate::BaseDashboard
     price
     quantity
     status
+    category
   ].freeze
 
   # COLLECTION_FILTERS
@@ -81,7 +84,7 @@ class ProductDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how products are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(product)
-  #   "Product ##{product.id}"
-  # end
+  def display_resource(product)
+    "Product ##{product.id} - #{product.name} (Category: #{product.category.name})"
+  end
 end

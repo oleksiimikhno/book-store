@@ -17,7 +17,7 @@ module Renderable
     if serializer
       render json: data, status: status, serializer: serializer
     else
-      render json: data, status: status, each_erializer: each_serializer
+      render json: data, status: status, each_serializer: each_serializer
     end
   end
 
@@ -26,5 +26,11 @@ module Renderable
     status = EXCEPTION_STATUS[exception.class] || :internal_server_error
 
     render json: { errors: message }, status: status
+  end
+
+  def unauthorized_message
+    message = 'Not authorized access'
+
+    render json: { errors: message }, status: :forbidden
   end
 end

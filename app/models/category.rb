@@ -1,5 +1,7 @@
 class Category < ApplicationRecord
   include Categoryable
 
-  has_many :products
+  acts_as_paranoid
+
+  has_many :products, -> { where(status: :active) }
 end
