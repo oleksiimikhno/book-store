@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-
 class Api::V1::PasswordsController < ApplicationController
+  before_action :password_params, only: :update
+
   def update
     authorize current_user
 
     if authenticate?(current_user, params[:old_password])
-      current_user.update_attribute(:password, params[:password])
+      current_user.update(password: params[:password])
 
       render_success(data: user_data_with_token)
     else
@@ -16,7 +17,7 @@ class Api::V1::PasswordsController < ApplicationController
 
   private
 
-  def user_params
-    params.permit(:email, :password, :old_password)
+  def password_params
+    params.permit(:password, :old_password)
   end
 end
