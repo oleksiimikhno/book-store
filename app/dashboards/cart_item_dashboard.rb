@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class CartDashboard < Administrate::BaseDashboard
+class CartItemDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -9,8 +9,10 @@ class CartDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    status: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
-    user: Field::BelongsTo,
+    cart: Field::BelongsTo,
+    price: Field::Number.with_options(decimals: 2),
+    product: Field::BelongsTo,
+    quantity: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -22,8 +24,9 @@ class CartDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    status
-    user
+    cart
+    price
+    product
     created_at
     updated_at
   ].freeze
@@ -32,8 +35,10 @@ class CartDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    status
-    user
+    cart
+    price
+    product
+    quantity
     created_at
     updated_at
   ].freeze
@@ -42,12 +47,16 @@ class CartDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES_NEW = %i[
-    status
-    user
+    cart
+    price
+    product
+    quantity
   ].freeze
 
   FORM_ATTRIBUTES_EDIT = %i[
-    status
+    price
+    product
+    quantity
   ].freeze
 
   # COLLECTION_FILTERS
@@ -62,10 +71,10 @@ class CartDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how carts are displayed
+  # Overwrite this method to customize how cart items are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(cart)
-  #   "Cart ##{cart.id}"
+  # def display_resource(cart_item)
+  #   "CartItem ##{cart_item.id}"
   # end
 end

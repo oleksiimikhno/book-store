@@ -2,11 +2,15 @@
 
 class Api::V1::CartsController < ApplicationController
   before_action :cart_params, only: %i[create update]
-  before_action :set_carts, only: :index
   before_action :set_cart, only: %i[show update]
+  before_action :pundit_authorize, except: %i[index create]
 
   def index
-    render_success(data: @carts, each_serializer: Api::V1::CartSerializer)
+    carts = current_user.carts
+
+    authorize carts
+
+    render_success(data: carts, each_serializer: Api::V1::CartSerializer)
   end
 
   def show
@@ -15,6 +19,8 @@ class Api::V1::CartsController < ApplicationController
 
   def create
     cart = current_user.carts.create!(cart_params)
+
+    authorize cart
 
     render_success(data: cart, status: :created, serializer: Api::V1::CartSerializer)
   end
@@ -27,12 +33,12 @@ class Api::V1::CartsController < ApplicationController
 
   private
 
-  def set_cart
-    @cart = current_user.carts.find(params[:id])
+  def pundit_authorize
+    authorize @cart
   end
 
-  def set_carts
-    @carts = current_user.carts
+  def set_cart
+    @cart = current_user.carts.find(params[:id])
   end
 
   def cart_params
