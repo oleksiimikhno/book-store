@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Product, type: :model do
   let(:product) { create(:product) }
-  let(:product2) { create(:product) }
+  let(:second_product) { create(:product) }
 
   it 'creates a product' do
     expect(product).to be_valid
@@ -84,14 +84,14 @@ RSpec.describe Product, type: :model do
   end
 
   it 'is a product with highest price at first prosition' do
-    product2.update(price: 1)
+    second_product.update(price: 1)
     products = Product.all.order_by_price(:desc)
 
     expect(product).to eq(products.first)
   end
 
   it 'is a product with highest price at last prosition' do
-    product2.update(price: 1)
+    second_product.update(price: 1)
     products = Product.all.order_by_price(:asc)
 
     expect(product).to eq(products.last)
