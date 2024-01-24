@@ -253,8 +253,6 @@ paths:
       summary: show category products list
       tags:
       - Products
-      security:
-      - Bearer: []
       parameters:
       - name: limit
         in: query
@@ -271,6 +269,16 @@ paths:
         default: desc
         nullable: true
         description: sort products by orders "desc" and "asc"
+        schema:
+          type: string
+      - name: price
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by price "desc" and "asc"
         schema:
           type: string
       responses:
@@ -358,6 +366,16 @@ paths:
         default: desc
         nullable: true
         description: sort products by orders "desc" and "asc"
+        schema:
+          type: string
+      - name: price
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by price "desc" and "asc"
         schema:
           type: string
       responses:
