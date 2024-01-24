@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Product, type: :model do
   let(:product) { create(:product) }
+  let(:second_product) { create(:product) }
 
   it 'creates a product' do
     expect(product).to be_valid
@@ -64,7 +65,36 @@ RSpec.describe Product, type: :model do
 
   it 'is category_id cannot be negative' do
     product.category_id = -1
+
     expect(product).to_not be_valid
+  end
+
+  it 'is a last product should be at first position (default_sort)' do
+    expect(product).to eq(Product.all.first)
+  end
+
+  it 'should a last product at last position' do
+    products = Product.all.order_by_date(:asc)
+    expect(product).to eq(products.last)
+  end
+
+  it 'should a last product at first position' do
+    products = Product.all.order_by_date(:desc)
+    expect(product).to eq(products.last)
+  end
+
+  it 'is a product with highest price at first prosition' do
+    second_product.update(price: 1)
+    products = Product.all.order_by_price(:desc)
+
+    expect(product).to eq(products.first)
+  end
+
+  it 'is a product with highest price at last prosition' do
+    second_product.update(price: 1)
+    products = Product.all.order_by_price(:asc)
+
+    expect(product).to eq(products.last)
   end
 
   #TODO 
