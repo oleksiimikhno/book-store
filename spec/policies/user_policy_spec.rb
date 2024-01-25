@@ -7,7 +7,6 @@ RSpec.describe UserPolicy, type: :policy do
 
   subject { described_class }
 
-
   context 'with admin' do
     permissions :index?, :show?, :create?, :update?, :destroy? do
       it 'grants access to user for admin' do

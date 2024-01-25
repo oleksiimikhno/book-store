@@ -17,11 +17,14 @@ RSpec.describe 'api/v1/products', type: :request do
 
       let(:limit) { 20 }
       let(:order) { 'desc' }
+      let(:price) { 'desc' }
 
       parameter name: :limit, in: :query, type: :integer, default: 20, nullable: true,
                 description: 'limit items per page'
       parameter name: :order, in: :query, type: :string, enum: %w[desc asc], default: :desc, nullable: true,
                 description: 'sort products by orders "desc" and "asc"'
+      parameter name: :price, in: :query, type: :string, enum: %w[desc asc], default: :desc, nullable: true,
+                description: 'sort products by price "desc" and "asc"'
 
       response(200, 'successful') do
         header 'current-page', schema: { type: :integer }, description: 'The number of current page paggination'

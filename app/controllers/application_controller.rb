@@ -7,7 +7,6 @@ class ApplicationController < ActionController::API
 
   before_action :authorize_request
   rescue_from StandardError, with: :render_errors
-  rescue_from Pundit::NotAuthorizedError, with: :unauthorized_message
 
   private
 
