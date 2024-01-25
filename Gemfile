@@ -56,6 +56,9 @@ gem 'pagy'
 # Provides higher-level image processing helpers that are commonly needed when handling image uploads.
 gem 'image_processing', '>= 1.2'
 
+# Active Storage Validation https://github.com/igorkasyanchuk/active_storage_validations
+gem 'active_storage_validations'
+
 # for soft delete DB
 # gem 'paranoia', '~> 2.6'
 
