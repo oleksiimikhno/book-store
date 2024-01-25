@@ -14,6 +14,7 @@ class UserDashboard < Administrate::BaseDashboard
     first_name: Field::String,
     last_name: Field::String,
     password: Field::String,
+    status: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -28,6 +29,7 @@ class UserDashboard < Administrate::BaseDashboard
     first_name
     last_name
     email
+    status
     carts
   ].freeze
 
@@ -39,6 +41,7 @@ class UserDashboard < Administrate::BaseDashboard
     last_name
     email
     password
+    status
     created_at
     updated_at
     carts
@@ -51,6 +54,7 @@ class UserDashboard < Administrate::BaseDashboard
     first_name
     last_name
     email
+    status
     password
   ].freeze
 
