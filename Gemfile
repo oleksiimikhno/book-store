@@ -45,7 +45,7 @@ gem 'jwt'
 gem 'rswag'
 
 # add admin panel
-gem 'administrate'
+gem 'administrate', '~> 0.19.0'
 
 # add access rights
 gem 'pundit'
