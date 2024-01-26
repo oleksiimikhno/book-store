@@ -6,6 +6,19 @@ class Product < ApplicationRecord
   belongs_to :category
   has_many :cart_items
   has_many :carts, through: :cart_items
+  has_one_attached :image
+  has_many_attached :images
+
+  # TODO move to a validations
+  validates :image, content_type: %i[png jpg jpeg webp], size: {
+    between: 1.kilobyte..2.megabytes,
+    message: 'is not given between size'
+  }
+# , processable_image: true
+  validates :images, content_type: %i[png jpg jpeg webp], size: {
+    between: 1.kilobyte..2.megabytes,
+    message: 'is not given between size'
+  }
 
   enum :status, %i[active inactive archived], default: :active
 
