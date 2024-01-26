@@ -46,6 +46,7 @@ gem 'rswag'
 
 # add admin panel
 gem 'administrate', '~> 0.19.0'
+gem 'administrate-field-active_storage'
 
 # add access rights
 gem 'pundit'

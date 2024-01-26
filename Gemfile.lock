@@ -95,6 +95,9 @@ GEM
       kaminari (>= 1.0)
       sassc-rails (~> 2.1)
       selectize-rails (~> 0.6)
+    administrate-field-active_storage (1.0.1)
+      administrate (>= 0.2.2)
+      rails (>= 7.0)
     base64 (0.2.0)
     bcrypt (3.1.20)
     bigdecimal (3.1.6)
@@ -132,8 +135,8 @@ GEM
     image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
-    io-console (0.7.1)
-    irb (1.11.0)
+    io-console (0.7.2)
+    irb (1.11.1)
       rdoc
       reline (>= 0.4.2)
     jquery-rails (4.6.0)
@@ -327,7 +330,8 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   active_storage_validations
-  administrate
+  administrate (~> 0.19.0)
+  administrate-field-active_storage
   bcrypt (~> 3.1.7)
   bootsnap
   bullet
