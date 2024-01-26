@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class ProductDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -10,6 +10,7 @@ class ProductDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
+    image: Field::ActiveStorage,
     description: Field::Text,
     meta_description: Field::Text,
     meta_title: Field::String,
@@ -29,6 +30,7 @@ class ProductDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     name
+    image
     description
     meta_description
     meta_title
@@ -45,6 +47,7 @@ class ProductDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     name
+    image
     description
     meta_description
     meta_title
@@ -60,6 +63,7 @@ class ProductDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     name
+    image
     description
     meta_description
     meta_title

@@ -46,12 +46,19 @@ gem 'rswag'
 
 # add admin panel
 gem 'administrate', '~> 0.19.0'
+gem 'administrate-field-active_storage'
 
 # add access rights
 gem 'pundit'
 
 # pagination https://ddnexus.github.io/pagy/
 gem 'pagy'
+
+# Provides higher-level image processing helpers that are commonly needed when handling image uploads.
+gem 'image_processing', '>= 1.2'
+
+# Active Storage Validation https://github.com/igorkasyanchuk/active_storage_validations
+gem 'active_storage_validations'
 
 # for soft delete DB
 # gem 'paranoia', '~> 2.6'
