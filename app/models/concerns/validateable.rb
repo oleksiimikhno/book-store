@@ -15,9 +15,9 @@ module Validateable
       validates name, presence: true, numericality: { greater_than_or_equal_to: lenght }
     end
 
-    def self.validate_image(name)
-      validates name, content_type: %i[png jpg jpeg webp], size: {
-        between: 1.kilobyte..2.megabytes,
+    def self.validate_image(name, size = Constable::IMAGE_SIZE)
+      validates name, content_type: Constable::IMAGE_FORMATS, size: {
+        between: size,
         message: 'is not given between size 1KB and 2MB'
       }
     end
