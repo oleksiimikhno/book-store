@@ -10,7 +10,8 @@ class ProductDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
-    image: Field::ActiveStorage,
+    image: Field::ActiveStorage.with_options(show_preview_size: [150, 150]),
+    images: Field::ActiveStorage.with_options(show_preview_size: [150, 150]),
     description: Field::Text,
     meta_description: Field::Text,
     meta_title: Field::String,
@@ -31,14 +32,10 @@ class ProductDashboard < Administrate::BaseDashboard
     id
     name
     image
-    description
-    meta_description
-    meta_title
     price
     quantity
     status
     category
-    created_at
     updated_at
   ].freeze
 
@@ -47,12 +44,13 @@ class ProductDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     name
-    image
     description
     meta_description
     meta_title
     price
     quantity
+    image
+    images
     status
     created_at
     updated_at
@@ -63,12 +61,13 @@ class ProductDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     name
-    image
     description
     meta_description
     meta_title
     price
     quantity
+    image
+    images
     status
     category
   ].freeze
