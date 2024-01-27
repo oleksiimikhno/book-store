@@ -11,7 +11,7 @@ FactoryBot.define do
     association :category, factory: :category
 
     trait :with_image do
-      after :create do |product|
+      after :build do |product|
         product.image.attach(
           io: File.open('spec/fixtures/images/image.jpeg'), filename: 'image.jpg', content_type: 'image/jpeg'
         )
