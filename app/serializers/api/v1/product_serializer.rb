@@ -9,7 +9,7 @@ class Api::V1::ProductSerializer < ActiveModel::Serializer
   def image
     return unless object.image.attached?
 
-    image_url(object.image)
+    image_url([object.image])
   end
 
   def images
@@ -19,10 +19,6 @@ class Api::V1::ProductSerializer < ActiveModel::Serializer
   end
 
   def image_url(images)
-    if images.is_a?(ActiveStorage::Attached::Many)
-      images.map { |image| rails_blob_path(image, only_path: true) }
-    else
-      rails_blob_path(images, only_path: true)
-    end
+    images.map { |image| rails_blob_path(image, only_path: true) }
   end
 end
