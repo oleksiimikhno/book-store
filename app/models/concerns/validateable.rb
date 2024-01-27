@@ -18,7 +18,7 @@ module Validateable
     def self.validate_image(name)
       validates name, content_type: %i[png jpg jpeg webp], size: {
         between: 1.kilobyte..2.megabytes,
-        message: 'is not given between size'
+        message: 'is not given between size 1KB and 2MB'
       }
     end
   end
