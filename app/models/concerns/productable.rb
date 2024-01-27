@@ -13,5 +13,7 @@ module Productable
     validate_field_positive_integer(:quantity)
     validate_field_positive_integer(:price)
     validate_field_positive_integer(:category_id)
+    validate_image(:image)
+    validate_image(:images)
   end
 end

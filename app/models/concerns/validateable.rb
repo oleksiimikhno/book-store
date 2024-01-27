@@ -14,5 +14,12 @@ module Validateable
     def self.validate_field_positive_integer(name, lenght = 0)
       validates name, presence: true, numericality: { greater_than_or_equal_to: lenght }
     end
+
+    def self.validate_image(name)
+      validates name, content_type: %i[png jpg jpeg webp], size: {
+        between: 1.kilobyte..2.megabytes,
+        message: 'is not given between size'
+      }
+    end
   end
 end
