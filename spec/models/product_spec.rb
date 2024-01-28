@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Product, type: :model do
   let(:product) { create(:product) }
   let(:second_product) { create(:product) }
-  # let(:product) { create(:product, :with_image) }
 
   it 'creates a product' do
     expect(product).to be_valid
@@ -85,13 +84,13 @@ RSpec.describe Product, type: :model do
 
     it 'should a last product at last position' do
       products = Product.all.order_by_date(:asc)
-      # debugger
+
       expect(product).to eq(products.last)
     end
 
     it 'should a last product at first position' do
       products = Product.all.order_by_date(:desc)
-      
+
       expect(product).to eq(products.last)
     end
 
@@ -119,24 +118,9 @@ RSpec.describe Product, type: :model do
       is_expected.to validate_content_type_of(:images).allowing(:webp, :jpg, :jpeg, :png)
     end
 
-    # it 'should image can be blank' do
-
-    #   # debugger
-    #   is_expected.to validate_attached_of(:image).allow_blank
-    # end
-
-
-#     it 'should should images attacheds'
-    # it { is_expected.to validate_attached_of(:image) }
-
-
-    # it { is_expected.to validate_size_of(:avatar).between(100..500.kilobytes) }
-
-    # it { is_expected.to validate_attached_of(:avatar).allow_blank }
-
-    # it { is_expected.to validate_attached_of(:avatar).on(:update) }
-
-    # it { is_expected.to validate_dimensions_of(:avatar).width(250).with_message('Invalid dimensions.') }
+    it 'should image have currect size' do
+      is_expected.to validate_size_of(:image).between(1.kilobyte..2.megabytes)
+    end
   end
 
   #TODO 
