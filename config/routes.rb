@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, :carts, :products, :cart_items, :categories, only: %i[index show new create edit update destroy]
 
+    resources :products do
+      delete :image, on: :member, action: :destroy_image
+      delete :images, on: :member, action: :destroy_images
+    end
+
     root to: 'users#index'
   end
 
