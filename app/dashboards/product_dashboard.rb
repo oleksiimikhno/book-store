@@ -12,13 +12,13 @@ class ProductDashboard < Administrate::BaseDashboard
     name: Field::String,
     image: Field::ActiveStorage.with_options(
       show_preview_size: [150, 150],
-      destroy_image: proc do |namespace, resource, attachment|
-        [:images_admin_product, { attachment_id: attachment.id }]
+      destroy_url: proc do |namespace, resource, attachment|
+        [:image_admin_product, { attachment_id: attachment.id }]
       end
     ),
     images: Field::ActiveStorage.with_options(
-      show_preview_size: [150, 150],
-      destroy_images: proc do |namespace, resource, attachment|
+      show_preview_size: [150, 150], index_display_preview: false,
+      destroy_url: proc do |namespace, resource, attachment|
         [:images_admin_product, { attachment_id: attachment.id }]
       end
     ),
@@ -41,7 +41,6 @@ class ProductDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     name
-    image
     price
     quantity
     status
@@ -60,7 +59,6 @@ class ProductDashboard < Administrate::BaseDashboard
     price
     quantity
     image
-    images
     status
     created_at
     updated_at
@@ -98,10 +96,8 @@ class ProductDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
 
-  def destroy_image
-    image = requested_resource.image
-    image.purge
-    redirect_back(fallback_location: requested_resource)
+  def permitted_attributes(action)
+    super + [:images => []]
   end
 
   def display_resource(product)
