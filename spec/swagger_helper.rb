@@ -61,6 +61,8 @@ RSpec.configure do |config|
               meta_description: { type: :string, nullable: true },
               price: { type: :float, default: 0.0 },
               quantity: { type: :integer, default: 0 },
+              image: { type: :array, items: { type: :string }, nullable: true },
+              images: { type: :array, items: { type: :string }, nullable: true },
               category_id: { type: :integer },
               status: { type: :string, enum: %w[active inactive archived], default: :active }
             },

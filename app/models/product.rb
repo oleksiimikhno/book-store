@@ -7,6 +7,9 @@ class Product < ApplicationRecord
   has_many :cart_items
   has_many :carts, through: :cart_items
 
+  has_one_attached :image, dependent: :destroy
+  has_many_attached :images, dependent: :destroy
+
   enum :status, %i[active inactive archived], default: :active
 
   default_scope { order(created_at: :desc) }
