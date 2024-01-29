@@ -14,5 +14,12 @@ module Validateable
     def self.validate_field_positive_integer(name, lenght = 0)
       validates name, presence: true, numericality: { greater_than_or_equal_to: lenght }
     end
+
+    def self.validate_image(name, size = Constable::IMAGE_SIZE)
+      validates name, content_type: Constable::IMAGE_FORMATS, size: {
+        between: size,
+        message: 'is not given between size 1KB and 2MB'
+      }
+    end
   end
 end

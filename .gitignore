@@ -37,3 +37,6 @@
 
 # Ignore simplecov front
 /coverage
+
+# ignore mac files
+.DS_Store

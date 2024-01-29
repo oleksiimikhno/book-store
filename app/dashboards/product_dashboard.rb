@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class ProductDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -10,6 +10,18 @@ class ProductDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
+    image: Field::ActiveStorage.with_options(
+      show_preview_size: [150, 150],
+      destroy_url: proc do |namespace, resource, attachment|
+        [:images_admin_product, { attachment_id: attachment.id }]
+      end
+    ),
+    images: Field::ActiveStorage.with_options(
+      show_preview_size: [150, 150],
+      destroy_url: proc do |namespace, resource, attachment|
+        [:images_admin_product, { attachment_id: attachment.id }]
+      end
+    ),
     description: Field::Text,
     meta_description: Field::Text,
     meta_title: Field::String,
@@ -29,14 +41,11 @@ class ProductDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     name
-    description
-    meta_description
-    meta_title
+    image
     price
     quantity
     status
     category
-    created_at
     updated_at
   ].freeze
 
@@ -50,6 +59,8 @@ class ProductDashboard < Administrate::BaseDashboard
     meta_title
     price
     quantity
+    image
+    images
     status
     created_at
     updated_at
@@ -65,6 +76,8 @@ class ProductDashboard < Administrate::BaseDashboard
     meta_title
     price
     quantity
+    image
+    images
     status
     category
   ].freeze
@@ -84,6 +97,13 @@ class ProductDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how products are displayed
   # across all pages of the admin dashboard.
   #
+
+  def destroy_image
+    image = requested_resource.image
+    image.purge
+    redirect_back(fallback_location: requested_resource)
+  end
+
   def display_resource(product)
     "Product ##{product.id} - #{product.name} (Category: #{product.category.name})"
   end

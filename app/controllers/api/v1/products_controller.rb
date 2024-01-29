@@ -68,6 +68,7 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   def product_params
-    params.permit(:name, :description, :meta_title, :meta_description, :price, :quantity, :status, :category_id)
+    params.permit(:name, :description, :meta_title, :meta_description, :price, :quantity, :status, :category_id,
+                  :image, images: [])
   end
 end

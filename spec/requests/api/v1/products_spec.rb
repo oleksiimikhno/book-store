@@ -5,7 +5,6 @@ RSpec.describe 'api/v1/products', type: :request do
   let(:id) { product.id }
   let(:user) { create(:user) }
   let(:Authorization) { "Bearer #{generate_jwt_token(user)}" }
-  let(:limit) { 20 }
 
 
   path '/api/v1/products' do
