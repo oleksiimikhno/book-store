@@ -12,13 +12,13 @@ class ProductDashboard < Administrate::BaseDashboard
     name: Field::String,
     image: Field::ActiveStorage.with_options(
       show_preview_size: [150, 150],
-      destroy_url: proc do |namespace, resource, attachment|
+      destroy_image: proc do |namespace, resource, attachment|
         [:images_admin_product, { attachment_id: attachment.id }]
       end
     ),
     images: Field::ActiveStorage.with_options(
       show_preview_size: [150, 150],
-      destroy_url: proc do |namespace, resource, attachment|
+      destroy_images: proc do |namespace, resource, attachment|
         [:images_admin_product, { attachment_id: attachment.id }]
       end
     ),
