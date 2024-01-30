@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api-docs'
 
   namespace :admin do
-    resources :users, :carts, :products, :cart_items, :categories, only: %i[index show new create edit update destroy]
+    resources :users, :carts, :cart_items, :categories, only: %i[index show new create edit update destroy]
 
-    resources :products do
+    resources :products, only: %i[index show new create edit update destroy] do
       delete :image, on: :member, action: :destroy_image
       delete :images, on: :member, action: :destroy_images
     end
