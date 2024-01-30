@@ -468,6 +468,19 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/search":
+    get:
+      summary: search products with a title and a description
+      tags:
+      - Search
+      parameters:
+      - name: search text
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
   "/api/v1/login":
     post:
       summary: login
