@@ -1,12 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe 'api/v1/search', type: :request do
-  path '/api/v1/search' do
-    get('search products with a title and a description') do
-      tags 'Search'
+RSpec.describe 'api/v1/products_awaitings', type: :request do
+  path '/api/v1/products_awaitings' do
+    get('Products with status awaiting') do
+      tags 'Products'
       produces 'application/json'
 
-      let(:query) { 'qwery' }
       let(:limit) { 20 }
       let(:order) { 'desc' }
       let(:price) { 'desc' }
@@ -17,8 +16,6 @@ RSpec.describe 'api/v1/search', type: :request do
                 description: 'sort products by orders "desc" and "asc"'
       parameter name: :price, in: :query, type: :string, enum: %w[desc asc], default: :desc, nullable: true,
                 description: 'sort products by price "desc" and "asc"'
-
-      parameter name: :query, in: :query, type: :string
 
       response(200, 'successful') do
         header 'current-page', schema: { type: :integer }, description: 'The number of current page paggination'
