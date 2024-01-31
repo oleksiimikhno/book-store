@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-require 'pagy/extras/headers'
-
 class Api::V1::ProductsController < ApplicationController
-  include Pagy::Backend
   include Paginationable
   include Sortable
 
@@ -11,12 +8,11 @@ class Api::V1::ProductsController < ApplicationController
   before_action :product_params, only: %i[create update]
   before_action :set_category, if: -> { params[:category_id] }
   before_action :set_product, only: %i[show update destroy]
-  before_action :set_products, :limit_params, only: %i[index]
+  before_action :set_products, only: %i[index]
   before_action :pundit_authorize, except: %i[index create]
 
   def index
-    pagy, @products = pagy(@products, items: limit_params)
-    pagy_headers_merge(pagy)
+    products_with_pagination(@products)
 
     render_success(data: @products, status: :ok, each_serializer: Api::V1::ProductSerializer)
   end
@@ -57,9 +53,9 @@ class Api::V1::ProductsController < ApplicationController
 
   def set_products
     @products = if params[:category_id].present?
-                  @products = sort_with_params(@category.products, params)
+                  sort_with_params(@category.products, params)
                 else
-                  Product.all
+                  sort_with_params(Product.all, params)
                 end
   end
 
