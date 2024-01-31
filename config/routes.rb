@@ -33,6 +33,8 @@ Rails.application.routes.draw do
       resources :categories do
         resources :products, only: %i[index create]
       end
+
+      resources :search, only: :index
     end
   end
 end
