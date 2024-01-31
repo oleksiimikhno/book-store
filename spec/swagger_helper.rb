@@ -64,7 +64,7 @@ RSpec.configure do |config|
               image: { type: :array, items: { type: :string }, nullable: true },
               images: { type: :array, items: { type: :string }, nullable: true },
               category_id: { type: :integer },
-              status: { type: :string, enum: %w[active inactive archived], default: :active }
+              status: { type: :string, enum: %w[active inactive awaiting archived], default: :active }
             },
             required: %w[name description]
           },

@@ -345,6 +345,63 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/password_update"
+  "/api/v1/products_awaitings":
+    get:
+      summary: Products with status awaiting
+      tags:
+      - Products
+      parameters:
+      - name: limit
+        in: query
+        default: 20
+        nullable: true
+        description: limit items per page
+        schema:
+          type: integer
+      - name: order
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by orders "desc" and "asc"
+        schema:
+          type: string
+      - name: price
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by price "desc" and "asc"
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          headers:
+            current-page:
+              schema:
+                type: integer
+              description: The number of current page paggination
+            link:
+              schema:
+                type: string
+              description: The page links of the next and previous pages
+            page-items:
+              schema:
+                type: integer
+              description: The items per page
+            total-count:
+              schema:
+                type: integer
+              description: The total of all items
+            total-pages:
+              schema:
+                type: integer
+              description: The total of all pages
   "/api/v1/products":
     get:
       summary: list products
@@ -677,6 +734,7 @@ components:
           enum:
           - active
           - inactive
+          - awaiting
           - archived
           default: active
       required:
