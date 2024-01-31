@@ -62,6 +62,11 @@ RSpec.describe Product, type: :model do
       product.status = 'archived'
       expect(product.archived?).to be_truthy
     end
+
+    it 'should a product has awaiting status' do
+      product.status = 'awaiting'
+      expect(product.awaiting?).to be_truthy
+    end
   end
 
   context 'describe a product relatives' do
