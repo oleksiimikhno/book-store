@@ -1,11 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe 'api/v1/search', type: :request do
-  let(:query) { 'qwery' }
   path '/api/v1/search' do
     get('search products with a title and a description') do
       tags 'Search'
       produces 'application/json'
+
+      let(:query) { 'qwery' }
+      let(:limit) { 20 }
+      let(:order) { 'desc' }
+      let(:price) { 'desc' }
+
+      parameter name: :limit, in: :query, type: :integer, default: 20, nullable: true,
+                description: 'limit items per page'
+      parameter name: :order, in: :query, type: :string, enum: %w[desc asc], default: :desc, nullable: true,
+                description: 'sort products by orders "desc" and "asc"'
+      parameter name: :price, in: :query, type: :string, enum: %w[desc asc], default: :desc, nullable: true,
+                description: 'sort products by price "desc" and "asc"'
 
       parameter name: :query, in: :query, type: :string
 

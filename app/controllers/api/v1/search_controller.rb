@@ -5,6 +5,7 @@ require 'pagy/extras/headers'
 class Api::V1::SearchController < ApplicationController
   include Pagy::Backend
   include Paginationable
+  include Sortable
 
   skip_before_action :authorize_request
   before_action :search_params, :validates_params, :set_products, only: :index
@@ -18,7 +19,7 @@ class Api::V1::SearchController < ApplicationController
   private
 
   def set_products
-    @products = Product.all.search(params[:query])
+    @products = sort_with_params(Product.all.search(params[:query]), params)
   end
 
   def validates_params

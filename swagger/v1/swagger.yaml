@@ -474,6 +474,33 @@ paths:
       tags:
       - Search
       parameters:
+      - name: limit
+        in: query
+        default: 20
+        nullable: true
+        description: limit items per page
+        schema:
+          type: integer
+      - name: order
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by orders "desc" and "asc"
+        schema:
+          type: string
+      - name: price
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by price "desc" and "asc"
+        schema:
+          type: string
       - name: query
         in: query
         schema:
