@@ -10,8 +10,7 @@ class Api::V1::SearchController < ApplicationController
   before_action :search_params, :validates_params, :set_products, only: :index
 
   def index
-    pagy, @products = pagy(@products, items: limit_params)
-    pagy_headers_merge(pagy)
+    products_with_pagination(@products)
 
     render_success(data: @products, status: :ok, each_serializer: Api::V1::ProductSerializer)
   end
