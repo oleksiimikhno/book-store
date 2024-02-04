@@ -1,9 +1,9 @@
-class EmailRegistrationService
-  attr_attr_reader :user
+class Email::RegistrationService < ApplicationServices
+  attr_reader :user
 
   def initialize(user)
     @user = user
-    @host = equest.base_url
+    @host = 'request.base_url'
   end
 
   def call
