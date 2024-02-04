@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       end
 
       resources :products
+      resources :products_awaitings, only: :index
 
       resources :carts do
         resources :cart_items, except: :index
@@ -33,6 +34,8 @@ Rails.application.routes.draw do
       resources :categories do
         resources :products, only: %i[index create]
       end
+
+      resources :search, only: :index
     end
   end
 end

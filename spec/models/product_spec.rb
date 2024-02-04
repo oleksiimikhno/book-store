@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Product, type: :model do
   let(:product) { create(:product) }
   let(:second_product) { create(:product) }
+  let(:products) { FactoryBot.create_list(:product, 3) }
 
   it 'creates a product' do
     expect(product).to be_valid
@@ -62,6 +63,11 @@ RSpec.describe Product, type: :model do
       product.status = 'archived'
       expect(product.archived?).to be_truthy
     end
+
+    it 'should a product has awaiting status' do
+      product.status = 'awaiting'
+      expect(product.awaiting?).to be_truthy
+    end
   end
 
   context 'describe a product relatives' do
@@ -106,6 +112,28 @@ RSpec.describe Product, type: :model do
       products = Product.all.order_by_price(:asc)
 
       expect(product).to eq(products.last)
+    end
+  end
+
+  context 'descibe a product search' do
+    it 'should find product in title' do
+      product = products.last
+      product.update(name: '123123')
+
+      expect(product).to eq(Product.all.search('312').first)
+    end
+
+    it 'should find product in description' do
+      product = products.last
+      product.update(description: '123123')
+
+      expect(product).to eq(Product.all.search('312').first)
+    end
+
+    it 'should sort search query' do
+      products = Product.all.search('11')
+
+      expect(products).to match_array([])
     end
   end
 
