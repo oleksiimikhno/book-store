@@ -13,8 +13,8 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    user = User.create!(user_params)
-    EmailRegistrationService.call(user)
+    user = User::CreateService.call(user_params)
+    Email::RegistrationService.call(user)
 
     render_success(data: user_data_with_token(user), status: :created)
   end
