@@ -84,6 +84,9 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem 'spring'
 
+  # Preview email in the default browser instead of sending it.
+  gem 'letter_opener'
+
   # check n+n queries
   gem 'bullet'
 end
