@@ -3,9 +3,10 @@ class Email::RegistrationService < ApplicationServices
 
   def initialize(user)
     @user = user
+    @host = 'request.host'
   end
 
   def call
-    UserMailer.with(user: @user).registration_email.deliver_later
+    UserMailer.with(user: @user, host: @host).registration_email.deliver_later
   end
 end
