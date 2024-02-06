@@ -45,5 +45,7 @@ module BookStore
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use Rack::MethodOverride
     config.middleware.use ActionDispatch::Flash
+
+    config.action_mailer.default_url_options = { host: 'book-store-api-tc-5855f695cf77.herokuapp.com' }
   end
 end
