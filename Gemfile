@@ -60,6 +60,9 @@ gem 'image_processing', '>= 1.2'
 # Active Storage Validation https://github.com/igorkasyanchuk/active_storage_validations
 gem 'active_storage_validations'
 
+# Sidekiq worker for jobs
+gem 'sidekiq'
+
 # for soft delete DB
 # gem 'paranoia', '~> 2.6'
 
