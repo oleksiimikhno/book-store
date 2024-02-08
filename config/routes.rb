@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
+require 'sidekiq/web'
+
+Sidekiq::Web.app_url = '/'
+
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
+  mount Sidekiq::Web => '/sidekiq'
 
   namespace :admin do
     resources :users, :carts, :cart_items, :categories, only: %i[index show new create edit update destroy]
