@@ -14,7 +14,7 @@ class Api::V1::UsersController < ApplicationController
 
   def create
     user = User::CreateService.call(user_params)
-    Email::RegistrationService.call(user)
+    RegistrationEmailWorker.perform_async(user.id)
 
     render_success(data: user_data_with_token(user), status: :created)
   end
