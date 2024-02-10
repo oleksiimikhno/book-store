@@ -81,6 +81,9 @@ group :development, :test do
 
   # check test coverage
   gem 'simplecov', require: false, group: :test
+
+  # Simple testing of Sidekiq jobs via a collection of matchers and helpers.
+  gem 'rspec-sidekiq'
 end
 
 group :development do
