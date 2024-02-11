@@ -17,7 +17,7 @@ class OrderMailer < ApplicationMailer
   end
 
   def set_user
-    @user = User.find(params[:order][:user_id])
+    @user = User.find(@order.user_id)
   end
 
   def set_url
