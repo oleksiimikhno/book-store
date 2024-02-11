@@ -6,6 +6,6 @@ class OrderMailer < ApplicationMailer
     @user = @order.user
     @url = Rails.env.development? ? 'http://localhost:3000' : default_url_options
 
-    mail(to: @user.email, subject: 'Thank you for your registration!')
+    mail(to: @user.email, subject: "Thank you for your order ##{@order.id}!")
   end
 end
