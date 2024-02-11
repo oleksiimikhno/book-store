@@ -22,13 +22,12 @@ class Api::V1::CartsController < ApplicationController
 
     authorize cart
 
-    Email::OrderCompletedWorker.perform_async(cart.id)
-
     render_success(data: cart, status: :created, serializer: Api::V1::CartSerializer)
   end
 
   def update
     @cart.update!(cart_params)
+    Email::OrderStatusService.call(@cart)
 
     render_success(data: @cart, status: :ok, serializer: Api::V1::CartSerializer)
   end
