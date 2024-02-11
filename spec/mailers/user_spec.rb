@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe UserMailer, type: :mailer do
   let(:user) { create(:user) }
-  let(:email) { UserMailer.registration_email(user).deliver_now }
+  let(:email) { UserMailer.with(user: user).registration_email.deliver_now }
 
   let(:email_data) do
     {
