@@ -9,7 +9,7 @@ RSpec.describe Product, type: :model do
     expect(product).to be_valid
   end
 
-  context 'descibe a product string fields' do
+  context 'describe a product string fields' do
     it 'should a meta_title length below 20' do
       product.meta_title = '123'
       expect(product).to_not be_valid
@@ -83,7 +83,7 @@ RSpec.describe Product, type: :model do
     end
   end
 
-  context 'descibe a product sort methods' do
+  context 'describe a product sort methods' do
     it 'should a last product should be at first position (default_sort)' do
       expect(product).to eq(Product.all.first)
     end
@@ -115,7 +115,7 @@ RSpec.describe Product, type: :model do
     end
   end
 
-  context 'descibe a product search' do
+  context 'describe a product search' do
     it 'should find product in title' do
       product = products.last
       product.update(name: '123123')
