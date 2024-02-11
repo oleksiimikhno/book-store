@@ -11,7 +11,7 @@ RSpec.describe UserMailer, type: :mailer do
     }
   end
 
-  context 'descibe user registration' do
+  context 'describe user registration' do
     it 'should the receiver email' do
       expect(email.to).to eq([user.email])
     end
