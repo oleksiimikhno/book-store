@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'sidekiq/testing'
+
 RSpec.describe 'Test sending email with sidekiq', type: :request do
   let(:user) { create(:user) }
 
