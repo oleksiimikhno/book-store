@@ -7,7 +7,7 @@ class OrderMailer < ApplicationMailer
   end
 
   def order_changed_status_email
-    mail(to: @user.email, subject: "Your order ##{@order.id} status changed to ##{@order.status}!")
+    mail(to: @user.email, subject: "Your order ##{@order.id} status changed to #{@order.status}!")
   end
 
   private
