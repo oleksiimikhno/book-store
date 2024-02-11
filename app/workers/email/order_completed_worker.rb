@@ -6,6 +6,6 @@ class Email::OrderCompletedWorker
   def perform(cart_id)
     cart = Cart.find_by(id: cart_id)
 
-    OrderMailer.with(cart: cart).order_completed_email.deliver_later if cart
+    OrderMailer.with(order: cart).order_completed_email.deliver_later if cart
   end
 end
