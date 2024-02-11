@@ -3,6 +3,6 @@
 
 class OrderPreview < ActionMailer::Preview
   def order_completed_email
-    OrderMailer.with(user: Order.first).order_completed_email
+    OrderMailer.with(order: Order.first).order_completed_email
   end
 end

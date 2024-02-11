@@ -12,7 +12,7 @@ RSpec.describe OrderMailer, type: :mailer do
   end
 
   context 'descibe order completed' do
-    let(:email) { OrderMailer.order_completed_email(cart).deliver_now }
+    let(:email) { OrderMailer.with(order: cart).order_completed_email.deliver_now }
 
     it 'should has an user email' do
       expect(email.to).to eq([cart.user.email])
