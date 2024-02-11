@@ -7,9 +7,9 @@ class Email::OrderStatusService < ApplicationServices
 
   def call
     if @order.paid?
-      Email::OrderCompletedWorker.perform_async(cart.id)
+      Email::OrderCompletedWorker.perform_async(@order.id)
     else
-      Email::OrderChangedStatusWorker.perform_async(cart.id)
+      Email::OrderChangedStatusWorker.perform_async(@order.id)
     end
   end
 end
