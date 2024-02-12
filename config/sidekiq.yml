@@ -1,0 +1,12 @@
+:concurrency: 3
+:timeout: 60
+:verbose: true
+:queues:
+  - critical
+  - default
+  - mailers
+  - active_storage_analysis
+  - active_storage_purge
+
+production:
+  url: <%= Rails.application.credentials.dig(:REDISCLOUD_URL) %>
