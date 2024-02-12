@@ -9,4 +9,4 @@
   - active_storage_purge
 
 production:
-  url: <%= ENV['REDISCLOUD_URL'] %>
+  url: redis://default:mqHrNVFFMwrHc2exnrp4kHBXBAIOTe92@redis-15818.c3.eu-west-1-1.ec2.cloud.redislabs.com:15818
