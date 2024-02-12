@@ -251,6 +251,8 @@ GEM
     rake (13.1.0)
     rdoc (6.6.2)
       psych (>= 4.0.0)
+    redis (5.1.0)
+      redis-client (>= 0.17.0)
     redis-client (0.19.1)
       connection_pool
     reline (0.4.2)
@@ -363,6 +365,7 @@ DEPENDENCIES
   pundit
   rack-cors
   rails (~> 7.1.2)
+  redis (~> 5.1)
   rspec-rails (~> 6.1.0)
   rspec-sidekiq
   rswag
