@@ -62,6 +62,8 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter = :sidekiq
+
+  config.redis = { url: Rails.application.credentials.dig(:REDISCLOUD_URL) { "redis://localhost:6379/1" } }
   # config.active_job.queue_name_prefix = "book_store_production"
 
   config.action_mailer.perform_caching = false
