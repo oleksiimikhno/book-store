@@ -62,6 +62,7 @@ gem 'active_storage_validations'
 
 # Sidekiq worker for jobs
 gem 'sidekiq'
+gem 'sidekiq-status', '~> 3.0', '>= 3.0.3'
 
 # for soft delete DB
 # gem 'paranoia', '~> 2.6'
