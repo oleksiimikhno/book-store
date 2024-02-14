@@ -14,15 +14,13 @@ class ProductDashboard < Administrate::BaseDashboard
       show_preview_size: [150, 150],
       destroy_url: proc do |namespace, resource, attachment|
         [:image_admin_product, { attachment_id: attachment.id }]
-      end,
-      only: :show
+      end
     ),
     images: Field::ActiveStorage.with_options(
       show_preview_size: [150, 150], index_display_preview: false,
       destroy_url: proc do |namespace, resource, attachment|
         [:images_admin_product, { attachment_id: attachment.id }]
-      end,
-      only: :show
+      end
     ),
     description: Field::Text,
     meta_description: Field::Text,
