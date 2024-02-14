@@ -15,7 +15,7 @@ gem 'puma', '>= 5.0'
 # gem 'jbuilder'
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 5.1'
+gem 'redis'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem 'kredis'
@@ -61,8 +61,7 @@ gem 'image_processing', '>= 1.2'
 gem 'active_storage_validations'
 
 # Sidekiq worker for jobs
-gem 'sidekiq'
-gem 'sidekiq-status', '~> 3.0', '>= 3.0.3'
+gem 'sidekiq', '~> 6.5', '>= 6.5.12'
 
 # for soft delete DB
 # gem 'paranoia', '~> 2.6'
