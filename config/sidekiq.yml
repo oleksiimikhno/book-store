@@ -1,12 +1,3 @@
-:concurrency: 3
-:timeout: 60
-:verbose: true
+---
 :queues:
-  - critical
   - default
-  - mailers
-  - active_storage_analysis
-  - active_storage_purge
-
-production:
-  url: redis://default:mqHrNVFFMwrHc2exnrp4kHBXBAIOTe92@redis-15818.c3.eu-west-1-1.ec2.cloud.redislabs.com:15818

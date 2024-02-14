@@ -1,16 +1,10 @@
 development:
-  adapter: redis
-  url: redis://localhost:6379/1
-  channel_prefix: book_store_development
+  adapter: async
 
 test:
-  adapter: redis
-  url: redis://localhost:6379/1
-  channel_prefix: book_store_test
+  adapter: test
 
 production:
   adapter: redis
   url: <%= ENV.fetch("REDISCLOUD_URL") { "redis://localhost:6379/1" } %>
   channel_prefix: book_store_production
-  ssl_params:
-    verify_mode: <%= OpenSSL::SSL::VERIFY_NONE %>
