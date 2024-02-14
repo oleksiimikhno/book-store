@@ -2,4 +2,4 @@
 :queues:
   - default
 
-:retry: 3
+:max_retries: 1
