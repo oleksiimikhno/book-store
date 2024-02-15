@@ -19,6 +19,6 @@ class Api::V1::ProductSerializer < ActiveModel::Serializer
   end
 
   def image_url(images)
-    images.map { |image| rails_blob_path(image, only_path: true) }
+    images.map { |image| Rails.application.routes.url_helpers.rails_blob_url(image, only_path: true) }
   end
 end
