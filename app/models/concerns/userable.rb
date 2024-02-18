@@ -2,6 +2,7 @@
 
 module Userable
   extend ActiveSupport::Concern
+  include Validateable
   include Constable
 
   included do
@@ -11,14 +12,6 @@ module Userable
                         with: Constable::REGEXP_USER,
                         message: 'Only Latin letters Cyrillic and space are allowed, no special characters'
                       }
-    end
-
-    def self.validate_email
-      validates :email, presence: true, uniqueness: true, length: { in: Constable::EMAIL_LENGTH },
-                        format: {
-                          with: Constable::REGEXP_EMAIL,
-                          message: 'Should be in the format: test@test.com'
-                        }
     end
 
     def self.validate_password

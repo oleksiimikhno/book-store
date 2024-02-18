@@ -21,5 +21,13 @@ module Validateable
         message: 'is not given between size 1KB and 2MB'
       }
     end
+
+    def self.validate_email
+      validates :email, presence: true, uniqueness: true, length: { in: Constable::EMAIL_LENGTH },
+                        format: {
+                          with: Constable::REGEXP_EMAIL,
+                          message: 'Should be in the format: test@test.com'
+                        }
+    end
   end
 end
