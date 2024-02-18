@@ -28,4 +28,15 @@ RSpec.describe Subscription, type: :model do
     subscription.update(user_id: nil)
     expect(subscription[:user_id]).to be_nil
   end
+
+  it 'should have an unsubscription token' do
+    expect(subscription.unsubscription_token).to_not be_nil
+  end
+
+  it 'should generate new token' do
+    old_token = subscription.unsubscription_token
+    subscription.regenerate_unsubscription_token
+
+    expect(subscription.unsubscription_token).to_not eq(old_token)
+  end
 end
