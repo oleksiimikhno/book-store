@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       end
 
       resources :search, only: :index
+      resources :subscription, only: %i[index create update]
     end
   end
 end
