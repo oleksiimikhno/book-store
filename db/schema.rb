@@ -91,8 +91,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_18_180047) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "unsubscription_token"
-    t.index ["unsubscription_token"], name: "index_subscriptions_on_unsubscription_token", unique: true
+    t.string "token"
+    t.index ["token"], name: "index_subscriptions_on_token", unique: true
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
