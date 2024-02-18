@@ -1,4 +1,4 @@
-class Email::SubscriptionUpdateStatusService < ApplicationServices
+class Email::SubscriptionRemoveService < ApplicationServices
   attr_reader :params
   before_action :set_subscription, :set_token
 
@@ -7,7 +7,9 @@ class Email::SubscriptionUpdateStatusService < ApplicationServices
   end
 
   def call
-    @subscription
+    raise StandardError, 'Subscription token incorrect!' unless @token
+
+    @subscription.destroy
   end
 
   private
@@ -17,9 +19,7 @@ class Email::SubscriptionUpdateStatusService < ApplicationServices
     raise StandardError, 'Subscription email incorrect!' if @subscription.empty?
   end
 
-  def set_token
-    raise StandardError, 'Subscription token incorrect!' unless @subscription.unsubscribe_token == params[:token]
-
-    @subscription.update(status: params[:status])
+  def token
+    @token = @subscription.unsubscribe_token == params[:token]
   end
 end
