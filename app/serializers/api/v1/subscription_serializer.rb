@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 class Api::V1::SubscriptionSerializer < ActiveModel::Serializer
-  attributes :email, :user_id, :status
+  attributes :email, :status, :unsubscription_token
 end
