@@ -43,7 +43,10 @@ Rails.application.routes.draw do
       end
 
       resources :search, only: :index
-      resources :subscription, only: %i[index create update]
+
+      resources :subscriptions, only: %i[create]
+      delete '/unsubscription', to: 'subscriptions#destroy'
+      get '/subscription', to: 'subscriptions#show'
     end
   end
 end
