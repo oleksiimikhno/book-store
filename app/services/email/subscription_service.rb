@@ -1,6 +1,5 @@
 class Email::SubscriptionService < ApplicationServices
   attr_reader :params
-  # before_action :set_subscription, :set_user
 
   def initialize(params)
     @params = params
