@@ -117,6 +117,13 @@ RSpec.configure do |config|
             },
             required: %w[old_password password]
           },
+          subscription: {
+            type: 'object',
+            properties: {
+              email: { type: :string }
+            },
+            required: %w[email]
+          }
         },
         securitySchemes: {
           Bearer: {
