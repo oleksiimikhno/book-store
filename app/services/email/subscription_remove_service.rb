@@ -1,13 +1,13 @@
 class Email::SubscriptionRemoveService < ApplicationServices
   attr_reader :params
-  before_action :set_subscription, :set_token
 
   def initialize(params)
     @params = params
+    @subscription = set_subscription
   end
 
   def call
-    raise StandardError, 'Subscription token incorrect!' unless @token
+    raise StandardError, 'Subscription token incorrect!' if @subscription.nil?
 
     @subscription.destroy
   end
@@ -15,11 +15,6 @@ class Email::SubscriptionRemoveService < ApplicationServices
   private
 
   def set_subscription
-    @subscription = Subscription.find_by(email: params[:email])
-    raise StandardError, 'Subscription email incorrect!' if @subscription.empty?
-  end
-
-  def token
-    @token = @subscription.unsubscribe_token == params[:token]
+    Subscription.find_by(token: params[:token])
   end
 end

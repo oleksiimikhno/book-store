@@ -1,14 +1,16 @@
 class Email::SubscriptionService < ApplicationServices
   attr_reader :params
-  before_action :set_subscription, :set_user
+  # before_action :set_subscription, :set_user
 
   def initialize(params)
     @params = params
+    @subscription = set_subscription
+    @user = set_user
   end
 
   def call
     if @user
-      @user.subscription.create!(params)
+      Subscription.create!(email: @user.email)
     else
       Subscription.create!(params)
     end
@@ -22,6 +24,6 @@ class Email::SubscriptionService < ApplicationServices
   end
 
   def set_user
-    @user = User.find_by(email: params[:email])
+    User.find_by(email: params[:email])
   end
 end
