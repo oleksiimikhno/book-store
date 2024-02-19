@@ -5,7 +5,10 @@ class Api::V1::SubscriptionsController < ApplicationController
   before_action :set_subscription, only: :destroy
 
   def show
-    render_success(data: current_user.subscription, status: :ok, serializer: Api::V1::SubscriptionSerializer)
+    subscription = current_user.subscription
+    authorize subscription
+
+    render_success(data: subscription, status: :ok, serializer: Api::V1::SubscriptionSerializer)
   end
 
   def create
