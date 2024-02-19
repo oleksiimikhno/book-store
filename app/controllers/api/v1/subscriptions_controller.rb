@@ -2,7 +2,7 @@
 
 class Api::V1::SubscriptionsController < ApplicationController
   skip_before_action :authorize_request, only: %i[create destroy]
-  # before_action :pundit_authorize, except: :show
+  before_action :set_subscription, only: :destroy
 
   def show
     render_success(data: current_user.subscription, status: :ok, serializer: Api::V1::SubscriptionSerializer)
@@ -14,7 +14,7 @@ class Api::V1::SubscriptionsController < ApplicationController
   end
 
   def destroy
-    Email::SubscriptionRemoveService.call(params)
+    @subscription.destroy
     render_success(data: { message: 'You are unsubscribe!' }, status: :ok)
   end
 
@@ -22,6 +22,11 @@ class Api::V1::SubscriptionsController < ApplicationController
 
   def set_user
     @user = @subscription.user
+  end
+
+  def set_subscription
+    @subscription = Subscription.find_by(token: params[:token])
+    raise StandardError, 'Subscription token incorrect!' if @subscription.nil?
   end
 
   def subscription_params
