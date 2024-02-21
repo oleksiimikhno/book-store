@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_21_172756) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "token"
-    t.string "name"
+    t.string "first_name"
     t.index ["token"], name: "index_subscriptions_on_token", unique: true
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end

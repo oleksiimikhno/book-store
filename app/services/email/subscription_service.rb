@@ -9,7 +9,7 @@ class Email::SubscriptionService < ApplicationServices
 
   def call
     if @user
-      Subscription.create!(email: @user.email)
+      Subscription.create!(first_name: @user.first_name, email: @user.email)
     else
       Subscription.create!(params)
     end

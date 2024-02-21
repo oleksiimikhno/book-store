@@ -33,6 +33,6 @@ class Api::V1::SubscriptionsController < ApplicationController
   end
 
   def subscription_params
-    params.permit(:email)
+    params.permit(:first_name, :email)
   end
 end

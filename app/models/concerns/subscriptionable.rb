@@ -6,7 +6,7 @@ module Subscriptionable
   include Constable
 
   included do
-    validate_user_name(:name)
+    validate_user_name
     validate_email
   end
 end
