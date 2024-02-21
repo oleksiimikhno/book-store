@@ -63,6 +63,9 @@ gem 'active_storage_validations'
 # Sidekiq worker for jobs
 gem 'sidekiq', '~> 6.5', '>= 6.5.12'
 
+# sidekiq-scheduler is an extension to Sidekiq that pushes jobs in a scheduled way, mimicking cron utility.
+gem 'sidekiq-scheduler'
+
 # for soft delete DB
 # gem 'paranoia', '~> 2.6'
 
