@@ -4,5 +4,5 @@ class Subscription < ApplicationRecord
   belongs_to :user, optional: true
   has_secure_token :token
 
-  enum :status, %i[active inactive], default: :inactive
+  enum :status, %i[active inactive], default: :active
 end
