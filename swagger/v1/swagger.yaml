@@ -603,6 +603,50 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/session"
+  "/api/v1/subscription":
+    get:
+      summary: show subscription
+      tags:
+      - Subscriptions
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+  "/api/v1/subscriptions":
+    post:
+      summary: create subscription
+      tags:
+      - Subscriptions
+      parameters: []
+      responses:
+        '201':
+          description: subscription created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/subscription"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/subscription"
+  "/api/v1/unsubscription":
+    delete:
+      summary: destroy subscription
+      tags:
+      - Subscriptions
+      parameters:
+      - name: token
+        in: query
+        description: Token for updating the status of a subscription
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
   "/api/v1/users/all":
     get:
       summary: list users
@@ -809,6 +853,13 @@ components:
       required:
       - old_password
       - password
+    subscription:
+      type: object
+      properties:
+        email:
+          type: string
+      required:
+      - email
   securitySchemes:
     Bearer:
       type: http
