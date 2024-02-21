@@ -12,7 +12,7 @@ class Api::V1::SubscriptionsController < ApplicationController
   end
 
   def create
-    subscription = Email::SubscriptionService.call(params)
+    subscription = User::SubscriptionService.call(params)
     render_success(data: subscription, status: :created, serializer: Api::V1::SubscriptionSerializer)
   end
 

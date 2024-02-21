@@ -1,4 +1,4 @@
-class Email::SubscriptionService < ApplicationServices
+class User::SubscriptionService < ApplicationServices
   attr_reader :params
 
   def initialize(params)
