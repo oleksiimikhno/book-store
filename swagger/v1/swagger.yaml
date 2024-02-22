@@ -758,6 +758,11 @@ components:
         price:
           type: float
           default: 0.0
+        discount:
+          type: integer
+          default: 0
+        model:
+          type: string
         quantity:
           type: integer
           default: 0
