@@ -3,3 +3,9 @@
   - default
 
 :max_retries: 1
+
+:scheduler:
+  :schedule:
+    email_subsciption_bestseller:
+      cron: '* * * * * *'   # Runs once per minute
+      class: Email::SubscriptionBestsellerWorker
