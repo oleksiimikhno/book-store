@@ -60,7 +60,7 @@ RSpec.configure do |config|
               meta_title: { type: :string, nullable: true },
               meta_description: { type: :string, nullable: true },
               price: { type: :float, default: 0.0 },
-              discount: { type: :integer, default: 0 },
+              special_price: { type: :float, default: 0.0 },
               model: { type: :string },
               quantity: { type: :integer, default: 0 },
               image: { type: :array, items: { type: :string }, nullable: true },

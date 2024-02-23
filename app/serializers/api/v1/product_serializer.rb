@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::ProductSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :meta_title, :meta_description, :quantity, :price, :discount, :model,
+  attributes :id, :name, :description, :meta_title, :meta_description, :quantity, :price, :special_price, :model,
              :status, :category_id, :image, :images, :created_at
 
   def image

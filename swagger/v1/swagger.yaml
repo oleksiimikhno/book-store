@@ -758,9 +758,9 @@ components:
         price:
           type: float
           default: 0.0
-        discount:
-          type: integer
-          default: 0
+        special_price:
+          type: float
+          default: 0.0
         model:
           type: string
         quantity:
