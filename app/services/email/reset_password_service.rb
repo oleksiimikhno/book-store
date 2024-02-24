@@ -9,7 +9,7 @@ class Email::ResetPasswordService < ApplicationServices
   def call
     raise StandardError, 'User not found!' unless @user.present?
 
-    Email::ResetPasswordWorker.perform_async(@user)
+    Email::ResetPasswordWorker.perform_async(@user.id)
   end
 
   private
