@@ -12,9 +12,11 @@ class Product < ApplicationRecord
 
   enum :status, %i[active inactive awaiting archived], default: :active
 
-  default_scope { order(created_at: :desc) }
+  default_scope { order_by_price(:asc) }
   scope :order_by_date, ->(type) { reorder(created_at: type) if type.present? }
-  scope :order_by_price, ->(type) { reorder(price: type) if type.present? }
+  scope :order_by_price, lambda { |type|
+    reorder(Arel.sql("(CASE WHEN special_price > 0 THEN special_price ELSE price END) #{type}")) if type.present?
+  }
 
   scope :search, ->(query) { where('name || description ILIKE ?', "%#{sanitize_sql_like(query, '%')}%") }
 end
