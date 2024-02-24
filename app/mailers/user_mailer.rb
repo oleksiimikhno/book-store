@@ -10,7 +10,7 @@ class UserMailer < ApplicationMailer
   end
 
   def reset_password_email
-    @token = user_data_with_token(@user)
+    @token = user_data_with_token(@user)[:token]
     mail(to: @user.email, subject: 'Your link for reset the password!')
   end
 
