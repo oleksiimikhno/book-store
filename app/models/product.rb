@@ -17,4 +17,5 @@ class Product < ApplicationRecord
   scope :order_by_price, ->(type) { reorder(price: type) if type.present? }
 
   scope :search, ->(query) { where('name || description ILIKE ?', "%#{sanitize_sql_like(query, '%')}%") }
+  scope :bestsellers, -> { includes(:carts).where(carts: { status: :paid, created_at: 30.days.ago..Date.today.end_of_day }) }
 end
