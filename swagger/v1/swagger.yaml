@@ -326,6 +326,27 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/product"
+  "/api/v1/password_reset":
+    post:
+      summary: password reset
+      tags:
+      - Passwords
+      parameters: []
+      responses:
+        '200':
+          description: successful
+        '400':
+          description: Bad Request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+              required:
+              - email
   "/api/v1/password_update":
     post:
       summary: password update
