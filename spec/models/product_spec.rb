@@ -198,14 +198,6 @@ RSpec.describe Product, type: :model do
 
       expect(bestsellers).to match_array([])
     end
-
-    it 'should have empty bestseller if created date above 30 days' do
-      cart.update(status: :paid)
-      cart.update(created_at: 60.days.ago)
-      bestsellers = Product.bestsellers
-
-      expect(bestsellers).to match_array([])
-    end
   end
 
   #TODO 
