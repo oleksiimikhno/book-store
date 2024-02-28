@@ -180,6 +180,26 @@ RSpec.describe Product, type: :model do
     end
   end
 
+  context 'describe a bestsellers products' do
+    let(:cart_item) { create(:cart_item) }
+    let(:cart) { cart_item.cart }
+
+    it 'should have one  product' do
+      cart.update(status: :paid)
+      bestsellers = Product.bestsellers
+
+      expect(bestsellers.size).to eq(1)
+    end
+
+    it 'should have empty bestseller if created date above 30 days' do
+      cart.update(status: :paid)
+      cart.update(created_at: 60.days.ago)
+      bestsellers = Product.bestsellers
+
+      expect(bestsellers).to match_array([])
+    end
+  end
+
   #TODO 
    # add special price
    # it "should not valid without a start_date"

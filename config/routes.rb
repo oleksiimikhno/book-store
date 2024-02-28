@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
       resources :products
       resources :products_awaitings, only: :index
+      resources :products_bestsellers, only: :index
 
       resources :carts do
         resources :cart_items, except: :index
