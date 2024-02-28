@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_22_182917) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_28_180355) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_182917) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.string "favoritable_type", null: false
+    t.bigint "favoritable_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["favoritable_type", "favoritable_id"], name: "index_favorites_on_favoritable"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -94,7 +104,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_182917) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "token"
-    t.string "first_name"
     t.index ["token"], name: "index_subscriptions_on_token", unique: true
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
@@ -112,5 +121,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_182917) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "carts", "users"
+  add_foreign_key "favorites", "users"
   add_foreign_key "products", "categories"
 end

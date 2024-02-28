@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   belongs_to :category
   has_many :cart_items
   has_many :carts, through: :cart_items
+  has_many :favorites, as: :favoritable
 
   has_one_attached :image, dependent: :destroy
   has_many_attached :images, dependent: :destroy
