@@ -117,6 +117,21 @@ RSpec.configure do |config|
             },
             required: %w[old_password password]
           },
+          label: {
+            type: 'object',
+            properties: {
+              title: { type: :string }
+            },
+            required: %w[title]
+          },
+          field: {
+            type: 'object',
+            properties: {
+              value: { type: :string },
+              product_id: { type: :integer }
+            },
+            required: %w[value product_id]
+          }
         },
         securitySchemes: {
           Bearer: {
