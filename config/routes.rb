@@ -32,7 +32,12 @@ Rails.application.routes.draw do
         get '/all', to: 'users#index'
       end
 
-      resources :products
+      resources :products do
+        member do
+          post 'add_label/:label_id', to: 'products#add_label', as: 'add_label'
+          delete 'remove_label/:label_id', to: 'products#remove_label', as: 'remove_label'
+        end
+      end
       resources :products_awaitings, only: :index
       resources :products_bestsellers, only: :index
 
@@ -49,6 +54,10 @@ Rails.application.routes.draw do
       resources :subscriptions, only: %i[create]
       delete '/unsubscription', to: 'subscriptions#destroy'
       get '/subscription', to: 'subscriptions#show'
+
+      resources :labels do
+        resources :fields
+      end
     end
   end
 end
