@@ -7172,7 +7172,7 @@ $\
       }
     }
 
-    // Attribute parsing
+    // Label parsing
 
     getTextAttributes(element) {
       let value;
@@ -11117,7 +11117,7 @@ $\
       return Array.from(this.element.querySelectorAll(actionButtonSelector)).map(element => callback(element, getActionName(element)));
     }
 
-    // Attribute buttons
+    // Label buttons
 
     updateAttributes(attributes) {
       this.attributes = attributes;

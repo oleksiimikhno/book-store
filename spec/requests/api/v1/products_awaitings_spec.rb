@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'swagger_helper'
 
 RSpec.describe 'api/v1/products_awaitings', type: :request do
   path '/api/v1/products_awaitings' do

@@ -10,6 +10,7 @@ class ProductDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
+    model: Field::String,
     image: Field::ActiveStorage.with_options(
       show_preview_size: [150, 150],
       destroy_url: proc do |namespace, resource, attachment|
@@ -26,9 +27,11 @@ class ProductDashboard < Administrate::BaseDashboard
     meta_description: Field::Text,
     meta_title: Field::String,
     price: Field::Number,
+    special_price: Field::Number,
     quantity: Field::Number,
     status: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
     category: Field::BelongsTo.with_options(class_name: 'Category'),
+    labels: Field::HasMany.with_options(class_name: 'Label'),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -60,6 +63,7 @@ class ProductDashboard < Administrate::BaseDashboard
     quantity
     image
     status
+    labels
     created_at
     updated_at
   ].freeze
@@ -69,15 +73,18 @@ class ProductDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     name
+    model
     description
     meta_description
     meta_title
     price
+    special_price
     quantity
     image
     images
     status
     category
+    labels
   ].freeze
 
   # COLLECTION_FILTERS

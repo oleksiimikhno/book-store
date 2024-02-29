@@ -4,7 +4,7 @@ class Email::RegistrationWorker
   include Sidekiq::Worker
 
   def perform(user_id)
-    user = User.find_by(id: user_id)
+    user = User.find(user_id)
 
     UserMailer.with(user: user).registration_email.deliver_later if user
   end

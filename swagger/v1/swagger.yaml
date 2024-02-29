@@ -326,6 +326,200 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/product"
+  "/api/v1/password_reset":
+    post:
+      summary: password reset
+      tags:
+      - Passwords
+      parameters: []
+      responses:
+        '200':
+          description: successful
+        '400':
+          description: Bad Request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+              required:
+              - email
+  "/api/v1/labels/{label_id}/fields":
+    parameters:
+    - name: label_id
+      in: path
+      description: label_id
+      required: true
+      schema:
+        type: integer
+    - name: product_id
+      in: query
+      description: product_id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show fields list
+      tags:
+      - Fields
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create fields
+      tags:
+      - Fields
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '201':
+          description: product created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/field"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/field"
+  "/api/v1/labels/{label_id}/fields/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: integer
+    - name: label_id
+      in: path
+      description: label_id
+      required: true
+      schema:
+        type: integer
+    - name: product_id
+      in: query
+      description: product_id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show field
+      tags:
+      - Fields
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update field
+      tags:
+      - Fields
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/field"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/field"
+    delete:
+      summary: delete field
+      tags:
+      - Fields
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+  "/api/v1/labels":
+    get:
+      summary: show labels list
+      tags:
+      - Labels
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create label
+      tags:
+      - Labels
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '201':
+          description: product created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/label"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/label"
+  "/api/v1/labels/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show label
+      tags:
+      - Labels
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update label
+      tags:
+      - Labels
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/label"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/label"
+    delete:
+      summary: delete label
+      tags:
+      - Labels
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
   "/api/v1/password_update":
     post:
       summary: password update
@@ -348,6 +542,63 @@ paths:
   "/api/v1/products_awaitings":
     get:
       summary: Products with status awaiting
+      tags:
+      - Products
+      parameters:
+      - name: limit
+        in: query
+        default: 20
+        nullable: true
+        description: limit items per page
+        schema:
+          type: integer
+      - name: order
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by orders "desc" and "asc"
+        schema:
+          type: string
+      - name: price
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by price "desc" and "asc"
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          headers:
+            current-page:
+              schema:
+                type: integer
+              description: The number of current page paggination
+            link:
+              schema:
+                type: string
+              description: The page links of the next and previous pages
+            page-items:
+              schema:
+                type: integer
+              description: The items per page
+            total-count:
+              schema:
+                type: integer
+              description: The total of all items
+            total-pages:
+              schema:
+                type: integer
+              description: The total of all pages
+  "/api/v1/products_bestsellers":
+    get:
+      summary: Bestsellers products
       tags:
       - Products
       parameters:
@@ -525,6 +776,52 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/products/{id}/add_label/{label_id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: integer
+    - name: label_id
+      in: path
+      description: label_id
+      required: true
+      schema:
+        type: integer
+    post:
+      summary: add label to product
+      tags:
+      - Products
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: label added successfully
+  "/api/v1/products/{id}/remove_label/{label_id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: integer
+    - name: label_id
+      in: path
+      description: label_id
+      required: true
+      schema:
+        type: integer
+    delete:
+      summary: remove label from product
+      tags:
+      - Products
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: label removed successfully
   "/api/v1/search":
     get:
       summary: search products with a title and a description
@@ -603,6 +900,50 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/session"
+  "/api/v1/subscription":
+    get:
+      summary: show subscription
+      tags:
+      - Subscriptions
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+  "/api/v1/subscriptions":
+    post:
+      summary: create subscription
+      tags:
+      - Subscriptions
+      parameters: []
+      responses:
+        '201':
+          description: subscription created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/subscription"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/subscription"
+  "/api/v1/unsubscription":
+    delete:
+      summary: destroy subscription
+      tags:
+      - Subscriptions
+      parameters:
+      - name: token
+        in: query
+        description: Token for updating the status of a subscription
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
   "/api/v1/users/all":
     get:
       summary: list users
@@ -714,6 +1055,11 @@ components:
         price:
           type: float
           default: 0.0
+        special_price:
+          type: float
+          default: 0.0
+        model:
+          type: string
         quantity:
           type: integer
           default: 0
@@ -809,6 +1155,30 @@ components:
       required:
       - old_password
       - password
+    label:
+      type: object
+      properties:
+        title:
+          type: string
+      required:
+      - title
+    field:
+      type: object
+      properties:
+        value:
+          type: string
+        product_id:
+          type: integer
+      required:
+      - value
+      - product_id
+    subscription:
+      type: object
+      properties:
+        email:
+          type: string
+      required:
+      - email
   securitySchemes:
     Bearer:
       type: http
