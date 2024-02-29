@@ -1,8 +1,8 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/v1/products_awaitings', type: :request do
-  path '/api/v1/products_awaitings' do
-    get('Products with status awaiting') do
+RSpec.describe 'api/v1/products_bestsellers', type: :request do
+  path '/api/v1/products_bestsellers' do
+    get('Bestsellers products') do
       tags 'Products'
       produces 'application/json'
 

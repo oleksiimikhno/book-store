@@ -326,6 +326,27 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/product"
+  "/api/v1/password_reset":
+    post:
+      summary: password reset
+      tags:
+      - Passwords
+      parameters: []
+      responses:
+        '200':
+          description: successful
+        '400':
+          description: Bad Request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+              required:
+              - email
   "/api/v1/labels/{label_id}/fields":
     parameters:
     - name: label_id
@@ -521,6 +542,63 @@ paths:
   "/api/v1/products_awaitings":
     get:
       summary: Products with status awaiting
+      tags:
+      - Products
+      parameters:
+      - name: limit
+        in: query
+        default: 20
+        nullable: true
+        description: limit items per page
+        schema:
+          type: integer
+      - name: order
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by orders "desc" and "asc"
+        schema:
+          type: string
+      - name: price
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by price "desc" and "asc"
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          headers:
+            current-page:
+              schema:
+                type: integer
+              description: The number of current page paggination
+            link:
+              schema:
+                type: string
+              description: The page links of the next and previous pages
+            page-items:
+              schema:
+                type: integer
+              description: The items per page
+            total-count:
+              schema:
+                type: integer
+              description: The total of all items
+            total-pages:
+              schema:
+                type: integer
+              description: The total of all pages
+  "/api/v1/products_bestsellers":
+    get:
+      summary: Bestsellers products
       tags:
       - Products
       parameters:
@@ -822,6 +900,50 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/session"
+  "/api/v1/subscription":
+    get:
+      summary: show subscription
+      tags:
+      - Subscriptions
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+  "/api/v1/subscriptions":
+    post:
+      summary: create subscription
+      tags:
+      - Subscriptions
+      parameters: []
+      responses:
+        '201':
+          description: subscription created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - "$ref": "#/components/schemas/subscription"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/subscription"
+  "/api/v1/unsubscription":
+    delete:
+      summary: destroy subscription
+      tags:
+      - Subscriptions
+      parameters:
+      - name: token
+        in: query
+        description: Token for updating the status of a subscription
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
   "/api/v1/users/all":
     get:
       summary: list users
@@ -933,6 +1055,11 @@ components:
         price:
           type: float
           default: 0.0
+        special_price:
+          type: float
+          default: 0.0
+        model:
+          type: string
         quantity:
           type: integer
           default: 0
@@ -1045,6 +1172,13 @@ components:
       required:
       - value
       - product_id
+    subscription:
+      type: object
+      properties:
+        email:
+          type: string
+      required:
+      - email
   securitySchemes:
     Bearer:
       type: http
