@@ -7,7 +7,8 @@ class Api::V1::ProductsController < ApplicationController
   skip_before_action :authorize_request, only: %i[index show]
   before_action :product_params, only: %i[create update]
   before_action :set_category, if: -> { params[:category_id] }
-  before_action :set_product, only: %i[show update destroy]
+  before_action :set_product, only: %i[show update destroy add_label remove_label]
+  before_action :set_label, only: %i[add_label remove_label]
   before_action :set_products, only: %i[index]
   before_action :pundit_authorize, except: %i[index create]
 
@@ -41,10 +42,26 @@ class Api::V1::ProductsController < ApplicationController
     render_success(data: { message: 'Product successfully deleted' }, status: :ok)
   end
 
+  def add_label
+    @product.labels << @label
+
+    render_success(data: { message: 'Label added successfully' }, status: :ok)
+  end
+
+  def remove_label
+    @product.labels.destroy(@label)
+
+    render_success(data: { message: 'Label removed successfully' }, status: :ok)
+  end
+
   private
 
   def pundit_authorize
     authorize @product
+  end
+
+  def set_label
+    @label = Label.find(params[:label_id])
   end
 
   def set_product

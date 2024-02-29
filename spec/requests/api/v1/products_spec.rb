@@ -2,6 +2,8 @@ require 'swagger_helper'
 
 RSpec.describe 'api/v1/products', type: :request do
   let(:product) { create(:product) }
+  let(:label) { create(:label) }
+  let(:label_id) { label.id }
   let(:id) { product.id }
   let(:user) { create(:user) }
   let(:Authorization) { "Bearer #{generate_jwt_token(user)}" }
@@ -126,6 +128,56 @@ RSpec.describe 'api/v1/products', type: :request do
           }
         end
         run_test!
+      end
+    end
+  end
+
+  describe 'add_label' do
+    path '/api/v1/products/{id}/add_label/{label_id}' do
+      parameter name: :id, in: :path, type: :integer, description: 'id'
+      parameter name: :label_id, in: :path, type: :integer, description: 'label_id'
+
+      post('add label to product') do
+        tags 'Products'
+        consumes 'application/json'
+        produces 'application/json'
+        security [Bearer: []]
+
+        response(200, 'label added successfully') do
+          after do |example|
+            example.metadata[:response][:content] = {
+              'application/json' => {
+                example: JSON.parse(response.body, symbolize_names: true)
+              }
+            }
+          end
+          run_test!
+        end
+      end
+    end
+  end
+
+  describe 'remove_label' do
+    path '/api/v1/products/{id}/remove_label/{label_id}' do
+      parameter name: :id, in: :path, type: :integer, description: 'id'
+      parameter name: :label_id, in: :path, type: :integer, description: 'label_id'
+
+      delete('remove label from product') do
+        tags 'Products'
+        consumes 'application/json'
+        produces 'application/json'
+        security [Bearer: []]
+
+        response(200, 'label removed successfully') do
+          after do |example|
+            example.metadata[:response][:content] = {
+              'application/json' => {
+                example: JSON.parse(response.body, symbolize_names: true)
+              }
+            }
+          end
+          run_test!
+        end
       end
     end
   end
