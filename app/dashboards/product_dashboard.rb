@@ -29,6 +29,7 @@ class ProductDashboard < Administrate::BaseDashboard
     quantity: Field::Number,
     status: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
     category: Field::BelongsTo.with_options(class_name: 'Category'),
+    labels: Field::HasMany.with_options(class_name: 'Label'),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -60,6 +61,7 @@ class ProductDashboard < Administrate::BaseDashboard
     quantity
     image
     status
+    labels
     created_at
     updated_at
   ].freeze
@@ -78,6 +80,7 @@ class ProductDashboard < Administrate::BaseDashboard
     images
     status
     category
+    labels
   ].freeze
 
   # COLLECTION_FILTERS
