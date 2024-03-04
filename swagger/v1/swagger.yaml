@@ -326,27 +326,48 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/product"
-  "/api/v1/password_reset":
-    post:
-      summary: password reset
+  "/api/v1/favorites":
+    get:
+      summary: list favorites
       tags:
-      - Passwords
-      parameters: []
+      - Favorite
+      security:
+      - Bearer: []
       responses:
         '200':
           description: successful
-        '400':
-          description: Bad Request
+    post:
+      summary: create favorite
+      tags:
+      - Favorite
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '201':
+          description: successful
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                email:
-                  type: string
-              required:
-              - email
+              oneOf:
+              - "$ref": "#/components/schemas/favorite"
+    delete:
+      summary: destroy favorite
+      tags:
+      - Favorite
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/favorite"
   "/api/v1/labels/{label_id}/fields":
     parameters:
     - name: label_id
@@ -520,6 +541,27 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/v1/password_reset":
+    post:
+      summary: password reset
+      tags:
+      - Passwords
+      parameters: []
+      responses:
+        '200':
+          description: successful
+        '400':
+          description: Bad Request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+              required:
+              - email
   "/api/v1/password_update":
     post:
       summary: password update
@@ -1155,6 +1197,13 @@ components:
       required:
       - old_password
       - password
+    subscription:
+      type: object
+      properties:
+        email:
+          type: string
+      required:
+      - email
     label:
       type: object
       properties:
@@ -1172,13 +1221,13 @@ components:
       required:
       - value
       - product_id
-    subscription:
+    favorite:
       type: object
       properties:
-        email:
-          type: string
+        product_id:
+          type: integer
       required:
-      - email
+      - product_id
   securitySchemes:
     Bearer:
       type: http
