@@ -40,7 +40,6 @@ Rails.application.routes.draw do
       end
       resources :products_awaitings, only: :index
       resources :products_bestsellers, only: :index
-      resources :favorites, only: %i[index create destroy]
 
       resources :carts do
         resources :cart_items, except: :index
@@ -55,6 +54,9 @@ Rails.application.routes.draw do
       resources :subscriptions, only: %i[create]
       delete '/unsubscription', to: 'subscriptions#destroy'
       get '/subscription', to: 'subscriptions#show'
+
+      resources :favorites, only: %i[index create]
+      delete '/favorites', to: 'favorites#destroy'
 
       resources :labels do
         resources :fields
