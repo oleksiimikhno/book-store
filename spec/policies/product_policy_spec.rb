@@ -9,7 +9,7 @@ RSpec.describe ProductPolicy, type: :policy do
   subject {described_class}
 
   context 'with admin' do
-    permissions :index?, :show?, :create?, :update?, :destroy? do
+    permissions :index?, :show?, :create?, :update?, :destroy?, :add_label?, :remove_label? do
       it 'grants access to product for admin' do
         expect(subject).to permit(user, product)
       end
@@ -25,7 +25,7 @@ RSpec.describe ProductPolicy, type: :policy do
       end
     end
 
-    permissions :create?, :update?, :destroy? do
+    permissions :create?, :update?, :destroy?, :add_label?, :remove_label? do
       it 'grants no access to product for visitor' do
         expect(subject).not_to permit(user, product)
       end

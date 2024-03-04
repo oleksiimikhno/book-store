@@ -7,6 +7,9 @@ class Product < ApplicationRecord
   has_many :cart_items
   has_many :carts, through: :cart_items
   has_many :favorites
+  has_many :fields, dependent: :destroy
+
+  has_and_belongs_to_many :labels, join_table: :products_labels
 
   has_one_attached :image, dependent: :destroy
   has_many_attached :images, dependent: :destroy

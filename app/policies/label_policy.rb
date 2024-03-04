@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProductPolicy < ApplicationPolicy
+class LabelPolicy < ApplicationPolicy
 
   def index?
     true
@@ -13,6 +13,4 @@ class ProductPolicy < ApplicationPolicy
   alias show? index?
   alias update? create?
   alias destroy? create?
-  alias add_label? create?
-  alias remove_label? create?
 end
