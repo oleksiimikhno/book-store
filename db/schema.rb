@@ -112,6 +112,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_04_165115) do
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
+  create_table "products_labels", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "label_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label_id"], name: "index_products_labels_on_label_id"
+    t.index ["product_id"], name: "index_products_labels_on_product_id"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.string "email"
     t.integer "status"
@@ -121,15 +130,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_04_165115) do
     t.string "token"
     t.index ["token"], name: "index_subscriptions_on_token", unique: true
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
-  end
-
-  create_table "products_labels", force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.bigint "label_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["label_id"], name: "index_products_labels_on_label_id"
-    t.index ["product_id"], name: "index_products_labels_on_product_id"
   end
 
   create_table "users", force: :cascade do |t|
