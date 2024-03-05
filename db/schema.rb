@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_22_182917) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_04_165115) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_182917) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_favorites_on_product_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
   create_table "fields", force: :cascade do |t|
     t.string "value", null: false
     t.bigint "label_id", null: false
@@ -103,18 +112,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_182917) do
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
-  create_table "subscriptions", force: :cascade do |t|
-    t.string "email"
-    t.integer "status"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "token"
-    t.string "first_name"
-    t.index ["token"], name: "index_subscriptions_on_token", unique: true
-    t.index ["user_id"], name: "index_subscriptions_on_user_id"
-  end
-
   create_table "products_labels", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "label_id", null: false
@@ -122,6 +119,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_182917) do
     t.datetime "updated_at", null: false
     t.index ["label_id"], name: "index_products_labels_on_label_id"
     t.index ["product_id"], name: "index_products_labels_on_product_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "email"
+    t.integer "status"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "token"
+    t.index ["token"], name: "index_subscriptions_on_token", unique: true
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -137,6 +145,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_182917) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "carts", "users"
+  add_foreign_key "favorites", "products"
+  add_foreign_key "favorites", "users"
   add_foreign_key "fields", "labels"
   add_foreign_key "fields", "products"
   add_foreign_key "products", "categories"

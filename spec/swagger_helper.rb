@@ -140,6 +140,13 @@ RSpec.configure do |config|
               product_id: { type: :integer }
             },
             required: %w[value product_id]
+          },
+          favorite: {
+            type: 'object',
+            properties: {
+              product_id: { type: :integer }
+            },
+            required: %w[product_id]
           }
         },
         securitySchemes: {
