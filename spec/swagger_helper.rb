@@ -122,6 +122,7 @@ RSpec.configure do |config|
           subscription: {
             type: 'object',
             properties: {
+              first_name: { type: :string },
               email: { type: :string }
             },
             required: %w[email]

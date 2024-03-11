@@ -1200,6 +1200,8 @@ components:
     subscription:
       type: object
       properties:
+        first_name:
+          type: string
         email:
           type: string
       required:

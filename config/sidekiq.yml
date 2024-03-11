@@ -1,5 +1,8 @@
-:concurrency: 5
-:queues:
-  - default
 
-:max_retries: 1
+:scheduler:
+  :schedule:
+    subsciption_bestseller:
+      cron: "* * * * * *"   # Runs once per minute
+      class: "Email::SubscriptionBestsellerWorker"
+      queue: "default"
+      description: "Run service to subscriptions people once per mounth"
