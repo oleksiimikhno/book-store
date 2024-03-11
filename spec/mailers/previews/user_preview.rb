@@ -6,4 +6,8 @@ class UserPreview < ActionMailer::Preview
   def registration_email
     UserMailer.with(user: User.first).registration_email
   end
+
+  def reset_password_email
+    UserMailer.with(user: User.first).reset_password_email
+  end
 end

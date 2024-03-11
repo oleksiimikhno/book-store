@@ -13,4 +13,6 @@ class ProductPolicy < ApplicationPolicy
   alias show? index?
   alias update? create?
   alias destroy? create?
+  alias add_label? create?
+  alias remove_label? create?
 end

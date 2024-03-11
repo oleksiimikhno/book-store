@@ -60,6 +60,8 @@ RSpec.configure do |config|
               meta_title: { type: :string, nullable: true },
               meta_description: { type: :string, nullable: true },
               price: { type: :float, default: 0.0 },
+              special_price: { type: :float, default: 0.0 },
+              model: { type: :string },
               quantity: { type: :integer, default: 0 },
               image: { type: :array, items: { type: :string }, nullable: true },
               images: { type: :array, items: { type: :string }, nullable: true },
@@ -124,6 +126,28 @@ RSpec.configure do |config|
               email: { type: :string }
             },
             required: %w[email]
+          },
+          label: {
+            type: 'object',
+            properties: {
+              title: { type: :string }
+            },
+            required: %w[title]
+          },
+          field: {
+            type: 'object',
+            properties: {
+              value: { type: :string },
+              product_id: { type: :integer }
+            },
+            required: %w[value product_id]
+          },
+          favorite: {
+            type: 'object',
+            properties: {
+              product_id: { type: :integer }
+            },
+            required: %w[product_id]
           }
         },
         securitySchemes: {

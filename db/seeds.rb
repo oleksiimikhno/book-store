@@ -2,6 +2,10 @@ require 'ffaker'
 
 categories = []
 
+['Author', 'Number of pages'].each do |e|
+  Label.create!(title: e)
+end
+
 5.times do
   categories << FFaker::Book.genre
 end
@@ -30,6 +34,16 @@ end
       price: 1000,
       category_id: Category.all.sample.id
     )
+
+    Label.all.each do |e|
+      product.labels << e
+    end
+
+    2.times do
+      Label.find_by(title: 'Author').fields.create!(value: FFaker::Book::author, product_id: product.id)
+    end
+
+    Label.find_by(title: 'Number of pages').fields.create!(value: "#{rand(300..400)}", product_id: product.id)
 
     CartItem.create!(cart_id: cart.id, product_id: product.id, quantity: 3, price: product.price)
   end

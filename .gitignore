@@ -41,3 +41,6 @@
 # ignore mac files
 .DS_Store
 .keep
+
+# Ignore local redis file
+dump.rdb

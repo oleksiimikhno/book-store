@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  let(:product) { create(:product) }
-  let(:second_product) { create(:product) }
   let(:products) { FactoryBot.create_list(:product, 3) }
+  let(:product) { products.first }
+  let(:second_product) { products.second }
 
   it 'creates a product' do
     expect(product).to be_valid
   end
 
-  context 'describe a product string fields' do
+  context 'describe a product fields' do
     it 'should a meta_title length below 20' do
       product.meta_title = '123'
       expect(product).to_not be_valid
@@ -37,6 +37,21 @@ RSpec.describe Product, type: :model do
       product.meta_description = nil
       expect(product).to be_valid
     end
+
+    it 'should a quantity cannot be negative' do
+      product.quantity = -1
+      expect(product).to_not be_valid
+    end
+
+    it 'should model cannot be nil' do
+      product.model = nil
+      expect(product).not_to be_nil
+    end
+
+    it 'should model cannot be empty' do
+      product.model = ''
+      expect(product).not_to be_valid
+    end
   end
 
   context 'describe a product prices' do
@@ -45,8 +60,8 @@ RSpec.describe Product, type: :model do
       expect(product).to_not be_valid
     end
 
-    it 'should a quantity cannot be negative' do
-      product.quantity = -1
+    it 'should a special_price price cannot be negative' do
+      product.special_price = -50
       expect(product).to_not be_valid
     end
   end
@@ -85,30 +100,44 @@ RSpec.describe Product, type: :model do
 
   context 'describe a product sort methods' do
     it 'should a last product should be at first position (default_sort)' do
-      expect(product).to eq(Product.all.first)
-    end
-
-    it 'should a last product at last position' do
-      products = Product.all.order_by_date(:asc)
-
-      expect(product).to eq(products.last)
+      second_product.update!(price: 6000)
+      expect(second_product).to eq(Product.all.last)
     end
 
     it 'should a last product at first position' do
-      products = Product.all.order_by_date(:desc)
+      products = Product.order_by_date(:asc)
+
+      expect(product).to eq(products.first)
+    end
+
+    it 'should a last product at last position' do
+      products = Product.order_by_date(:desc)
 
       expect(product).to eq(products.last)
     end
 
     it 'should a product with highest price at first prosition' do
       second_product.update(price: 1)
-      products = Product.all.order_by_price(:desc)
-
+      products = Product.order_by_price(:desc)
       expect(product).to eq(products.first)
     end
 
     it 'should a product with highest price at last prosition' do
       second_product.update(price: 1)
+      products = Product.order_by_price(:asc)
+
+      expect(product).to eq(products.last)
+    end
+
+    it 'should a product with highest special_price price at first prosition' do
+      second_product.update(special_price: 1)
+      products = Product.all.order_by_price(:desc)
+
+      expect(product).to eq(products.first)
+    end
+
+    it 'should a product with highest duscount price at last prosition' do
+      second_product.update(special_price: 1)
       products = Product.all.order_by_price(:asc)
 
       expect(product).to eq(products.last)
@@ -120,18 +149,18 @@ RSpec.describe Product, type: :model do
       product = products.last
       product.update(name: '123123')
 
-      expect(product).to eq(Product.all.search('312').first)
+      expect(product).to eq(Product.search('312').first)
     end
 
     it 'should find product in description' do
       product = products.last
       product.update(description: '123123')
 
-      expect(product).to eq(Product.all.search('312').first)
+      expect(product).to eq(Product.search('312').first)
     end
 
     it 'should sort search query' do
-      products = Product.all.search('11')
+      products = Product.search('11')
 
       expect(products).to match_array([])
     end
@@ -148,6 +177,26 @@ RSpec.describe Product, type: :model do
 
     it 'should image have currect size' do
       is_expected.to validate_size_of(:image).between(1.kilobyte..2.megabytes)
+    end
+  end
+
+  context 'describe a bestsellers products' do
+    let(:cart_item) { create(:cart_item) }
+    let(:cart) { cart_item.cart }
+
+    it 'should have one  product' do
+      cart.update(status: :paid)
+      bestsellers = Product.bestsellers
+
+      expect(bestsellers.size).to eq(1)
+    end
+
+    it 'should have empty bestseller if created date above 30 days' do
+      cart.update(status: :paid)
+      cart.update(created_at: 60.days.ago)
+      bestsellers = Product.bestsellers
+
+      expect(bestsellers).to match_array([])
     end
   end
 
