@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      Thanks for subscription: <%= @user.first_name %>.
+    </p>
+    <p>You can see our five top bestsellers books</p>
+    <ul>
+      <% @products.each do |product| %>
+        <li><%= product.name %></li>
+      <% end %>
+    </ul>
+    <p>
+      You can <a href="<%= @url %>">visit</a> our site to find something interesting.
+    </p>
+  </body>
+</html>
