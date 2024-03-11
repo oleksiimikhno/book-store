@@ -29,4 +29,8 @@ module Renderable
 
     render json: { errors: message }, status: status
   end
+
+  def custom_render_errors(exception)
+    render json: { errors: exception[:message] }, status: exception[:status]
+  end
 end
