@@ -136,10 +136,9 @@ RSpec.configure do |config|
           field: {
             type: 'object',
             properties: {
-              value: { type: :string },
-              product_id: { type: :integer }
+              value: { type: :string }
             },
-            required: %w[value product_id]
+            required: %w[value]
           },
           favorite: {
             type: 'object',
