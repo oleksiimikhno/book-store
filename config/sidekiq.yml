@@ -2,7 +2,7 @@
 :scheduler:
   :schedule:
     subsciption_bestseller:
-      cron: "* * * * * *"   # Runs once per minute
+      cron: "0 0 1 * *"   # per month /  * * * * * Runs once per sec / 
       class: "Email::SubscriptionBestsellerWorker"
       queue: "default"
       description: "Run service to subscriptions people once per mounth"
