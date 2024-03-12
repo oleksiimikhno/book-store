@@ -1218,11 +1218,8 @@ components:
       properties:
         value:
           type: string
-        product_id:
-          type: integer
       required:
       - value
-      - product_id
     favorite:
       type: object
       properties:

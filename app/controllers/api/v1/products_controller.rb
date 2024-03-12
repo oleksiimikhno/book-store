@@ -43,15 +43,17 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   def add_label
-    @product.labels << @label
+    label_service = Product::OperationWithLabelsService.new(@product, @label)
+    result = label_service.add_label
 
-    render_success(data: { message: 'Label added successfully' }, status: :ok)
+    render_success(data: { message: result[:message] }, status: result[:status])
   end
 
   def remove_label
-    @product.labels.destroy(@label)
+    label_service = Product::OperationWithLabelsService.new(@product, @label)
+    result = label_service.remove_label
 
-    render_success(data: { message: 'Label removed successfully' }, status: :ok)
+    render_success(data: { message: result[:message] }, status: result[:status])
   end
 
   private

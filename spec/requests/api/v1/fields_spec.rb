@@ -3,7 +3,9 @@ require 'swagger_helper'
 RSpec.describe "Api::V1::Fields", type: :request do
   let(:field) { create(:field) }
   let(:id) { field.id }
+  let(:label) { Label.find(field.label_id) }
   let(:label_id) { field.label_id }
+  let(:product) { Product.find(field.product_id) }
   let(:product_id) { field.product_id }
   let(:user) { create(:user) }
   let(:Authorization) { "Bearer #{generate_jwt_token(user)}" }
@@ -11,6 +13,10 @@ RSpec.describe "Api::V1::Fields", type: :request do
   path '/api/v1/labels/{label_id}/fields' do
     parameter name: :label_id, in: :path, type: :integer, description: 'label_id'
     parameter name: :product_id, in: :query, type: :integer, description: 'product_id', required: true
+
+    before do
+      product.labels << label
+    end
 
     get('show fields list') do
       tags 'Fields'
@@ -58,6 +64,10 @@ RSpec.describe "Api::V1::Fields", type: :request do
     parameter name: :id, in: :path, type: :integer, description: 'id'
     parameter name: :label_id, in: :path, type: :integer, description: 'label_id'
     parameter name: :product_id, in: :query, type: :integer, description: 'product_id', required: true
+
+    before do
+      product.labels << label
+    end
 
     get('show field') do
       tags 'Fields'

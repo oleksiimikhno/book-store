@@ -2,7 +2,7 @@
 
 class Api::V1::FieldsController < ApplicationController
   skip_before_action :authorize_request, only: %i[index show]
-  before_action :set_label
+  before_action :set_product, :set_label
   before_action :set_field, except: %i[index create]
   before_action :field_params, only: %i[create update]
   before_action :pundit_authorize, only: %i[show update destroy]
@@ -47,12 +47,16 @@ class Api::V1::FieldsController < ApplicationController
 
   private
 
+  def set_product
+    @product = Product.find(params[:product_id])
+  end
+
   def set_label
-    @label = Label.find(params[:label_id])
+    @label = @product.labels.find(params[:label_id])
   end
 
   def set_field
-    @field = @label.fields.find_by(product_id: params[:product_id])
+    @field = @label.fields.where(product_id: params[:product_id]).find(params[:id])
   end
 
   def pundit_authorize
