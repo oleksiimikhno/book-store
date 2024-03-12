@@ -8,7 +8,7 @@ class Api::V1::ProductsController < ApplicationController
   before_action :product_params, only: %i[create update]
   before_action :set_category, if: -> { params[:category_id] }
   before_action :set_product, only: %i[show update destroy add_label remove_label]
-  before_action :set_label, :existing_label, only: %i[add_label remove_label]
+  before_action :set_label, only: %i[add_label remove_label]
   before_action :set_products, only: %i[index]
   before_action :pundit_authorize, except: %i[index create]
 
@@ -43,30 +43,20 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   def add_label
-    if existing_label.nil?
-      @product.labels << @label
+    label_service = Product::OperationWithLabelsService.new(@product, @label)
+    result = label_service.add_label
 
-      render_success(data: { message: 'Label added successfully' }, status: :ok)
-    else
-      custom_render_errors(message: 'Label with the same id is already assigned to the product', status: :unprocessable_entity)
-    end
+    render_success(data: { message: result[:message] }, status: result[:status])
   end
 
   def remove_label
-    if existing_label.nil?
-      custom_render_errors(message: 'This product has no such label', status: :unprocessable_entity)
-    else
-      @product.labels.destroy(@label)
+    label_service = Product::OperationWithLabelsService.new(@product, @label)
+    result = label_service.remove_label
 
-      render_success(data: { message: 'Label removed successfully' }, status: :ok)
-    end
+    render_success(data: { message: result[:message] }, status: result[:status])
   end
 
   private
-
-  def existing_label
-    @product.labels.find_by(id: @label.id)
-  end
 
   def pundit_authorize
     authorize @product
