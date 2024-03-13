@@ -16,6 +16,10 @@ RSpec.describe Subscription, type: :model do
     expect(subscription.active?).to be_truthy
   end
 
+  it 'should has contain an name' do
+    expect(subscription[:first_name]).not_to be_empty
+  end
+
   it 'should has contain an email' do
     expect(subscription[:email]).not_to be_empty
   end

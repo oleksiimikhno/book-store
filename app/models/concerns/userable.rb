@@ -6,14 +6,6 @@ module Userable
   include Constable
 
   included do
-    def self.validate_user_name(name = :first_name)
-      validates name, presence: true, length: { in: Constable::NAME_LENGTH },
-                      format: {
-                        with: Constable::REGEXP_USER,
-                        message: 'Only Latin letters Cyrillic and space are allowed, no special characters'
-                      }
-    end
-
     def self.validate_password
       validates :password, presence: true, length: { in: Constable::PASSWORD_LENGTH },
                            format: {

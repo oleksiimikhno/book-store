@@ -161,6 +161,10 @@ RSpec.describe 'api/v1/products', type: :request do
       parameter name: :id, in: :path, type: :integer, description: 'id'
       parameter name: :label_id, in: :path, type: :integer, description: 'label_id'
 
+      before do
+        product.labels << label
+      end
+
       delete('remove label from product') do
         tags 'Products'
         consumes 'application/json'

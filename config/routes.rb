@@ -55,6 +55,9 @@ Rails.application.routes.draw do
       delete '/unsubscription', to: 'subscriptions#destroy'
       get '/subscription', to: 'subscriptions#show'
 
+      resources :favorites, only: %i[index create]
+      delete '/favorites', to: 'favorites#destroy'
+
       resources :labels do
         resources :fields
       end

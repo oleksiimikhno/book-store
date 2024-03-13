@@ -122,6 +122,7 @@ RSpec.configure do |config|
           subscription: {
             type: 'object',
             properties: {
+              first_name: { type: :string },
               email: { type: :string }
             },
             required: %w[email]
@@ -136,10 +137,16 @@ RSpec.configure do |config|
           field: {
             type: 'object',
             properties: {
-              value: { type: :string },
+              value: { type: :string }
+            },
+            required: %w[value]
+          },
+          favorite: {
+            type: 'object',
+            properties: {
               product_id: { type: :integer }
             },
-            required: %w[value product_id]
+            required: %w[product_id]
           }
         },
         securitySchemes: {
