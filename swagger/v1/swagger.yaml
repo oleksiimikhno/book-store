@@ -614,6 +614,16 @@ paths:
         description: sort products by price "desc" and "asc"
         schema:
           type: string
+      - name: rating
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by rating "desc" and "asc"
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -671,6 +681,16 @@ paths:
         description: sort products by price "desc" and "asc"
         schema:
           type: string
+      - name: rating
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by rating "desc" and "asc"
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -726,6 +746,16 @@ paths:
         default: desc
         nullable: true
         description: sort products by price "desc" and "asc"
+        schema:
+          type: string
+      - name: rating
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by rating "desc" and "asc"
         schema:
           type: string
       responses:
@@ -887,7 +917,7 @@ paths:
       - Bearer: []
       parameters: []
       responses:
-        '200':
+        '201':
           description: successful
       requestBody:
         content:
