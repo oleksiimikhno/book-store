@@ -6,8 +6,9 @@ class Product < ApplicationRecord
   belongs_to :category
   has_many :cart_items
   has_many :carts, through: :cart_items
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
   has_many :fields, dependent: :destroy
+  has_many :reviews, as: :reviewable, dependent: :destroy
 
   has_and_belongs_to_many :labels, join_table: :products_labels
 

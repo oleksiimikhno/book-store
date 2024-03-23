@@ -37,6 +37,8 @@ Rails.application.routes.draw do
           post 'add_label/:label_id', to: 'products#add_label', as: 'add_label'
           delete 'remove_label/:label_id', to: 'products#remove_label', as: 'remove_label'
         end
+
+        resources :reviews, only: %i[index create]
       end
       resources :products_awaitings, only: :index
       resources :products_bestsellers, only: :index

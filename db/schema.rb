@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_04_165115) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_23_180105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,8 +43,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_04_165115) do
   end
 
   create_table "cart_items", force: :cascade do |t|
-    t.integer "quantity", default: 0
-    t.float "price", default: 0.0
+    t.integer "quantity", default: 0, null: false
+    t.float "price", default: 0.0, null: false
     t.bigint "cart_id", null: false
     t.bigint "product_id", null: false
     t.datetime "created_at", null: false
@@ -121,6 +121,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_04_165115) do
     t.index ["product_id"], name: "index_products_labels_on_product_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.text "text"
+    t.integer "rating"
+    t.string "reviewable_type", null: false
+    t.bigint "reviewable_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.string "email"
     t.integer "status"
@@ -153,4 +165,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_04_165115) do
   add_foreign_key "products", "categories"
   add_foreign_key "products_labels", "labels"
   add_foreign_key "products_labels", "products"
+  add_foreign_key "reviews", "users"
 end
