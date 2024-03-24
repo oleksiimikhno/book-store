@@ -14,16 +14,12 @@ class Api::V1::ProductSerializer < ActiveModel::Serializer
   def image
     return unless object.image.attached?
 
-    image_url([object.image])
+    object.image.service_url
   end
 
   def images
     return unless object.images.attached?
 
-    image_url(object.images)
-  end
-
-  def image_url(images)
-    images.map { |image| Rails.application.routes.url_helpers.rails_blob_url(image, only_path: true) }
+    object.images.map { |image| image.service_url }
   end
 end
