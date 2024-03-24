@@ -6,8 +6,9 @@ class Product < ApplicationRecord
   belongs_to :category
   has_many :cart_items
   has_many :carts, through: :cart_items
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
   has_many :fields, dependent: :destroy
+  has_many :reviews, as: :reviewable, dependent: :destroy
 
   has_and_belongs_to_many :labels, join_table: :products_labels
 
@@ -25,6 +26,10 @@ class Product < ApplicationRecord
   # }
 
   scope :order_by_price, ->(type) { reorder(price: type) if type.present? }
+
+  scope :order_by_rating, lambda { |type|
+    left_joins(:reviews).group(:id).reorder("AVG(reviews.rating) #{type}") if %i[asc desc].include?(type)
+  }
 
   scope :search, ->(query) { where('name || description ILIKE ?', "%#{sanitize_sql_like(query, '%')}%") }
   scope :bestsellers, -> { includes(:carts).where(carts: { status: :paid, created_at: 30.days.ago..Date.today.end_of_day }) }
