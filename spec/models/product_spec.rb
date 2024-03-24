@@ -4,6 +4,7 @@ RSpec.describe Product, type: :model do
   let(:products) { FactoryBot.create_list(:product, 3) }
   let(:product) { products.first }
   let(:second_product) { products.second }
+  let(:review) { create(:review) }
 
   it 'creates a product' do
     expect(product).to be_valid
@@ -141,6 +142,22 @@ RSpec.describe Product, type: :model do
       products = Product.all.order_by_price(:asc)
 
       expect(product).to eq(products.last)
+    end
+
+    let(:product_id) { review.reviewable_id }
+
+    it 'should a product with the highest rating at first position' do
+      product_width_rating = Product.find(product_id)
+      products = Product.all.order_by_rating(:desc)
+
+      expect(product_width_rating).to eq(products.first)
+    end
+
+    it 'should a product with the lowest rating at last position' do
+      product_width_rating = Product.find(product_id)
+      products = Product.all.order_by_rating(:asc)
+
+      expect(product_width_rating).to eq(products.last)
     end
   end
 

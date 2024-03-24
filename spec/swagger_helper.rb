@@ -147,6 +147,14 @@ RSpec.configure do |config|
               product_id: { type: :integer }
             },
             required: %w[product_id]
+          },
+          review: {
+            type: 'object',
+            properties: {
+              text: { type: :string },
+              rating: { type: :integer }
+            },
+            required: %w[text rating]
           }
         },
         securitySchemes: {

@@ -614,6 +614,16 @@ paths:
         description: sort products by price "desc" and "asc"
         schema:
           type: string
+      - name: rating
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by rating "desc" and "asc"
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -671,6 +681,16 @@ paths:
         description: sort products by price "desc" and "asc"
         schema:
           type: string
+      - name: rating
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by rating "desc" and "asc"
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -726,6 +746,16 @@ paths:
         default: desc
         nullable: true
         description: sort products by price "desc" and "asc"
+        schema:
+          type: string
+      - name: rating
+        in: query
+        enum:
+        - desc
+        - asc
+        default: desc
+        nullable: true
+        description: sort products by rating "desc" and "asc"
         schema:
           type: string
       responses:
@@ -864,6 +894,37 @@ paths:
       responses:
         '200':
           description: label removed successfully
+  "/api/v1/products/{product_id}/reviews":
+    parameters:
+    - name: product_id
+      in: path
+      description: product_id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: product list reviews
+      tags:
+      - Reviews
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: product create review
+      tags:
+      - Reviews
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '201':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/review"
   "/api/v1/search":
     get:
       summary: search products with a title and a description
@@ -1227,6 +1288,16 @@ components:
           type: integer
       required:
       - product_id
+    review:
+      type: object
+      properties:
+        text:
+          type: string
+        rating:
+          type: integer
+      required:
+      - text
+      - rating
   securitySchemes:
     Bearer:
       type: http
