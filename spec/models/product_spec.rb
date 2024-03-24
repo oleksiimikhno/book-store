@@ -146,14 +146,14 @@ RSpec.describe Product, type: :model do
 
     let(:product_id) { review.reviewable_id }
 
-    it 'should a product with highest rating at first prosition' do
+    it 'should a product with the highest rating at first position' do
       product_width_rating = Product.find(product_id)
       products = Product.all.order_by_rating(:desc)
 
       expect(product_width_rating).to eq(products.first)
     end
 
-    it 'should a product with loset rating at first prosition' do
+    it 'should a product with the lowest rating at last position' do
       product_width_rating = Product.find(product_id)
       products = Product.all.order_by_rating(:asc)
 
