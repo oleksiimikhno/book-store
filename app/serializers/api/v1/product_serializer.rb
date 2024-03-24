@@ -14,12 +14,12 @@ class Api::V1::ProductSerializer < ActiveModel::Serializer
   def image
     return unless object.image.attached?
 
-    object.image.service_url
+    url_for(object.image)
   end
 
   def images
     return unless object.images.attached?
 
-    object.images.map { |image| image.service_url }
+    object.images.map { |image| url_for(image) }
   end
 end
