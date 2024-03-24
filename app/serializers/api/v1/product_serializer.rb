@@ -24,6 +24,6 @@ class Api::V1::ProductSerializer < ActiveModel::Serializer
   end
 
   def image_url(images)
-    images.map { |image| image.blob.service_url }
+    images.map { |image| image.blob.url }
   end
 end
