@@ -12,7 +12,7 @@ class Api::V1::ReviewsController < ApplicationController
   def create
     review = @product.reviews.create!(reviews_params.merge(user_id: current_user.id))
 
-    render_success(data: review, status: :created,serializer: Api::V1::ReviewSerializer)
+    render_success(data: review, status: :created, serializer: Api::V1::ReviewSerializer)
   end
 
   private
