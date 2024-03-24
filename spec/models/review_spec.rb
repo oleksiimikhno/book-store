@@ -43,9 +43,4 @@ RSpec.describe Review, type: :model do
     review.text = 'a' * 2501
     expect(review).to_not be_valid
   end
-
-  it 'should have a text length below 2500' do
-    review.text = 'a' * 2501
-    expect(review).to_not be_valid
-  end
 end
