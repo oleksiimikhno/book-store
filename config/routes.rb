@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   namespace :admin do
-    resources :users, :carts, :cart_items, :categories, :labels, :fields, only: %i[index show new create edit update destroy]
+    resources :users, :carts, :cart_items, :categories, :labels, :fields, :reviews, only: %i[index show new create edit update destroy]
 
     resources :products, only: %i[index show new create edit update destroy] do
       member do
