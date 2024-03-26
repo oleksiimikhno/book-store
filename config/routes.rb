@@ -51,6 +51,7 @@ Rails.application.routes.draw do
         resources :products, only: %i[index create]
       end
 
+      resources :filter_product, only: :index
       resources :search, only: :index
 
       resources :subscriptions, only: %i[create]
