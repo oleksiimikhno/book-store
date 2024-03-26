@@ -33,4 +33,6 @@ class Product < ApplicationRecord
 
   scope :search, ->(query) { where('name || description ILIKE ?', "%#{sanitize_sql_like(query, '%')}%") }
   scope :bestsellers, -> { includes(:carts).where(carts: { status: :paid, created_at: 30.days.ago..Date.today.end_of_day }) }
+
+  scope :filter_by_author, ->(author_name) { joins(fields: :label).where(fields: { value: author_name }) }
 end
