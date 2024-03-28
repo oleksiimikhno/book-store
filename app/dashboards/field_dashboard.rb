@@ -42,10 +42,14 @@ class FieldDashboard < Administrate::BaseDashboard
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = %i[
-    value
-    label
+  FORM_ATTRIBUTES_NEW = %i[
     product
+    label
+    value
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
+    value
   ].freeze
 
   # COLLECTION_FILTERS
@@ -63,7 +67,7 @@ class FieldDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how fields are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(field)
-  #   "Field ##{field.id}"
-  # end
+  def display_resource(field)
+    "Field ##{field.id}, #{field.value}"
+  end
 end
