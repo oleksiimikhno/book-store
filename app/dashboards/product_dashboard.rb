@@ -29,10 +29,11 @@ class ProductDashboard < Administrate::BaseDashboard
     price: Field::Number,
     special_price: Field::Number,
     quantity: Field::Number,
-    status: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
+    status: Field::Select.with_options(
+      collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
     category: Field::BelongsTo.with_options(class_name: 'Category'),
-    labels: Field::HasMany.with_options(class_name: 'Label'),
-    fields: Field::HasMany,
+    labels: Field::HasMany.with_options(sort_by: :id, direction: :asc),
+    fields: Field::HasMany.with_options(sort_by: :id, direction: :asc),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
