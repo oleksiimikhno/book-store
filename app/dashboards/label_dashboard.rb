@@ -24,8 +24,8 @@ class LabelDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     title
-    fields
     products
+    fields
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -33,8 +33,8 @@ class LabelDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     title
-    fields
     products
+    fields
     created_at
     updated_at
   ].freeze
@@ -42,9 +42,12 @@ class LabelDashboard < Administrate::BaseDashboard
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = %i[
+  FORM_ATTRIBUTES_NEW = %i[
     title
-    fields
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
+    title
     products
   ].freeze
 
@@ -63,7 +66,7 @@ class LabelDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how labels are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(label)
-  #   "Label ##{label.id}"
-  # end
+  def display_resource(label)
+    "Label ##{label.id}, #{label.title}"
+  end
 end

@@ -32,6 +32,7 @@ class ProductDashboard < Administrate::BaseDashboard
     status: Field::Select.with_options(searchable: false, collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
     category: Field::BelongsTo.with_options(class_name: 'Category'),
     labels: Field::HasMany.with_options(class_name: 'Label'),
+    fields: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -52,7 +53,7 @@ class ProductDashboard < Administrate::BaseDashboard
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
-  # an array of attributes that will be displayed on the model's show page.
+  # an array of attributes that will be displayed on the model's SHOW page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     name
@@ -64,14 +65,29 @@ class ProductDashboard < Administrate::BaseDashboard
     image
     status
     labels
+    fields
     created_at
     updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
-  # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = %i[
+  # on the model's form (`NEW` and `EDIT`) pages.
+  FORM_ATTRIBUTES_NEW = %i[
+    name
+    model
+    description
+    meta_description
+    meta_title
+    price
+    special_price
+    quantity
+    status
+    category
+    labels
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
     name
     model
     description
