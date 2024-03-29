@@ -33,7 +33,7 @@ class ProductDashboard < Administrate::BaseDashboard
       collection: ->(field) { field.resource.class.send(field.attribute.to_s.pluralize).keys }),
     category: Field::BelongsTo.with_options(class_name: 'Category'),
     labels: Field::HasMany.with_options(sort_by: :id, direction: :asc),
-    fields: Field::HasMany.with_options(sort_by: :id, direction: :asc),
+    fields: Field::HasMany.with_options(sort_by: :labels, direction: :asc),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
