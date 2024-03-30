@@ -6,15 +6,28 @@ RSpec.describe "Api::V1::Filters", type: :request do
       tags 'Filter'
       produces 'application/json'
 
-      let(:author_name) { 'author_name' }
       let(:limit) { 20 }
 
       parameter name: :limit, in: :query, type: :integer, default: 20, nullable: true,
                 description: 'limit items per page'
 
-      parameter name: :author_name, in: :query, type: :string, required: true
+      let(:author_name) { 'author_name' }
+      let(:price_start) { 100 }
+      let(:price_end) { 300 }
+
+      parameter name: :author_name, in: :query, type: :string
+      parameter name: :price_start, in: :query, type: :string
+      parameter name: :price_end, in: :query, type: :string
 
       response(200, 'successful') do
+        header 'current-page', schema: { type: :integer }, description: 'The number of current page paggination'
+        header 'link', schema: { type: :string }, description: 'The page links of the next and previous pages'
+        header 'page-items', schema: { type: :integer }, description: 'The items per page'
+        header 'total-count', schema: { type: :integer }, description: 'The total of all items'
+        header 'total-pages', schema: { type: :integer }, description: 'The total of all pages'
+        header 'min-price', schema: { type: :integer }, description: 'Min. price of all items'
+        header 'max-price', schema: { type: :integer }, description: 'Max. price  of all items'
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -23,15 +36,6 @@ RSpec.describe "Api::V1::Filters", type: :request do
           }
         end
         run_test!
-      end
-
-      response(422, 'unprocessable_entity') do
-        let(:author_name) { nil }
-
-        run_test! do |response|
-          data = JSON.parse(response.body)
-          expect(data['errors']).to eq('Author name parameter is required!')
-        end
       end
     end
   end
