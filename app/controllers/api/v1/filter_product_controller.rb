@@ -5,28 +5,27 @@ class Api::V1::FilterProductController < ApplicationController
   include Paginationable
 
   skip_before_action :authorize_request
-  before_action :filter_params, :set_products, :validates_params, only: :index
+  before_action :filter_params, :validates_params, :set_products, only: :index
 
   def index
     products_with_pagination(@products)
-
     render_success(data: @products, status: :ok, each_serializer: Api::V1::ProductSerializer)
   end
 
   private
 
   def set_products
-    @products = Product::FilterService.new(filter_params[:author_name]).filter_of_author_name
+    @products = Product::FilterService.call(filter_params)
   end
 
   def validates_params
-    return if FilterValidatorable.new(filter_params).valid?
+    validator = FilterValidatorable.new(filter_params)
+    return if validator.valid?
 
-    render_success(data: { errors: 'Search author_name param too long or wrong key!' }, status: :unprocessable_entity)
+    render_success(data: { errors: validator.errors.full_messages }, status: :unprocessable_entity)
   end
 
-
   def filter_params
-    params.permit(:author_name)
+    params.permit(:author_name, :price_start, :price_end)
   end
 end

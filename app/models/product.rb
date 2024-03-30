@@ -35,4 +35,5 @@ class Product < ApplicationRecord
   scope :bestsellers, -> { includes(:carts).where(carts: { status: :paid, created_at: 30.days.ago..Date.today.end_of_day }) }
 
   scope :filter_by_author, ->(author_name) { joins(fields: :label).where(fields: { value: author_name }) }
+  scope :filter_by_range_price, ->(price_start, price_end) { where(price: price_start..price_end) }
 end

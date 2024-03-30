@@ -9,6 +9,9 @@ module Paginationable
   private
 
   def products_with_pagination(products)
+    response.headers['Min-price'] = products.minimum(:price)
+    response.headers['Max-price'] = products.maximum(:price)
+
     pagy, @products = pagy(products, items: limit_params)
     pagy_headers_merge(pagy)
   end

@@ -24,10 +24,9 @@ class Api::V1::SearchController < ApplicationController
 
   def validates_params
     validator = SearchValidatorable.new(search_params)
-
     return if validator.valid?
 
-    render_success(data: { errors: 'Search query param short or too long!' }, status: :unprocessable_entity)
+    render_success(data: { errors: validator.errors.full_messages }, status: :unprocessable_entity)
   end
 
   def search_params
