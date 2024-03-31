@@ -23,10 +23,10 @@ class Api::V1::SearchController < ApplicationController
   end
 
   def validates_params
-    validator = SearchValidatorable.new(search_params)
-    return if validator.valid?
+    instance = SearchValidatorable.new(search_params)
+    return if instance.valid?
 
-    render_success(data: { errors: validator.errors.full_messages }, status: :unprocessable_entity)
+    render_success(data: { errors: instance.errors.full_messages }, status: :unprocessable_entity)
   end
 
   def search_params
