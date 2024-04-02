@@ -32,6 +32,8 @@ RSpec.describe 'api/v1/products', type: :request do
         header 'page-items', schema: { type: :integer }, description: 'The items per page'
         header 'total-count', schema: { type: :integer }, description: 'The total of all items'
         header 'total-pages', schema: { type: :integer }, description: 'The total of all pages'
+        header 'min-price', schema: { type: :integer }, description: 'Min. price of all items'
+        header 'max-price', schema: { type: :integer }, description: 'Max. price  of all items'
 
         after do |example|
           example.metadata[:response][:content] = {

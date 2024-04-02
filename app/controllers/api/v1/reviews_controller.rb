@@ -10,7 +10,7 @@ class Api::V1::ReviewsController < ApplicationController
   end
 
   def create
-    review = @product.reviews.create!(reviews_params.merge(user_id: current_user.id))
+    review = @product.reviews.create!(user_id: current_user.id, **reviews_params)
 
     render_success(data: review, status: :created, serializer: Api::V1::ReviewSerializer)
   end
