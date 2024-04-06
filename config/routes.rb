@@ -9,18 +9,7 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api-docs'
   mount Sidekiq::Web => '/sidekiq'
 
-  namespace :admin do
-    resources :users, :carts, :cart_items, :categories, :labels, :fields, :reviews, :coupons, only: %i[index show new create edit update destroy]
-
-    resources :products, only: %i[index show new create edit update destroy] do
-      member do
-        delete :image, action: :destroy_image
-        delete :images, action: :destroy_images
-      end
-    end
-
-    root to: 'users#index'
-  end
+  extend AdminRoutes
 
   namespace :api do
     namespace :v1 do
