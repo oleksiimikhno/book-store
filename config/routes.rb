@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   namespace :admin do
-    resources :users, :carts, :cart_items, :categories, :labels, :fields, :reviews, only: %i[index show new create edit update destroy]
+    resources :users, :carts, :cart_items, :categories, :labels, :fields, :reviews, :coupons, only: %i[index show new create edit update destroy]
 
     resources :products, only: %i[index show new create edit update destroy] do
       member do
@@ -57,6 +57,9 @@ Rails.application.routes.draw do
       resources :subscriptions, only: %i[create]
       delete '/unsubscription', to: 'subscriptions#destroy'
       get '/subscription', to: 'subscriptions#show'
+
+      resources :coupons, only: %i[create]
+      get '/coupon', to: 'coupons#show'
 
       resources :favorites, only: %i[index create]
       delete '/favorites', to: 'favorites#destroy'
