@@ -334,6 +334,31 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/product"
+  "/api/v1/coupon":
+    get:
+      summary: show coupon
+      tags:
+      - Coupon
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+  "/api/v1/coupons":
+    post:
+      summary: create coupons
+      tags:
+      - Coupon
+      parameters: []
+      responses:
+        '201':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/coupon"
   "/api/v1/favorites":
     get:
       summary: list favorites
@@ -1389,6 +1414,15 @@ components:
       required:
       - text
       - rating
+    coupon:
+      type: object
+      properties:
+        first_name:
+          type: string
+        email:
+          type: string
+      required:
+      - email
   securitySchemes:
     Bearer:
       type: http

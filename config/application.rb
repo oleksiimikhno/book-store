@@ -41,6 +41,8 @@ module BookStore
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    config.autoload_paths += Dir[Rails.root.join(Rails.root.join('config', 'routes', '**/'))]
+
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use Rack::MethodOverride

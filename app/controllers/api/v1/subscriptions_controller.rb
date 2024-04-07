@@ -2,6 +2,7 @@
 
 class Api::V1::SubscriptionsController < ApplicationController
   skip_before_action :authorize_request, only: %i[create destroy]
+  before_action :subscription_params, only: :create
   before_action :set_subscription, only: :destroy
 
   def show
@@ -12,7 +13,7 @@ class Api::V1::SubscriptionsController < ApplicationController
   end
 
   def create
-    subscription = User::SubscriptionService.call(params)
+    subscription = User::SubscriptionService.call(subscription_params)
     render_success(data: subscription, status: :created, serializer: Api::V1::SubscriptionSerializer)
   end
 
