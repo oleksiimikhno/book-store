@@ -155,7 +155,15 @@ RSpec.configure do |config|
               rating: { type: :integer }
             },
             required: %w[text rating]
-          }
+          },
+          coupon: {
+            type: 'object',
+            properties: {
+              first_name: { type: :string },
+              email: { type: :string }
+            },
+            required: %w[email]
+          },
         },
         securitySchemes: {
           Bearer: {

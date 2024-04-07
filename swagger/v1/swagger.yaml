@@ -305,6 +305,14 @@ paths:
               schema:
                 type: integer
               description: The total of all pages
+            min-price:
+              schema:
+                type: integer
+              description: Min. price of all items
+            max-price:
+              schema:
+                type: integer
+              description: Max. price  of all items
     post:
       summary: create product in category
       tags:
@@ -326,6 +334,31 @@ paths:
             schema:
               oneOf:
               - "$ref": "#/components/schemas/product"
+  "/api/v1/coupon":
+    get:
+      summary: show coupon
+      tags:
+      - Coupon
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+  "/api/v1/coupons":
+    post:
+      summary: create coupons
+      tags:
+      - Coupon
+      parameters: []
+      responses:
+        '201':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/coupon"
   "/api/v1/favorites":
     get:
       summary: list favorites
@@ -482,14 +515,48 @@ paths:
           type: integer
       - name: author_name
         in: query
-        required: true
+        schema:
+          type: string
+      - name: price_start
+        in: query
+        schema:
+          type: string
+      - name: price_end
+        in: query
         schema:
           type: string
       responses:
         '200':
           description: successful
-        '422':
-          description: unprocessable_entity
+          headers:
+            current-page:
+              schema:
+                type: integer
+              description: The number of current page paggination
+            link:
+              schema:
+                type: string
+              description: The page links of the next and previous pages
+            page-items:
+              schema:
+                type: integer
+              description: The items per page
+            total-count:
+              schema:
+                type: integer
+              description: The total of all items
+            total-pages:
+              schema:
+                type: integer
+              description: The total of all pages
+            min-price:
+              schema:
+                type: integer
+              description: Min. price of all items
+            max-price:
+              schema:
+                type: integer
+              description: Max. price  of all items
   "/api/v1/labels":
     get:
       summary: show labels list
@@ -671,6 +738,14 @@ paths:
               schema:
                 type: integer
               description: The total of all pages
+            min-price:
+              schema:
+                type: integer
+              description: Min. price of all items
+            max-price:
+              schema:
+                type: integer
+              description: Max. price  of all items
   "/api/v1/products_bestsellers":
     get:
       summary: Bestsellers products
@@ -738,6 +813,14 @@ paths:
               schema:
                 type: integer
               description: The total of all pages
+            min-price:
+              schema:
+                type: integer
+              description: Min. price of all items
+            max-price:
+              schema:
+                type: integer
+              description: Max. price  of all items
   "/api/v1/products":
     get:
       summary: list products
@@ -1009,6 +1092,16 @@ paths:
               schema:
                 type: integer
               description: The total of all pages
+            min-price:
+              schema:
+                type: integer
+              description: Min. price of all items
+            max-price:
+              schema:
+                type: integer
+              description: Max. price  of all items
+        '422':
+          description: unprocessable_entity
   "/api/v1/login":
     post:
       summary: login
@@ -1321,6 +1414,15 @@ components:
       required:
       - text
       - rating
+    coupon:
+      type: object
+      properties:
+        first_name:
+          type: string
+        email:
+          type: string
+      required:
+      - email
   securitySchemes:
     Bearer:
       type: http
