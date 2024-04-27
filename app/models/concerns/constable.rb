@@ -12,9 +12,9 @@ module Constable
   META_TITLE_LENGTH = (20..120).freeze
   META_DESCRIPTION_LENGTH = (60..200).freeze
 
-  REGEXP_USER = /\A[a-zA-Zа-яА-Я ]+\z/.freeze
+  REGEXP_USER = /\A[a-zA-Zа-яА-Я\d.\s\S]+\z/.freeze
   REGEXP_EMAIL = /\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}\z/.freeze
-  REGEXP_PASSWORD = /\A(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]+\z/.freeze
+  REGEXP_PASSWORD = /\A(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*\z/.freeze
 
   IMAGE_SIZE = (1.kilobyte..2.megabytes).freeze
   IMAGE_FORMATS = %i[png jpg jpeg webp].freeze
