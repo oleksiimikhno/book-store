@@ -7,7 +7,7 @@ module Validateable
       validates name, presence: true, length: { in: Constable::NAME_LENGTH },
                       format: {
                         with: Constable::REGEXP_USER,
-                        message: 'Only Latin letters Cyrillic and space are allowed, no special characters'
+                        message: 'Only Latin letters Cyrillic and space are allowed, no special characters, allow any symbols'
                       }
     end
 
