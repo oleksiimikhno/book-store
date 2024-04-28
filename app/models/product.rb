@@ -20,6 +20,8 @@ class Product < ApplicationRecord
   default_scope { order_by_price(:asc) }
   scope :order_by_date, ->(type) { reorder(created_at: type) if type.present? }
 
+  # validates :author_name, length: { in: 2..30 }, allow_nil: true
+
   # TODO fix query soring with a price and a special price
   # scope :order_by_price, lambda { |type|
   #   reorder(Arel.sql("(CASE WHEN special_price > 0 THEN special_price ELSE price END) #{type}")) if type.present?

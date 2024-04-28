@@ -2,7 +2,6 @@
 
 class Api::V1::ProductsController < ApplicationController
   include Paginationable
-  include Sortable
 
   skip_before_action :authorize_request, only: %i[index show]
   before_action :product_params, only: %i[create update]
@@ -13,6 +12,7 @@ class Api::V1::ProductsController < ApplicationController
   before_action :pundit_authorize, except: %i[index create]
 
   def index
+    @products = Product::SortService.call(@products, params)
     products_with_pagination(@products)
 
     render_success(data: @products, status: :ok, each_serializer: Api::V1::ProductSerializer)
@@ -71,11 +71,7 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   def set_products
-    @products = if params[:category_id].present?
-                  sort_with_params(@category.products, params)
-                else
-                  sort_with_params(Product.all, params)
-                end
+    @products = params[:category_id] ? @category.products : Product.all
   end
 
   def set_category

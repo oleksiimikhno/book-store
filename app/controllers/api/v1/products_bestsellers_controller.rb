@@ -2,12 +2,12 @@
 
 class Api::V1::ProductsBestsellersController < ApplicationController
   include Paginationable
-  include Sortable
 
   skip_before_action :authorize_request
   before_action :set_products, only: :index
 
   def index
+    @products = Product::SortService.call(@products, params)
     products_with_pagination(@products)
 
     render_success(data: @products, status: :ok, each_serializer: Api::V1::ProductSerializer)
@@ -16,6 +16,6 @@ class Api::V1::ProductsBestsellersController < ApplicationController
   private
 
   def set_products
-    @products = sort_with_params(Product.bestsellers, params)
+    @products = Product.bestsellers
   end
 end
