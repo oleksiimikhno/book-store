@@ -6,6 +6,21 @@ RSpec.describe 'api/v1/products_awaitings', type: :request do
       tags 'Products'
       produces 'application/json'
 
+      let(:filter) { 'author=marko' }
+      let(:status) { 'bestseller' }
+      let(:author_name) { 'author_name' }
+      let(:price_start) { 100 }
+      let(:price_end) { 300 }
+
+      parameter name: :filter, in: :query, type: :string,
+                description: 'filter by attributes query of the attrubutes is "author=marko;format=paper".
+                Filter splited by ";" and has a key and a value where key=value query parameter'
+      parameter name: :status, in: :query, type: :string, enum: %w[bestseller awaiting],
+                description: 'filter by status default: [bestseller awaiting]'
+      parameter name: :author_name, in: :query, type: :string, description: 'filter by author name'
+      parameter name: :price_start, in: :query, type: :string, description: 'filter by price start'
+      parameter name: :price_end, in: :query, type: :string, description: 'filter by price end'
+
       let(:limit) { 20 }
       let(:order) { 'desc' }
       let(:price) { 'desc' }

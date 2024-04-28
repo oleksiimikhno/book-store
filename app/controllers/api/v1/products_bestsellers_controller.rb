@@ -7,6 +7,7 @@ class Api::V1::ProductsBestsellersController < ApplicationController
   before_action :set_products, only: :index
 
   def index
+    @products = Product::FilterService.call(@products, params)
     @products = Product::SortService.call(@products, params)
     products_with_pagination(@products)
 

@@ -12,6 +12,7 @@ class Api::V1::ProductsController < ApplicationController
   before_action :pundit_authorize, except: %i[index create]
 
   def index
+    @products = Product::FilterService.call(@products, params)
     @products = Product::SortService.call(@products, params)
     products_with_pagination(@products)
 

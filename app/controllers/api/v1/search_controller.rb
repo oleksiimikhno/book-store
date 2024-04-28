@@ -10,6 +10,7 @@ class Api::V1::SearchController < ApplicationController
   before_action :search_params, :validates_params, :set_products, only: :index
 
   def index
+    @products = Product::FilterService.call(@products, params)
     @products = Product::SortService.call(@products, params)
     products_with_pagination(@products)
 

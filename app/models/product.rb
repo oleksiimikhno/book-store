@@ -2,6 +2,8 @@
 
 class Product < ApplicationRecord
   include Productable
+  include Orderable
+  include Filterable
 
   belongs_to :category
   has_many :cart_items
@@ -17,25 +19,5 @@ class Product < ApplicationRecord
 
   enum :status, %i[active inactive awaiting archived], default: :active
 
-  default_scope { order_by_price(:asc) }
-  scope :order_by_date, ->(type) { reorder(created_at: type) if type.present? }
-
-  # validates :author_name, length: { in: 2..30 }, allow_nil: true
-
-  # TODO fix query soring with a price and a special price
-  # scope :order_by_price, lambda { |type|
-  #   reorder(Arel.sql("(CASE WHEN special_price > 0 THEN special_price ELSE price END) #{type}")) if type.present?
-  # }
-
-  scope :order_by_price, ->(type) { reorder(price: type) if type.present? }
-
-  scope :order_by_rating, lambda { |type|
-    left_joins(:reviews).group(:id).reorder("AVG(reviews.rating) #{type}") if %i[asc desc].include?(type)
-  }
-
   scope :search, ->(query) { where('name || description ILIKE ?', "%#{sanitize_sql_like(query, '%')}%") }
-  scope :bestsellers, -> { includes(:carts).where(carts: { status: :paid, created_at: 30.days.ago..Date.today.end_of_day }) }
-
-  scope :filter_by_author, ->(author_name) { joins(fields: :label).where(fields: { value: author_name }) }
-  scope :filter_by_range_price, ->(price_start, price_end) { where(price: price_start..price_end) }
 end
