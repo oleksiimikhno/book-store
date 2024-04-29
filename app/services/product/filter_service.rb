@@ -33,8 +33,11 @@ class Product::FilterService < ApplicationServices
   end
 
   def handler_filter_by_status
-    if @params[:status] == 'bestseller'
+    case @params[:status]
+    when 'bestsellers'
       @products.bestsellers
+    when 'sales'
+      @products.sales
     else
       @products.filter_by_status(@params[:status])
     end

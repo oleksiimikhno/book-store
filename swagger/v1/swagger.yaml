@@ -266,7 +266,7 @@ paths:
         enum:
         - bestseller
         - awaiting
-        description: 'filter by status default: [bestseller awaiting]'
+        description: 'filter by status default: [bestsellers awaiting sales]'
         schema:
           type: string
       - name: author_name
@@ -662,7 +662,7 @@ paths:
         enum:
         - bestseller
         - awaiting
-        description: 'filter by status default: [bestseller awaiting]'
+        description: 'filter by status default: [bestsellers awaiting sales]'
         schema:
           type: string
       - name: author_name
@@ -767,7 +767,7 @@ paths:
         enum:
         - bestseller
         - awaiting
-        description: 'filter by status default: [bestseller awaiting]'
+        description: 'filter by status default: [bestsellers awaiting sales]'
         schema:
           type: string
       - name: author_name
@@ -872,7 +872,7 @@ paths:
         enum:
         - bestseller
         - awaiting
-        description: 'filter by status default: [bestseller awaiting]'
+        description: 'filter by status default: [bestsellers awaiting sales]'
         schema:
           type: string
       - name: author_name

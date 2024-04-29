@@ -16,7 +16,7 @@ RSpec.describe 'api/v1/products_bestsellers', type: :request do
                 description: 'filter by attributes query of the attrubutes is "author=marko;format=paper".
                 Filter splited by ";" and has a key and a value where key=value query parameter'
       parameter name: :status, in: :query, type: :string, enum: %w[bestseller awaiting],
-                description: 'filter by status default: [bestseller awaiting]'
+                description: 'filter by status default: [bestsellers awaiting sales]'
       parameter name: :author_name, in: :query, type: :string, description: 'filter by author name'
       parameter name: :price_start, in: :query, type: :string, description: 'filter by price start'
       parameter name: :price_end, in: :query, type: :string, description: 'filter by price end'
