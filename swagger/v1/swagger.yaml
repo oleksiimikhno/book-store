@@ -298,7 +298,7 @@ paths:
         - asc
         default: desc
         nullable: true
-        description: sort products by orders "desc" and "asc"
+        description: sort products by newest/oldest "desc" and "asc"
         schema:
           type: string
       - name: price
@@ -694,7 +694,7 @@ paths:
         - asc
         default: desc
         nullable: true
-        description: sort products by orders "desc" and "asc"
+        description: sort products by newest/oldest "desc" and "asc"
         schema:
           type: string
       - name: price
@@ -799,7 +799,7 @@ paths:
         - asc
         default: desc
         nullable: true
-        description: sort products by orders "desc" and "asc"
+        description: sort products by newest/oldest "desc" and "asc"
         schema:
           type: string
       - name: price
@@ -904,7 +904,7 @@ paths:
         - asc
         default: desc
         nullable: true
-        description: sort products by orders "desc" and "asc"
+        description: sort products by newest/oldest "desc" and "asc"
         schema:
           type: string
       - name: price
@@ -1114,7 +1114,7 @@ paths:
         - asc
         default: desc
         nullable: true
-        description: sort products by orders "desc" and "asc"
+        description: sort products by newest/oldest "desc" and "asc"
         schema:
           type: string
       - name: price
