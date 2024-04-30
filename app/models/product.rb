@@ -28,7 +28,7 @@ class Product < ApplicationRecord
   scope :order_by_price, ->(type) { reorder(price: type) if type.present? }
 
   scope :order_by_rating, lambda { |type|
-    left_joins(:reviews).group(:id).reorder("AVG(reviews.rating) #{type}") if %i[asc desc].include?(type)
+    left_joins(:reviews).group(:id).reorder("AVG(reviews.rating) #{type}")
   }
 
   scope :search, ->(query) { where('name || description ILIKE ?', "%#{sanitize_sql_like(query, '%')}%") }
