@@ -14,6 +14,21 @@ RSpec.describe 'api/v1/products', type: :request do
       consumes 'application/json'
       produces 'application/json'
 
+      let(:filter) { 'author=marko' }
+      let(:status) { 'bestseller' }
+      let(:author_name) { 'author_name' }
+      let(:price_start) { 100 }
+      let(:price_end) { 300 }
+
+      parameter name: :filter, in: :query, type: :string,
+                description: 'filter by attributes query of the attrubutes is "author=marko;format=paper".
+                Filter splited by ";" and has a key and a value where key=value query parameter'
+      parameter name: :status, in: :query, type: :string, enum: %w[bestseller awaiting],
+                description: 'filter by status default: [bestsellers awaiting sales]'
+      parameter name: :author_name, in: :query, type: :string, description: 'filter by author name'
+      parameter name: :price_start, in: :query, type: :string, description: 'filter by price start'
+      parameter name: :price_end, in: :query, type: :string, description: 'filter by price end'
+
       let(:limit) { 20 }
       let(:order) { 'desc' }
       let(:price) { 'desc' }
@@ -22,7 +37,7 @@ RSpec.describe 'api/v1/products', type: :request do
       parameter name: :limit, in: :query, type: :integer, default: 20, nullable: true,
                 description: 'limit items per page'
       parameter name: :order, in: :query, type: :string, enum: %w[desc asc], default: :desc, nullable: true,
-                description: 'sort products by orders "desc" and "asc"'
+                description: 'sort products by newest/oldest "desc" and "asc"'
       parameter name: :price, in: :query, type: :string, enum: %w[desc asc], default: :desc, nullable: true,
                 description: 'sort products by price "desc" and "asc"'
       parameter name: :rating, in: :query, type: :string, enum: %w[desc asc], default: :desc, nullable: true,

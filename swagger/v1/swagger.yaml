@@ -254,6 +254,36 @@ paths:
       tags:
       - Products
       parameters:
+      - name: filter
+        in: query
+        description: |-
+          filter by attributes query of the attrubutes is "author=marko;format=paper".
+                          Filter splited by ";" and has a key and a value where key=value query parameter
+        schema:
+          type: string
+      - name: status
+        in: query
+        enum:
+        - bestseller
+        - awaiting
+        description: 'filter by status default: [bestsellers awaiting sales]'
+        schema:
+          type: string
+      - name: author_name
+        in: query
+        description: filter by author name
+        schema:
+          type: string
+      - name: price_start
+        in: query
+        description: filter by price start
+        schema:
+          type: string
+      - name: price_end
+        in: query
+        description: filter by price end
+        schema:
+          type: string
       - name: limit
         in: query
         default: 20
@@ -268,7 +298,7 @@ paths:
         - asc
         default: desc
         nullable: true
-        description: sort products by orders "desc" and "asc"
+        description: sort products by newest/oldest "desc" and "asc"
         schema:
           type: string
       - name: price
@@ -500,63 +530,6 @@ paths:
       responses:
         '200':
           description: successful
-  "/api/v1/filter_product":
-    get:
-      summary: filter product by author
-      tags:
-      - Filter
-      parameters:
-      - name: limit
-        in: query
-        default: 20
-        nullable: true
-        description: limit items per page
-        schema:
-          type: integer
-      - name: author_name
-        in: query
-        schema:
-          type: string
-      - name: price_start
-        in: query
-        schema:
-          type: string
-      - name: price_end
-        in: query
-        schema:
-          type: string
-      responses:
-        '200':
-          description: successful
-          headers:
-            current-page:
-              schema:
-                type: integer
-              description: The number of current page paggination
-            link:
-              schema:
-                type: string
-              description: The page links of the next and previous pages
-            page-items:
-              schema:
-                type: integer
-              description: The items per page
-            total-count:
-              schema:
-                type: integer
-              description: The total of all items
-            total-pages:
-              schema:
-                type: integer
-              description: The total of all pages
-            min-price:
-              schema:
-                type: integer
-              description: Min. price of all items
-            max-price:
-              schema:
-                type: integer
-              description: Max. price  of all items
   "/api/v1/labels":
     get:
       summary: show labels list
@@ -677,6 +650,36 @@ paths:
       tags:
       - Products
       parameters:
+      - name: filter
+        in: query
+        description: |-
+          filter by attributes query of the attrubutes is "author=marko;format=paper".
+                          Filter splited by ";" and has a key and a value where key=value query parameter
+        schema:
+          type: string
+      - name: status
+        in: query
+        enum:
+        - bestseller
+        - awaiting
+        description: 'filter by status default: [bestsellers awaiting sales]'
+        schema:
+          type: string
+      - name: author_name
+        in: query
+        description: filter by author name
+        schema:
+          type: string
+      - name: price_start
+        in: query
+        description: filter by price start
+        schema:
+          type: string
+      - name: price_end
+        in: query
+        description: filter by price end
+        schema:
+          type: string
       - name: limit
         in: query
         default: 20
@@ -691,7 +694,7 @@ paths:
         - asc
         default: desc
         nullable: true
-        description: sort products by orders "desc" and "asc"
+        description: sort products by newest/oldest "desc" and "asc"
         schema:
           type: string
       - name: price
@@ -752,6 +755,36 @@ paths:
       tags:
       - Products
       parameters:
+      - name: filter
+        in: query
+        description: |-
+          filter by attributes query of the attrubutes is "author=marko;format=paper".
+                          Filter splited by ";" and has a key and a value where key=value query parameter
+        schema:
+          type: string
+      - name: status
+        in: query
+        enum:
+        - bestseller
+        - awaiting
+        description: 'filter by status default: [bestsellers awaiting sales]'
+        schema:
+          type: string
+      - name: author_name
+        in: query
+        description: filter by author name
+        schema:
+          type: string
+      - name: price_start
+        in: query
+        description: filter by price start
+        schema:
+          type: string
+      - name: price_end
+        in: query
+        description: filter by price end
+        schema:
+          type: string
       - name: limit
         in: query
         default: 20
@@ -766,7 +799,7 @@ paths:
         - asc
         default: desc
         nullable: true
-        description: sort products by orders "desc" and "asc"
+        description: sort products by newest/oldest "desc" and "asc"
         schema:
           type: string
       - name: price
@@ -827,6 +860,36 @@ paths:
       tags:
       - Products
       parameters:
+      - name: filter
+        in: query
+        description: |-
+          filter by attributes query of the attrubutes is "author=marko;format=paper".
+                          Filter splited by ";" and has a key and a value where key=value query parameter
+        schema:
+          type: string
+      - name: status
+        in: query
+        enum:
+        - bestseller
+        - awaiting
+        description: 'filter by status default: [bestsellers awaiting sales]'
+        schema:
+          type: string
+      - name: author_name
+        in: query
+        description: filter by author name
+        schema:
+          type: string
+      - name: price_start
+        in: query
+        description: filter by price start
+        schema:
+          type: string
+      - name: price_end
+        in: query
+        description: filter by price end
+        schema:
+          type: string
       - name: limit
         in: query
         default: 20
@@ -841,7 +904,7 @@ paths:
         - asc
         default: desc
         nullable: true
-        description: sort products by orders "desc" and "asc"
+        description: sort products by newest/oldest "desc" and "asc"
         schema:
           type: string
       - name: price
@@ -1051,7 +1114,7 @@ paths:
         - asc
         default: desc
         nullable: true
-        description: sort products by orders "desc" and "asc"
+        description: sort products by newest/oldest "desc" and "asc"
         schema:
           type: string
       - name: price

@@ -49,6 +49,8 @@ class FieldDashboard < Administrate::BaseDashboard
   ].freeze
 
   FORM_ATTRIBUTES_EDIT = %i[
+    product
+    label
     value
   ].freeze
 
