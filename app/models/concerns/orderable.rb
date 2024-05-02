@@ -8,7 +8,7 @@ module Orderable
 
     scope :order_by_date, ->(type) { reorder(created_at: type) }
     scope :order_by_price, ->(type) { reorder(price: type) }
-    scope :order_by_rating, ->(type) { left_joins(:reviews).group(:id).reorder("AVG(reviews.rating) #{type}") }
+    scope :order_by_rating, ->(type) { joins(:reviews).group(:id).reorder("AVG(reviews.rating) #{type}") }
 
     # TODO fix query soring with a price and a special price
     # scope :order_by_price, lambda { |type|
