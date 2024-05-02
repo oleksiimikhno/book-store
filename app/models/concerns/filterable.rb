@@ -8,7 +8,11 @@ module Filterable
     scope :sales, -> { where('special_price > 0') }
 
     scope :filter_by_status, ->(status) { where(status: status) }
-    scope :filter_by_author, ->(author_name) { joins(fields: :label).where(fields: { value: author_name }) }
+    scope :filter_by_author, ->(field_value) do
+      joins(fields: :label)
+        .where("LOWER(fields.value) LIKE LOWER(?)", "%#{field_value}%")
+        .where(labels: { title: 'Author' })
+    end
     scope :filter_by_range_price, ->(price_start, price_end) { where(price: price_start..price_end) }
     scope :filter_by_attribute, lambda { |key, value|
       joins(labels: :fields).where('LOWER(labels.title) = ?', key).where('LOWER(fields.value) = ?', value)
