@@ -14,7 +14,11 @@ module Filterable
         .where('LOWER(fields.value) ILIKE LOWER(?)', "%#{sanitize_sql_like(field_value.strip, '%')}%")
         .where(labels: { title: 'Author' })
     }
-    scope :filter_by_range_price, ->(price_start, price_end) { where(price: price_start..price_end) }
+
+    scope :filter_by_range_price, lambda { |price_start, price_end|
+      where(special_price: price_start..price_end).or(where(price: price_start..price_end))
+    }
+
     scope :filter_by_attribute, lambda { |key, value|
       joins(fields: :label)
         .where('LOWER(fields.value) = LOWER(?)', sanitize_sql_like(value, '%').to_s)
