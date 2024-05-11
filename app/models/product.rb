@@ -19,5 +19,5 @@ class Product < ApplicationRecord
 
   enum :status, %i[active inactive awaiting archived], default: :active
 
-  scope :search, ->(query) { where('name || description ILIKE ?', "%#{sanitize_sql_like(query, '%')}%") }
+  scope :search, ->(query) { where('name || description ILIKE LOWER(?)', "%#{sanitize_sql_like(query.strip, '%')}%") }
 end
