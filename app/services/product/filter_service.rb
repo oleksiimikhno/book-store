@@ -38,6 +38,8 @@ class Product::FilterService < ApplicationServices
       @products.bestsellers
     when 'sales'
       @products.sales
+    when 'available'
+      @products.availables
     else
       @products.filter_by_status(@params[:status])
     end
